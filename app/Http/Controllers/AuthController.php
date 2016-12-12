@@ -5,10 +5,8 @@ namespace App\Http\Controllers;
 use App\Auth\EmailBroker;
 use App\Facades\ApiResponder;
 use App\Http\Requests\Auth\LoginUser;
-use App\Http\Requests\Auth\LogoutUser;
 use App\Http\Requests\Auth\RegisterUser;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
@@ -18,8 +16,10 @@ class AuthController extends Controller
 	private $broker;
 
 	public function __construct(User $users, EmailBroker $broker)
-	{
-		$this->users = $users;
+	{    
+		$this->middleware('auth')->only('logout');
+
+        $this->users = $users;
 
 		$this->broker = $broker;
 	}
@@ -58,7 +58,7 @@ class AuthController extends Controller
                              ->setStatusCode(200);
     }
 
-    public function logout(LogoutUser $request)
+    public function logout()
     {
         Auth::user()->invalidateApiToken();
 
@@ -66,7 +66,7 @@ class AuthController extends Controller
                              ->setStatusCode(200);
     }
 
-    public function verifyEmail(Request $request, $email, $token)
+    public function verifyEmail($email, $token)
     {
         $user = $this->users->whereEmail($email)->firstOrFail();
 
