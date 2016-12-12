@@ -6,9 +6,7 @@ use App\Auth\PasswordBroker;
 use App\Facades\ApiResponder;
 use App\Http\Requests\Password\ResetPassword;
 use App\Http\Requests\Password\SendResetLink;
-use App\Http\Requests\Password\ShowResetForm;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 
 class PasswordController extends Controller
@@ -34,7 +32,7 @@ class PasswordController extends Controller
                              ->setStatusCode(200);
     }
 
-    public function showResetForm(Request $request, $email, $token)
+    public function showResetForm($email, $token)
     {
         return view('password.reset')->with(
             ['email' => $email, 'token' => $token]
