@@ -19,18 +19,13 @@ class AuthTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-    }
 
-    public function tearDown()
-    {
-        parent::tearDown();
+        Notification::fake();
     }
 
     /** @test */
     public function register()
     {
-        Notification::fake();
-
         $this->registerNewUser();
 
         $this->seeJsonContains(['message' => 'confirmation email sent'])
