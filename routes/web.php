@@ -14,3 +14,11 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('email/verify/{email}/{token}', 'AuthController@verifyEmail');
+
+Route::group(['prefix' => 'password'], function () {
+    Route::get('reset/{email}/{token}', 'PasswordController@showResetForm');
+
+    Route::post('reset', 'PasswordController@resetPassword');
+});
