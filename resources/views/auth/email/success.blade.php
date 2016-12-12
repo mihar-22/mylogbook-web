@@ -3,7 +3,7 @@
 @section('content')
     <div class="mlb-container">
         <div class="mlb-title">
-            Mylogbook
+            Email verified!
         </div>
     </div>
 @endsection

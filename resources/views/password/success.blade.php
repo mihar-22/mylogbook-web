@@ -3,7 +3,7 @@
 @section('content')
     <div class="mlb-container">
         <div class="mlb-title">
-            Mylogbook
+            Password reset complete!
         </div>
     </div>
 @endsection

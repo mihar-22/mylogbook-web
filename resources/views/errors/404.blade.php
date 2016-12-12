@@ -3,7 +3,7 @@
 @section('content')
     <div class="mlb-container">
         <div class="mlb-title">
-            Mylogbook
+            Page Not Found
         </div>
     </div>
 @endsection
