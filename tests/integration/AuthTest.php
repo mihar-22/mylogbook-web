@@ -10,49 +10,54 @@ class AuthTest extends TestCase
 {
 	use DatabaseMigrations;
 
-    private $user = [
-        'name' => 'John',
-        'email' => 'john@gmail.com',
-        'password' => 'secret'
-    ];
+    private $user;
+
+    private $credentials;
 
     public function setUp()
     {
         parent::setUp();
 
         Notification::fake();
+
+        $this->user = factory(User::class)->states('not verified')->make();
+
+        $this->credentials = [
+            'email' => $this->user->email,
+            'password' => 'secret'
+        ];
     }
 
     /** @test */
     public function register()
     {
-        $this->registerNewUser();
+        $this->registerUser();
 
         $this->seeJsonContains(['message' => 'confirmation email sent'])
              ->assertResponseStatus(201);
 
-        Notification::assertSentTo($this->getUser(), VerifyEmail::class);
+        Notification::assertSentTo(User::find(1), VerifyEmail::class);
 
-        $this->seeInDatabase('users', ['name' => $this->user['name'], 'email' => $this->user['email']]);
+        $this->seeInDatabase('users', $this->user->toArray());
     }
 
     /** @test */
     public function login()
     {
-        User::create($this->user)->confirmEmail();
+        $this->user->confirmEmail();
 
         $this->attemptLogin();
 
-        $this->seeJsonContains(['data' => ['api_token' => $this->getUser()->api_token]])
+        $this->seeJsonContains(['data' => ['api_token' => User::find(1)->api_token]])
              ->assertResponseStatus(200);
     }
 
     /** @test */
     public function login_with_invalid_credentials()
     {
-        User::create($this->user)->confirmEmail();
+        $this->user->confirmEmail();
 
-        $this->user['password'] = 'incorrect secret';
+        $this->credentials['password'] = 'bad secret';
 
         $this->attemptLogin();
 
@@ -63,7 +68,7 @@ class AuthTest extends TestCase
     /** @test */
     public function login_with_unverified_email()
     {
-        User::create($this->user);
+        $this->user->save();
 
         $this->attemptLogin();
 
@@ -74,9 +79,10 @@ class AuthTest extends TestCase
     /** @test */
     public function logout()
     {
-        User::create($this->user)->generateApiToken();
+        $this->user->confirmEmail();
 
-        $this->attemptLogout($this->getUser()->api_token);
+        $this->actingAs($this->user)
+             ->attemptLogout();
 
         $this->seeJsonContains(['message' => 'user logged out'])
              ->assertResponseStatus(200);        
@@ -85,7 +91,7 @@ class AuthTest extends TestCase
     /** @test */
     public function logout_without_authentication()
     {
-        $this->attemptLogout('invalidToken');
+        $this->attemptLogout();
 
         $this->seeJsonContains(['message' => 'unauthenticated'])
              ->assertResponseStatus(401);
@@ -94,32 +100,27 @@ class AuthTest extends TestCase
     /** @test */
     public function verify_email()
     {
-        $this->registerNewUser();
+        $this->registerUser();
 
-        $token = DB::table('email_validations')->where('email', $this->user['email'])->first()->token;
+        $token = DB::table('email_validations')->where('email', $this->user->email)->first()->token;
 
-        $endPoint = "email/verify/{$this->user['email']}/{$token}";
+        $endPoint = "email/verify/{$this->user->email}/{$token}";
 
-        $this->seeInDatabase('users', ['email' => $this->user['email'], 'is_verified' => 0]);
+        $this->seeInDatabase('users', ['email' => $this->user->email, 'is_verified' => 0]);
 
         $this->get($endPoint);
 
         $this->see('Email verified!');
 
-        $this->seeInDatabase('users', ['email' => $this->user['email'], 'is_verified' => 1]);
+        $this->seeInDatabase('users', ['email' => $this->user->email, 'is_verified' => 1]);
     }
 
     /** @test */
     public function verify_email_with_invalid_data()
     {
-        $this->get("email/verify/false/123");
+        $this->get("email/verify/badEmail/badToken");
 
         $this->assertResponseStatus(404);
-    }
-
-    private function getUser()
-    {
-        return User::find(1);
     }
 
     private function getEndPoint($extension)
@@ -127,18 +128,20 @@ class AuthTest extends TestCase
         return "api/v1/users/{$extension}";
     }
 
-    private function registerNewUser()
-    {
-        $this->postJson($this->getEndPoint('register'), $this->user);    	
+    private function registerUser()
+    {        
+        $newUser = array_merge($this->user->toArray(), ['password' => 'secret']);
+
+        $this->post($this->getEndPoint('register'), $newUser);    
     }
 
     private function attemptLogin()
     {
-        $this->postJson($this->getEndPoint('login'), $this->user);               
+        $this->postJson($this->getEndPoint('login'), $this->credentials);               
     }
 
-    private function attemptLogout($token)
+    private function attemptLogout()
     {
-        $this->postJson($this->getEndPoint('logout'), $this->user, ['Authorization' => "Bearer {$token}"]);               
+        $this->postJson($this->getEndPoint('logout'));               
     }
 }

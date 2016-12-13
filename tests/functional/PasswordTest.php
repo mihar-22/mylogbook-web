@@ -11,17 +11,15 @@ class PasswordTest extends TestCase
 
     private $mailTrap;
 
-    private $user = [
-        'name' => 'John',
-        'email' => 'john@gmail.com',
-        'password' => 'secret'
-    ];
+    private $user;
 
     public function setUp()
     {
         parent::setUp();
 
         $this->mailTrap = new MailTrap();
+
+        $this->user = factory(User::class)->create();
     }
 
     public function tearDown()
@@ -34,16 +32,16 @@ class PasswordTest extends TestCase
     /** @test */
     public function i_can_reset_my_password()
     {
-        $newPassword = 'secret123';
+        $oldPassword = 'secret';
 
-        User::create($this->user)->confirmEmail();
+        $newPassword = 'new secret';
 
         $this->requestPasswordReset();
 
-        $this->seeInDatabase('password_resets', ['email' => $this->user['email']]);
+        $this->seeInDatabase('password_resets', ['email' => $this->user->email]);
 
         $this->mailTrap->fetchMostRecentMail()
-             ->assertSentTo($this->user['email'])
+             ->assertSentTo($this->user->email)
              ->assertSubjectIs('Reset Password')
              ->assertBodyContains($this->getPasswordResetLink());
 
@@ -52,7 +50,9 @@ class PasswordTest extends TestCase
              ->press('Reset Password')
              ->see('Password reset complete!');
 
-        $this->assertTrue(Auth::guard('web')->attempt(['email' => $this->user['email'], 'password' => $newPassword]));
+        $this->assertFalse(Auth::guard('web')->attempt(['email' => $this->user->email, 'password' => $oldPassword]));
+
+        $this->assertTrue(Auth::guard('web')->attempt(['email' => $this->user->email, 'password' => $newPassword]));        
     }
 
     private function getEndPoint($extension)
@@ -62,20 +62,18 @@ class PasswordTest extends TestCase
 
     private function getPasswordResetLink()
     {
-        $encodedEmail = urlencode($this->user['email']);
+        $encodedEmail = urlencode($this->user->email);
 
         return "password/reset/{$encodedEmail}/{$this->getPasswordResetToken()}";
     }
 
     private function getPasswordResetToken()
     {
-        $record = DB::table('password_resets')->where('email', $this->user['email'])->first();
-
-        return $record->token;
+        return DB::table('password_resets')->where('email', $this->user->email)->first()->token;
     }
 
     private function requestPasswordReset()
     {
-        $this->post($this->getEndPoint('forgot'), ['email' => $this->user['email']]);    	
+        $this->post($this->getEndPoint('forgot'), ['email' => $this->user->email]);    	
     }
 }
