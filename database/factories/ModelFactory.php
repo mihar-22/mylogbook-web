@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Car;
+use App\Models\Supervisor;
 use App\Models\User;
 use Faker\Generator;
 
@@ -42,5 +43,14 @@ $factory->define(Car::class, function (Generator $faker) {
         'type' => $faker->word,
         'trans' => $faker->randomElement(['A', 'M']),
         'odo' => $faker->numberBetween(10000, 180000)
+    ];
+});
+
+$factory->define(Supervisor::class, function (Generator $faker) {
+    return [
+        'first_name' => $faker->firstName,
+        'last_name' => $faker->lastName,
+        'gender' => $faker->randomElement(['M', 'F']),
+        'avatar' => $faker->randomNumber(1)
     ];
 });
