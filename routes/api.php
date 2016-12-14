@@ -23,4 +23,8 @@ Route::group(['prefix' => 'v1'], function () {
 	});
 
 	Route::post('password/forgot', 'PasswordController@sendResetLink');
+
+	Route::resource('cars', 'CarController', ['except' => [
+		'create', 'edit', 'show'
+	]]);
 });
