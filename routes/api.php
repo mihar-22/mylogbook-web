@@ -27,4 +27,8 @@ Route::group(['prefix' => 'v1'], function () {
 	Route::resource('cars', 'CarController', ['except' => [
 		'create', 'edit', 'show'
 	]]);
+
+	Route::resource('supervisors', 'SupervisorController', ['except' => [
+		'create', 'edit', 'show'
+	]]);
 });
