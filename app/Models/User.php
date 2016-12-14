@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
+use App\Models\Car;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
@@ -21,6 +22,11 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token', 'api_token'
     ];
+
+    public function cars()
+    {
+        return $this->hasMany(Car::class);
+    }
 
     public function setPasswordAttribute($password) 
     {
@@ -47,7 +53,7 @@ class User extends Authenticatable
     {
         $this->is_verified = true;
 
-        $this->save();
+        $this->save();     
     }
 
     public function resetPassword($password)
