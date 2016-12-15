@@ -37,13 +37,13 @@ class CarTest extends TestCase
     public function store_car()
     {
         $newCar = [
-            'regno' => 'AAA111',
+            'registration' => 'AAA111',
             'year' => '1993',
             'make' => 'Toyota',
             'model' => 'Supra',
             'type' => 'Sports',
-            'trans' => 'M',
-            'odo' => 11337,            
+            'transmission' => 'M',
+            'odometer' => 11337,            
         ];
 
         $this->actingAs($this->user)
@@ -66,7 +66,7 @@ class CarTest extends TestCase
     /** @test */
     public function update_car()
     {
-        $update = ['id' => $this->cars[0]->id, 'regno' => 'ZXY987', 'odo' => 100];
+        $update = ['id' => $this->cars[0]->id, 'registration' => 'ZXY987', 'odometer' => 100];
 
         $this->actingAs($this->user)
              ->putJson($this->getEndPoint($update['id']), $update);

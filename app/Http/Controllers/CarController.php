@@ -28,7 +28,13 @@ class CarController extends Controller
     public function store(StoreCar $request)
     {
         $car = $request->only(
-            'regno', 'year', 'make', 'model', 'type', 'trans', 'odo'
+            'registration', 
+            'year', 
+            'make', 
+            'model', 
+            'type', 
+            'transmission', 
+            'odometer'
         );
 
         Auth::user()->cars()->create($car);
@@ -39,7 +45,7 @@ class CarController extends Controller
 
     public function update(UpdateCar $request, $id)
     {
-        $update = $request->only('regno', 'odo');
+        $update = $request->only('registration', 'odometer');
 
         $car = Auth::user()->cars()->find($id);
 

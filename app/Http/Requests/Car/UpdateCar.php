@@ -21,8 +21,8 @@ class UpdateCar extends FormRequest
     public function rules()
     {
         return [
-            'regno' => 'string|alpha_num|max:6',
-            'odo' => 'integer|max:999999'
+            'registration' => 'string|alpha_num|max:6',
+            'odometer' => 'integer|max:999999'
         ];
     }
 }
