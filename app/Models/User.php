@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Car;
 use App\Models\Supervisor;
+use App\Models\Trip;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
@@ -32,6 +33,11 @@ class User extends Authenticatable
     public function supervisors()
     {
         return $this->hasMany(Supervisor::class);
+    }
+
+    public function trips()
+    {
+        return $this->hasMany(Trip::class);
     }
 
     public function setPasswordAttribute($password) 
