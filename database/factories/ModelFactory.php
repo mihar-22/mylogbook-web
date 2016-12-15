@@ -58,8 +58,8 @@ $factory->define(Supervisor::class, function (Generator $faker) {
 
 $factory->define(Trip::class, function (Generator $faker) {
     return [
-        'date' => $faker->dateTime,
-        'seconds' => $faker->numberBetween(300, 3600),
+        'start' => $faker->dateTime,
+        'end' => $faker->dateTime,
         'odometer' => $faker->numberBetween(10000, 180000),
         'distance' => $faker->randomFloat(2, 5, 30),
 

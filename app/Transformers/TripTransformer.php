@@ -11,8 +11,8 @@ class TripTransformer extends TransformerAbstract
     {
         return [
             'id' => (int) $trip->id,
-            'date' => $trip->date,
-            'seconds'  => (int) $trip->seconds,
+            'start' => $trip->start,
+            'end'  =>  $trip->end,
             'odometer' => (int) $trip->odometer,     
             'distance' => (double) $trip->distance,
             'car_id' => (int) $trip->car_id,

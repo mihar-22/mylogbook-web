@@ -30,8 +30,8 @@ class TripTest extends TestCase
     public function store_trip()
     {
         $newTrip = [
-            'date' => '2016/12/15 16:05:00',
-            'seconds' => 1200,
+            'start' => '2016/12/15 16:05:00',
+            'end' => '2016/12/15 18:21:00',
             'odometer' => 32000,     
             'distance' => 15.32,
 

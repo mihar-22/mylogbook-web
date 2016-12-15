@@ -39,8 +39,8 @@ class Trip extends Model
     ];
 
     protected $fillable = [
-    	'date',
-    	'seconds',
+    	'start',
+    	'end',
     	'odometer',    	
     	'distance',
 

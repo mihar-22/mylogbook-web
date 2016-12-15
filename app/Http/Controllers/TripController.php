@@ -16,8 +16,8 @@ class TripController extends Controller
     public function store(StoreTrip $request)
     {
         $trip = $request->only(
-            'date',
-            'seconds',
+            'start',
+            'end',
             'odometer',     
             'distance',
 
