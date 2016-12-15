@@ -31,4 +31,6 @@ Route::group(['prefix' => 'v1'], function () {
 	Route::resource('supervisors', 'SupervisorController', ['except' => [
 		'create', 'edit', 'show'
 	]]);
+
+	Route::post('trips', 'TripController@store');
 });
