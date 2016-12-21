@@ -3,6 +3,7 @@
 use App\Models\Car;
 use App\Models\Supervisor;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class TripTest extends TestCase
@@ -30,9 +31,9 @@ class TripTest extends TestCase
     public function store_trip()
     {
         $newTrip = [
-            'start' => '2016/12/15 16:05:00',
-            'end' => '2016/12/15 18:21:00',
-            'odometer' => 32000,     
+            'start' => Carbon::now()->format('Y/m/d H:i:s'),
+            'end' => Carbon::now()->addHour()->format('Y/m/d H:i:s'),
+            'odometer' => 32000,
             'distance' => 15.32,
 
             // Light
