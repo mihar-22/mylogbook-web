@@ -20,9 +20,9 @@ Route::group(['prefix' => 'v1'], function () {
 		Route::post('login', 'AuthController@login');
 		
 		Route::post('logout', 'AuthController@logout');
-	});
 
-	Route::post('password/forgot', 'PasswordController@sendResetLink');
+		Route::post('forgot', 'PasswordController@sendResetLink');
+	});
 
 	Route::resource('cars', 'CarController', ['except' => [
 		'create', 'edit', 'show'
