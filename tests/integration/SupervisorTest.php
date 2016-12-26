@@ -39,6 +39,7 @@ class SupervisorTest extends TestCase
         $newSupervisor = [
             'first_name' => 'John',
             'last_name' => 'Doe',
+            'license' => '987654321',
             'gender' => 'M',
             'avatar' => 1,
         ];
@@ -67,6 +68,7 @@ class SupervisorTest extends TestCase
             'id' => $this->supervisors[0]->id, 
             'first_name' => 'Jessie',
             'last_name' => 'Loe',
+            'license' => '123456789',
             'gender' => 'F'
         ];
 

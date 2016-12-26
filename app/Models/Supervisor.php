@@ -11,7 +11,11 @@ class Supervisor extends Model
     protected $table = 'supervisors';
 
     protected $fillable = [
-    	'first_name', 'last_name', 'gender', 'avatar'
+    	'first_name', 
+        'last_name',
+        'license',
+        'gender', 
+        'avatar'
     ];
 
     public function user()

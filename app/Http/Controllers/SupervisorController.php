@@ -28,7 +28,7 @@ class SupervisorController extends Controller
     public function store(StoreSupervisor $request)
     {
         $supervisor = $request->only(
-            'first_name', 'last_name', 'gender', 'avatar'
+            'first_name', 'last_name', 'gender', 'license', 'avatar'
         );
 
         Auth::user()->supervisors()->create($supervisor);
@@ -39,7 +39,9 @@ class SupervisorController extends Controller
 
     public function update(UpdateSupervisor $request, $id)
     {
-        $update = $request->only('first_name', 'last_name', 'gender', 'avatar');
+        $update = $request->only(
+            'first_name', 'last_name', 'gender', 'license', 'avatar'
+        );
 
         $supervisor = Auth::user()->supervisors()->find($id);
 

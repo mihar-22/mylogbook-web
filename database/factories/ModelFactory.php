@@ -58,6 +58,7 @@ $factory->define(Supervisor::class, function (Generator $faker) {
     return [
         'first_name' => $faker->firstName,
         'last_name' => $faker->lastName,
+        'license' => $faker->bothify('###??####'),
         'gender' => $faker->randomElement(['M', 'F']),
         'avatar' => $faker->randomNumber(1)
     ];

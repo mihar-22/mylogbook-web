@@ -17,6 +17,7 @@ class CreateSupervisorsTable extends Migration
             $table->increments('id');
             $table->string('first_name', 50);
             $table->string('last_name', 50);
+            $table->string('license', 10);
             $table->char('gender', 1);
             $table->integer('avatar');
             $table->integer('user_id')->unsigned();
