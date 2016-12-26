@@ -142,6 +142,6 @@ class AuthTest extends TestCase
 
     private function attemptLogout()
     {
-        $this->postJson($this->getEndPoint('logout'));               
+        $this->getJson($this->getEndPoint('logout'));               
     }
 }
