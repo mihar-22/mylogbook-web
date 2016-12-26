@@ -21,7 +21,7 @@ class UpdateCar extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'string|max:50',
+            'name' => 'string|alpha_space|max:50',
             'registration' => 'string|alpha_num|max:6',
             'type' => 'string|in:sedan,wagon,suv,4wd,hatchback,coupe,convertible,sports,ute,micro'
         ];

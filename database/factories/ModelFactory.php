@@ -22,7 +22,7 @@ use Faker\Generator;
  */
 $factory->define(User::class, function (Generator $faker) {	
     return [
-        'name' => $faker->firstName,
+        'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
         'password' => 'secret',
         'is_verified' => 1

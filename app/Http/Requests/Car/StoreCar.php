@@ -19,7 +19,7 @@ class StoreCar extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:50',
+            'name' => 'required|string|alpha_space|max:50',
             'registration' => 'required|string|alpha_num|max:6',
             'type' => 'required|string|in:sedan,wagon,suv,4wd,hatchback,coupe,convertible,sports,ute,micro'
         ];
