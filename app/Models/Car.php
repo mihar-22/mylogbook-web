@@ -11,13 +11,9 @@ class Car extends Model
     protected $table = 'cars';
 
     protected $fillable = [
-        'year', 
-        'make', 
-        'model', 
-        'transmission', 
-        'type', 
-        'registration', 
-        'odometer'
+        'name',
+        'registration',
+        'type'
     ];
 
     public function user()

@@ -37,13 +37,20 @@ $factory->state(User::class, 'not verified', function ($faker) {
 
 $factory->define(Car::class, function (Generator $faker) {
     return [
+        'name' => $faker->company,
         'registration' => $faker->bothify('???###'),
-        'year' => $faker->date('Y'),
-        'make' => $faker->company,
-        'model' => $faker->word,
-        'type' => $faker->word,
-        'transmission' => $faker->randomElement(['A', 'M']),
-        'odometer' => $faker->numberBetween(10000, 180000)
+        'type' => $faker->randomElement([
+            'sedan',
+            'wagon',
+            'suv',
+            '4wd',
+            'hatchback',
+            'coupe',
+            'convertible',
+            'sports',
+            'ute',
+            'micro'
+        ])
     ];
 });
 

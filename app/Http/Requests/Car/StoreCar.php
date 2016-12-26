@@ -19,13 +19,9 @@ class StoreCar extends FormRequest
     public function rules()
     {
         return [
+            'name' => 'required|string|max:50',
             'registration' => 'required|string|alpha_num|max:6',
-            'year' => 'required|string|digits:4',
-            'make' => 'required|string|max:50',
-            'model' => 'required|string|max:50',
-            'type' => 'required|string|max:50',
-            'transmission' => 'required|max:1|in:A,M',
-            'odometer' => 'required|integer|max:999999'
+            'type' => 'required|string|in:sedan,wagon,suv,4wd,hatchback,coupe,convertible,sports,ute,micro'
         ];
     }
 }

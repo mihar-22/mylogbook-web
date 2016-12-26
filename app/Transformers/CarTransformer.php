@@ -11,13 +11,9 @@ class CarTransformer extends TransformerAbstract
     {
         return [
             'id' => (int) $car->id,
+            'name' => $car->name,
             'registration' => $car->registration,
-            'year' => $car->year,
-            'make' => $car->make,
-            'model' => $car->model,
-            'type' => $car->type,
-            'transmission' => $car->transmission,
-            'odometer' => (int) $car->odometer
+            'type' => $car->type
         ];
     }
 }
