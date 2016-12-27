@@ -37,7 +37,8 @@ class CarTest extends TestCase
     public function store_car()
     {
         $newCar = [
-            'name' => 'Volkswagen Jetta',
+            'make' => 'Volkswagen',
+            'model' => 'Jetta',
             'registration' => 'AAA111',
             'type' => 'sports'
         ];
@@ -63,8 +64,10 @@ class CarTest extends TestCase
     public function update_car()
     {
         $update = [
-            'id' => $this->cars[0]->id, 
-            'registration' => 'ZXY987', 
+            'id' => $this->cars[0]->id,
+            'make' => 'Volkswagen',
+            'model' => 'Jetta',
+            'registration' => 'BBB222', 
             'type' => 'sedan'
         ];
 
