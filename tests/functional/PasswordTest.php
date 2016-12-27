@@ -57,7 +57,7 @@ class PasswordTest extends TestCase
 
     private function getEndPoint($extension)
     {
-        return "api/v1/users/{$extension}";
+        return "api/v1/auth/{$extension}";
     }
 
     private function getPasswordResetLink()
