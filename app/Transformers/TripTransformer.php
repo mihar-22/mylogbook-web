@@ -17,11 +17,6 @@ class TripTransformer extends TransformerAbstract
             'distance' => (double) $trip->distance,
             'car_id' => (int) $trip->car_id,
             'supervisor_id' => (int) $trip->supervisor_id,
-            'light' => [
-                'day' => (boolean) $trip->day,
-                'afternoon' => (boolean) $trip->afternoon,
-                'night' => (boolean) $trip->night
-            ],
             'weather' => [
                 'clear' => (boolean) $trip->clear,
                 'rain' => (boolean) $trip->rain,

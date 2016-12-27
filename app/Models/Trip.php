@@ -14,11 +14,6 @@ class Trip extends Model
     protected $table = 'trips';
 
     protected $casts = [
-    	// Light
-        'day' => 'boolean',
-        'afternoon' => 'boolean',
-        'night' => 'boolean',
-
         // Weather
         'clear' => 'boolean',
         'rain' => 'boolean',
@@ -43,11 +38,6 @@ class Trip extends Model
     	'end',
     	'odometer',    	
     	'distance',
-
-    	// Light
-    	'day',
-    	'afternoon',
-    	'night',
 
     	// Weather
     	'clear',

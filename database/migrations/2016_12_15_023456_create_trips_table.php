@@ -19,12 +19,7 @@ class CreateTripsTable extends Migration
             $table->dateTime('end');
             $table->integer('odometer');
             $table->decimal('distance', 6, 2);
-
-            // Light
-            $table->boolean('day')->default(false);
-            $table->boolean('afternoon')->default(false);
-            $table->boolean('night')->default(false);
-
+            
             // Weather
             $table->boolean('clear')->default(false);
             $table->boolean('rain')->default(false);

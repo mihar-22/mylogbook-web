@@ -32,11 +32,6 @@ class StoreTrip extends FormRequest
             'odometer' => 'required|integer|max:999999',
             'distance' => 'required|regex:/^(\d{2,6})(\.)(\d{2})$/',
 
-            // Light
-            'day' => 'boolean',
-            'afternoon' => 'boolean',
-            'night' => 'boolean',
-
             // Weather
             'clear' => 'boolean',
             'rain' => 'boolean',

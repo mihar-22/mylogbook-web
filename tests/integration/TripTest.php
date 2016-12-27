@@ -35,12 +35,7 @@ class TripTest extends TestCase
             'end' => Carbon::now()->addHour()->format('Y/m/d H:i:s'),
             'odometer' => 32000,
             'distance' => 15.32,
-
-            // Light
-            'day' => true,
-            'afternoon' => false,
-            'night' => false,
-
+            
             // Weather
             'clear' => true,
             'rain' => false,

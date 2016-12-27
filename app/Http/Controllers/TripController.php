@@ -21,11 +21,6 @@ class TripController extends Controller
             'odometer',     
             'distance',
 
-            // Light
-            'day',
-            'afternoon',
-            'night',
-
             // Weather
             'clear',
             'rain',

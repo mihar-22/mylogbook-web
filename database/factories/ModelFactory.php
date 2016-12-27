@@ -71,12 +71,7 @@ $factory->define(Trip::class, function (Generator $faker) {
         'end' => $faker->dateTime,
         'odometer' => $faker->numberBetween(10000, 180000),
         'distance' => $faker->randomFloat(2, 5, 30),
-
-        // Light
-        'day' => $faker->boolean,
-        'afternoon' => $faker->boolean,
-        'night' => $faker->boolean,
-
+        
         // Weather
         'clear' => $faker->boolean,
         'rain' => $faker->boolean,
