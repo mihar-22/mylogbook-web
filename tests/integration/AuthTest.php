@@ -123,9 +123,9 @@ class AuthTest extends TestCase
         $this->assertResponseStatus(404);
     }
 
-    private function getEndPoint($extension)
+    private function getEndPoint($action)
     {
-        return "api/v1/auth/{$extension}";
+        return "api/v1/auth/{$action}";
     }
 
     private function registerUser()

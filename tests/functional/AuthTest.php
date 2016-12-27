@@ -46,9 +46,9 @@ class AuthTest extends TestCase
         $this->seeInDatabase('users', ['email' => $this->user->email, 'is_verified' => 1]);
     }
 
-    private function getEndPoint($extension)
+    private function getEndPoint($action)
     {
-        return "api/v1/auth/{$extension}";
+        return "api/v1/auth/{$action}";
     }
 
     private function getEmailVerificationLink()
