@@ -18,7 +18,7 @@ class RegisterUser extends FormRequest
     {
         return [
             'name' => 'required|string|alpha_space|max:50',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6|string'
         ];
     }
