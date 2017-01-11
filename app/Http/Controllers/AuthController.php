@@ -52,7 +52,10 @@ class AuthController extends Controller
 
         $user->generateApiToken();
 
-        $data = ['api_token' => $user->api_token];
+        $data = [
+            'name' => $user->name,
+            'api_token' => $user->api_token
+        ];
 
         return ApiResponder::respondWithData('user authenticated', $data)
                              ->setStatusCode(200);
