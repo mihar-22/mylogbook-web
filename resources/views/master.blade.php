@@ -19,15 +19,18 @@
                 position: relative;
                 height: 100vh;
                 display: flex;
+                flex-direction: column;
                 align-items: center;
                 justify-content: center;
-                text-align: center;
                 color: #636b6f;
                 font-family: 'Raleway', sans-serif;
                 font-weight: 100;
             }
 
             .mlb-title {
+                flex: 1;
+                display: flex;
+                align-items: center;
                 font-size: 84px;
             }
 
@@ -36,6 +39,25 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
+            }
+
+            /* Bootstrap Customizations */
+
+            .container-fluid {
+                flex: 1;
+            }
+
+            .btn {
+                padding: 16px 16px !important;
+                border-radius: 0px !important;
+            }
+
+            /* Media Queries */
+
+            @media (max-width: 600px) {
+                .mlb-title {
+                    font-size: 48px;
+                }
             }
         </style>
 

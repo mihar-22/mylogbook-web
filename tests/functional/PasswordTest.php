@@ -48,7 +48,7 @@ class PasswordTest extends TestCase
         $this->visit($this->getPasswordResetLink())
              ->type($newPassword, 'password')
              ->press('Reset Password')
-             ->see('Password reset complete!');
+             ->see('Password reset!');
 
         $this->assertFalse(Auth::guard('web')->attempt(['email' => $this->user->email, 'password' => $oldPassword]));
 

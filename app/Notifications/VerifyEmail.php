@@ -27,8 +27,8 @@ class VerifyEmail extends Notification implements ShouldQueue
     {
         return (new MailMessage)
                     ->greeting('One more step!')
-                    ->line('Please verify your email so we can be sure that it is yours.')
-                    ->action('Verify Email', url('email/verify', [$notifiable->email, $this->token]))
+                    ->line('Please verify your email by clicking on the button below.')
+                    ->action('VERIFY', url('email/verify', [$notifiable->email, $this->token]))
                     ->line('Once you are verified you can jump right into the application!');
     }
 }
