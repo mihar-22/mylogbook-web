@@ -37,8 +37,8 @@ $factory->state(User::class, 'not verified', function ($faker) {
 
 $factory->define(Car::class, function (Generator $faker) {
     return [
-        'make' => $faker->company,
-        'model' => $faker->company,
+        'make' => $faker->word,
+        'model' => $faker->word,
         'registration' => $faker->bothify('???###'),
         'type' => $faker->randomElement([
             'sedan',
