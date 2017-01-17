@@ -20,9 +20,9 @@ class StoreCar extends FormRequest
     {
         return [
             'make' => 'required|string|alpha_space|max:50',
-            'model' => 'required|string|alpha_space|max:50',
+            'model' => 'required|string|alpha_num_space|max:50',
             'registration' => 'required|string|alpha_num|max:6',
-            'type' => 'required|string|in:sedan,wagon,suv,4wd,hatchback,coupe,convertible,sports,ute,micro'
+            'type' => 'required|string|in:sedan,wagon,suv,4wd,hatchback,coupe,convertible,sports,ute,micro,van'
         ];
     }
 }

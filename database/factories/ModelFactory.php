@@ -50,7 +50,8 @@ $factory->define(Car::class, function (Generator $faker) {
             'convertible',
             'sports',
             'ute',
-            'micro'
+            'micro',
+            'van'
         ])
     ];
 });
