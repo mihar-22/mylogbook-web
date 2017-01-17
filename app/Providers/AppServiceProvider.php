@@ -21,6 +21,8 @@ class AppServiceProvider extends ServiceProvider
     private function extendValidator()
     {
     	Validator::extend('alpha_space', function ($attribute, $value) {
+            if (! is_string($value)) { return false; }
+
 			return preg_match('/^[\pL\s]+$/u', $value);
     	});
 
