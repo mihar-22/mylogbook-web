@@ -17,6 +17,12 @@ class Car extends Model
         'type'
     ];
 
+    protected $hidden = [
+        'created_at', 
+        'updated_at', 
+        'user_id'
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);

@@ -27,11 +27,11 @@ class CarController extends Controller
 
     public function store(StoreCar $request)
     {
-        $car = $request->only('make', 'model', 'registration', 'type');
+        $store = $request->only('make', 'model', 'registration', 'type');
 
-        Auth::user()->cars()->create($car);
+        $car = Auth::user()->cars()->create($store);
 
-        return ApiResponder::respondWithMessage('car created')
+        return ApiResponder::respondWithData('car created', ['id' => $car->id])
                              ->setStatusCode(201);
     }
 

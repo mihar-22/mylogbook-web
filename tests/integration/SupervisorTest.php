@@ -47,7 +47,7 @@ class SupervisorTest extends TestCase
         $this->actingAs($this->user)
              ->postJson($this->getEndPoint(), $newSupervisor);
 
-        $this->seeJsonContains(['message' => 'supervisor created'])
+        $this->seeJsonContains(['message' => 'supervisor created', 'data' => ['id' => Supervisor::find(4)->id]])
              ->assertResponseStatus(201);
 
         $this->seeInDatabase('supervisors', array_merge($newSupervisor, ['user_id' => $this->user->id]));

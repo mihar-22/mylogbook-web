@@ -46,7 +46,7 @@ class CarTest extends TestCase
         $this->actingAs($this->user)
              ->postJson($this->getEndPoint(), $newCar);
 
-        $this->seeJsonContains(['message' => 'car created'])
+        $this->seeJsonContains(['message' => 'car created', 'data' => ['id' => Car::find(4)->id]])
              ->assertResponseStatus(201);
 
         $this->seeInDatabase('cars', array_merge($newCar, ['user_id' => $this->user->id]));

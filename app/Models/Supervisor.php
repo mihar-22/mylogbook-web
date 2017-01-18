@@ -18,6 +18,12 @@ class Supervisor extends Model
         'avatar'
     ];
 
+    protected $hidden = [
+        'created_at', 
+        'updated_at', 
+        'user_id'
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);

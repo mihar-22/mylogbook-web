@@ -27,13 +27,13 @@ class SupervisorController extends Controller
 
     public function store(StoreSupervisor $request)
     {
-        $supervisor = $request->only(
+        $store = $request->only(
             'first_name', 'last_name', 'gender', 'license', 'avatar'
         );
 
-        Auth::user()->supervisors()->create($supervisor);
+        $supervisor = Auth::user()->supervisors()->create($store);
 
-        return ApiResponder::respondWithMessage('supervisor created')
+        return ApiResponder::respondWithData('supervisor created', ['id' => $supervisor->id])
                              ->setStatusCode(201);
     }
 
