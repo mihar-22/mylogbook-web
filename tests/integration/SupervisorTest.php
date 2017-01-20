@@ -1,7 +1,10 @@
 <?php
 
+use App\Models\Car;
 use App\Models\Supervisor;
+use App\Models\Trip;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class SupervisorTest extends TestCase
@@ -114,6 +117,28 @@ class SupervisorTest extends TestCase
              ->assertResponseStatus(200);
 
         $this->notSeeInDatabase('supervisors', ['id' => $id]);
+    }
+
+    /** @test */
+    public function delete_supervisor_used_on_a_trip()
+    {
+        $id = $this->supervisors[0]->id;
+
+        $car = factory(Car::class)->create(['user_id' => $this->user->id]);
+
+        factory(Trip::class)->create([
+            'user_id' => $this->user->id, 
+            'car_id' => $car->id,
+            'supervisor_id' => $id
+        ]);
+
+        $this->actingAs($this->user)
+             ->deleteJson($this->getEndPoint($id));
+
+        $this->seeJsonContains(['message' => 'supervisor deleted'])
+             ->assertResponseStatus(200);
+
+        $this->seeInDatabase('supervisors', ['id' => $id, 'deleted_at' => Carbon::now()]);
     }
 
     /** @test */
