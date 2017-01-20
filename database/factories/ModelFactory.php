@@ -25,6 +25,7 @@ $factory->define(User::class, function (Generator $faker) {
         'name' => "{$faker->firstName} {$faker->lastName}",
         'email' => $faker->unique()->safeEmail,
         'password' => 'secret',
+        'api_token' => 'secretToken',
         'is_verified' => 1
     ];
 });
