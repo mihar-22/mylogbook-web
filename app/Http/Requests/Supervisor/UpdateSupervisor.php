@@ -24,7 +24,7 @@ class UpdateSupervisor extends FormRequest
             'first_name' => 'string|alpha|max:50',
             'last_name' => 'string|alpha|max:50',
             'license' => 'string|alpha_num|max:10',
-            'gender' => 'max:1|in:M,F',
+            'gender' => 'string|in:male,female',
             'avatar' => 'integer|min:1|max:6'
         ];
     }
