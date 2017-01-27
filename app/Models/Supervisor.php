@@ -20,7 +20,6 @@ class Supervisor extends Model
         'last_name',
         'license',
         'gender', 
-        'avatar'
     ];
 
     protected $hidden = [

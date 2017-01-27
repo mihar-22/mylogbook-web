@@ -43,8 +43,7 @@ class SupervisorTest extends TestCase
             'first_name' => 'John',
             'last_name' => 'Doe',
             'license' => '987654321',
-            'gender' => 'male',
-            'avatar' => 1,
+            'gender' => 'male'
         ];
 
         $this->actingAs($this->user)

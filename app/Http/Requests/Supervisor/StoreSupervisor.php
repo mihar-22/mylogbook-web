@@ -23,7 +23,6 @@ class StoreSupervisor extends FormRequest
             'last_name' => 'required|string|alpha|max:50',
             'license' => 'required|string|alpha_num|max:10',
             'gender' => 'required|string|in:male,female',
-            'avatar' => 'required|integer|min:1|max:6'
         ];
     }
 }

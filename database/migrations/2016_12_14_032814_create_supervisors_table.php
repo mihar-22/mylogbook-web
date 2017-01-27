@@ -19,7 +19,6 @@ class CreateSupervisorsTable extends Migration
             $table->string('last_name', 50);
             $table->string('license', 10);
             $table->string('gender', 6);
-            $table->integer('avatar');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
