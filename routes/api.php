@@ -32,5 +32,7 @@ Route::group(['prefix' => 'v1'], function () {
 		'create', 'edit', 'show'
 	]]);
 
-	Route::post('trips', 'TripController@store');
+	Route::resource('trips', 'TripController', ['only' => [
+		'index', 'store'
+	]]);
 });

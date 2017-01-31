@@ -29,6 +29,24 @@ class TripTest extends TestCase
     }
 
     /** @test */
+    public function index()
+    {
+        factory(Trip::class, 3)->create([
+            'user_id' => $this->user->id,
+            'car_id' => $this->car->id,
+            'supervisor_id' => $this->supervisor->id
+        ]);
+
+        $this->actingAs($this->user)
+             ->getJson($this->getEndPoint());
+
+        $this->seeJsonContains(['message' => 'collection of trips'])
+             ->assertResponseStatus(200);
+
+        $this->assertCount(3, json_decode($this->response->content())->data);
+    }
+
+    /** @test */
     public function store_trip()
     {
         $newTrip = [
