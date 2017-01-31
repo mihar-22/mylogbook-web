@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Facades\ApiResponder;
 use App\Http\Requests\Trip\StoreTrip;
+use App\Models\Trip;
 use Illuminate\Support\Facades\Auth;
 
 class TripController extends Controller
@@ -15,36 +16,19 @@ class TripController extends Controller
 
     public function store(StoreTrip $request)
     {
-        $trip = $request->only(
+        $store = $request->only(
             'start',
             'end',
             'odometer',     
             'distance',
-
-            // Weather
-            'clear',
-            'rain',
-            'thunder',
-
-            // Traffic
-            'light',
-            'moderate',
-            'heavy',
-
-            // Roads
-            'local_street',
-            'main_road',
-            'inner_city',
-            'freeway',
-            'rural_highway',
-            'gravel',
-
-            // Resources
             'car_id',
-            'supervisor_id'
+            'supervisor_id',
+            'weather',
+            'traffic',
+            'roads'
         );
-
-        Auth::user()->trips()->create($trip);
+        
+        Auth::user()->trips()->create(Trip::flatten($store));
 
         return ApiResponder::respondWithMessage('trip created')
                              ->setStatusCode(201);

@@ -76,4 +76,15 @@ class Trip extends Model
     {
         return $this->belongsTo(Supervisor::class);
     }
+
+    static public function flatten(array $trip) {
+        $flat = array();
+
+        foreach ($trip as $key => $value) {
+            if (is_array($value)) { $flat = array_merge($flat, $value); }
+            else { $flat[$key] = $value; }
+        }
+
+        return $flat;
+    }
 }

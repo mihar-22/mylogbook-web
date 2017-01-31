@@ -2,6 +2,7 @@
 
 use App\Models\Car;
 use App\Models\Supervisor;
+use App\Models\Trip;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -35,28 +36,26 @@ class TripTest extends TestCase
             'end' => Carbon::now()->addHour()->format('Y/m/d H:i:s'),
             'odometer' => 32000,
             'distance' => 15.32,
-            
-            // Weather
-            'clear' => true,
-            'rain' => false,
-            'thunder' => false,
-
-            // Traffic
-            'light' => false,
-            'moderate' => true,
-            'heavy' => true,
-
-            // Roads
-            'local_street' => true,
-            'main_road' => true,
-            'inner_city' => false,
-            'freeway' => true,
-            'rural_highway' => true,
-            'gravel' => true,
-
-            // Resources
             'car_id' => $this->car->id,
-            'supervisor_id' => $this->supervisor->id
+            'supervisor_id' => $this->supervisor->id,
+            'weather' => [
+                'clear' => true,
+                'rain' => false,
+                'thunder' => false,
+            ],
+            'traffic' => [
+                'light' => false,
+                'moderate' => true,
+                'heavy' => true,
+            ],
+            'roads' => [
+                'local_street' => true,
+                'main_road' => true,
+                'inner_city' => false,
+                'freeway' => true,
+                'rural_highway' => true,
+                'gravel' => true,
+            ]
         ];
 
         $this->actingAs($this->user)
@@ -65,7 +64,10 @@ class TripTest extends TestCase
         $this->seeJsonContains(['message' => 'trip created'])
              ->assertResponseStatus(201);
 
-        $this->seeInDatabase('trips', array_merge($newTrip, ['user_id' => $this->user->id]));
+        $this->seeInDatabase('trips', array_merge(
+            Trip::flatten($newTrip), 
+            ['user_id' => $this->user->id]
+        ));
     }
 
     /** @test */
