@@ -14,7 +14,8 @@ class SupervisorTransformer extends TransformerAbstract
             'first_name' => $supervisor->first_name,
             'last_name' => $supervisor->last_name,
             'license' => $supervisor->license,
-            'gender' => $supervisor->gender
+            'gender' => $supervisor->gender,
+            'deleted_at' => $supervisor->deleted_at
         ];
     }
 }

@@ -19,7 +19,7 @@ class CarController extends Controller
 
     public function index()
     {
-        $cars = Auth::user()->cars;
+        $cars = Auth::user()->cars()->withTrashed()->get();
 
         return ApiResponder::respondWithCollection($cars, new CarTransformer)
                              ->setStatusCode(200);

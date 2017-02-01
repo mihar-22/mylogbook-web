@@ -14,7 +14,8 @@ class CarTransformer extends TransformerAbstract
             'make' => $car->make,
             'model' => $car->model,
             'registration' => $car->registration,
-            'type' => $car->type
+            'type' => $car->type,
+            'deleted_at' => $car->deleted_at
         ];
     }
 }

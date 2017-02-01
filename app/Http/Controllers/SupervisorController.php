@@ -19,7 +19,7 @@ class SupervisorController extends Controller
 
     public function index()
     {
-        $supervisors = Auth::user()->supervisors;
+        $supervisors = Auth::user()->supervisors()->withTrashed()->get();
 
         return ApiResponder::respondWithCollection($supervisors, new SupervisorTransformer)
                              ->setStatusCode(200);

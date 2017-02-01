@@ -27,13 +27,18 @@ class CarTest extends TestCase
     /** @test */
     public function index()
     {
+        factory(Car::class, 3)->create([
+             'user_id' => $this->user->id,
+             'deleted_at' => Carbon::now()
+        ]);
+
         $this->actingAs($this->user)
              ->getJson($this->getEndPoint());
 
         $this->seeJsonContains(['message' => 'collection of cars'])
              ->assertResponseStatus(200);
 
-        $this->assertCount(3, json_decode($this->response->content())->data);
+        $this->assertCount(6, json_decode($this->response->content())->data);
     }
 
     /** @test */
