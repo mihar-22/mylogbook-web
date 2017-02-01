@@ -47,9 +47,8 @@ class SupervisorController extends Controller
     {
         $supervisor = Auth::user()->supervisors()->find($id);
 
-        if ($supervisor->trips()->count() > 0) { $supervisor->delete(); }
-        else { $supervisor->forceDelete(); }
-
+        $supervisor->delete();
+        
         return ApiResponder::respondWithMessage('supervisor deleted')
                              ->setStatusCode(200);
     }

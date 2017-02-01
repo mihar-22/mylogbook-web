@@ -47,9 +47,8 @@ class CarController extends Controller
     {
         $car = Auth::user()->cars()->find($id);
 
-        if ($car->trips()->count() > 0) { $car->delete(); }
-        else { $car->forceDelete(); }
-
+        $car->delete();
+        
         return ApiResponder::respondWithMessage('car deleted')
                              ->setStatusCode(200);
     }

@@ -120,29 +120,7 @@ class CarTest extends TestCase
         $this->seeJsonContains(['message' => 'car deleted'])
              ->assertResponseStatus(200);
 
-        $this->notSeeInDatabase('cars', ['id' => $id]);
-    }
-
-    /** @test */
-    public function delete_car_used_on_a_trip()
-    {
-        $id = $this->cars[0]->id;
-
-        $supervisor = factory(Supervisor::class)->create(['user_id' => $this->user->id]);
-
-        factory(Trip::class)->create([
-            'user_id' => $this->user->id, 
-            'car_id' => $id,
-            'supervisor_id' => $supervisor->id
-        ]);
-
-        $this->actingAs($this->user)
-             ->deleteJson($this->getEndPoint($id));
-
-        $this->seeJsonContains(['message' => 'car deleted'])
-             ->assertResponseStatus(200);
-
-        $this->seeInDatabase('cars', ['id' => $id, 'deleted_at' => Carbon::now()]);
+        $this->seeInDatabase('cars', ['id' => $id, 'deleted_at' => Carbon::now()]);    
     }
 
     /** @test */
