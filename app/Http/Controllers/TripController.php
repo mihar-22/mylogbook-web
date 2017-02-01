@@ -25,19 +25,7 @@ class TripController extends Controller
 
     public function store(StoreTrip $request)
     {
-        $store = $request->only(
-            'start',
-            'end',
-            'odometer',     
-            'distance',
-            'car_id',
-            'supervisor_id',
-            'weather',
-            'traffic',
-            'roads'
-        );
-
-        Auth::user()->trips()->create(Trip::flatten($store));
+        Auth::user()->trips()->create(Trip::flatten($request->all()));
 
         return ApiResponder::respondWithMessage('trip created')
                              ->setStatusCode(201);

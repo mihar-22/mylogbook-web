@@ -27,11 +27,7 @@ class SupervisorController extends Controller
 
     public function store(StoreSupervisor $request)
     {
-        $store = $request->only(
-            'first_name', 'last_name', 'gender', 'license'
-        );
-
-        $supervisor = Auth::user()->supervisors()->create($store);
+        $supervisor = Auth::user()->supervisors()->create($request->all());
 
         return ApiResponder::respondWithData('supervisor created', ['id' => $supervisor->id])
                              ->setStatusCode(201);
@@ -39,13 +35,9 @@ class SupervisorController extends Controller
 
     public function update(UpdateSupervisor $request, $id)
     {
-        $update = $request->only(
-            'first_name', 'last_name', 'gender', 'license'
-        );
-
         $supervisor = Auth::user()->supervisors()->find($id);
 
-        $supervisor->update(array_filter($update));
+        $supervisor->update(array_filter($request->all()));
 
         return ApiResponder::respondWithMessage('supervisor updated')
                              ->setStatusCode(200);
