@@ -17,7 +17,13 @@ class TripController extends Controller
 
     public function index()
     {
-        $trips = Auth::user()->trips;
+        $trips = Auth::user()->trips()->with([
+        'car' => function ($query) {
+            $query->select('id');
+        }, 
+        'supervisor' => function ($query) {
+            $query->select('id');
+        }])->get();
 
         return ApiResponder::respondWithCollection($trips, new TripTransformer)
                              ->setStatusCode(200);
