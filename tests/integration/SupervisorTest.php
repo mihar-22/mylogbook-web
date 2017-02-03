@@ -1,9 +1,7 @@
 <?php
 
 
-use App\Models\Car;
 use App\Models\Supervisor;
-use App\Models\Trip;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
