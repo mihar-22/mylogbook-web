@@ -13,6 +13,8 @@ class Car extends Model
 
     protected $table = 'cars';
 
+    protected $dates = ['deleted_at'];
+
     protected $fillable = [
         'make',
         'model',
@@ -20,11 +22,7 @@ class Car extends Model
         'type'
     ];
 
-    protected $hidden = [
-        'created_at', 
-        'updated_at', 
-        'user_id'
-    ];
+    protected $hidden = ['user_id'];
 
     public function user()
     {

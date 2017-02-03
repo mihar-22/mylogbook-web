@@ -20,11 +20,7 @@ class Supervisor extends Model
         'gender'
     ];
 
-    protected $hidden = [
-        'created_at', 
-        'updated_at', 
-        'user_id'
-    ];
+    protected $hidden = ['user_id'];
 
     public function user()
     {
