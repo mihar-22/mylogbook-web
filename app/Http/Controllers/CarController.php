@@ -9,6 +9,7 @@ use App\Http\Requests\Car\UpdateCar;
 use App\Transformers\CarTransformer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class CarController extends Controller
 {
@@ -19,7 +20,7 @@ class CarController extends Controller
 
     public function index()
     {
-        $cars = Auth::user()->cars()->withTrashed()->get();
+        $cars = $this->cars()->get();
 
         return ApiResponder::respondWithCollection($cars, new CarTransformer)
                              ->setStatusCode(200);
@@ -51,5 +52,23 @@ class CarController extends Controller
         
         return ApiResponder::respondWithMessage('car deleted')
                              ->setStatusCode(200);
+    }
+
+    public function transactions($since)
+    {
+        $cars = $this->cars()->where('updated_at', '>', $since)->get();
+
+        if ($cars->isEmpty()) {
+            return ApiResponder::respondWithNoContent()
+                                 ->setStatusCode(304);
+        }
+
+        return ApiResponder::respondWithCollection($cars, new CarTransformer)
+                             ->setStatusCode(200);
+    }
+
+    private function cars()
+    {
+        return Auth::user()->cars()->withTrashed();        
     }
 }

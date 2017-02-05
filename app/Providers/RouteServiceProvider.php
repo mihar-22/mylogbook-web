@@ -23,7 +23,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Route::pattern('since', '(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})');
 
         parent::boot();
     }

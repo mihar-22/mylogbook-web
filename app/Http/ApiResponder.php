@@ -32,6 +32,11 @@ class ApiResponder
         return $this->respond($message, null, $errors);
     }
 
+    public function respondWithNoContent()
+    {
+        return response([]);
+    }
+
     public function respondWithCollection($collection, TransformerAbstract $transformer)
     {
         $message = "collection of {$collection[0]->getTable()}";

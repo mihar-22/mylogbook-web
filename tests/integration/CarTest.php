@@ -144,6 +144,36 @@ class CarTest extends TestCase
         $this->seeInDatabase('cars', ['id' => $unownedCarId]);
     }
 
+    /** @test */
+    public function transactions()
+    {
+        $since = Carbon::now();
+    
+        factory(Car::class, 5)->create([
+            'user_id' => $this->user->id,
+            'updated_at' => Carbon::now()->addDays(1)
+        ]);
+
+        $this->actingAs($this->user)
+             ->getJson($this->getEndPoint($since));
+
+        $this->seeJsonContains(['message' => 'collection of cars'])
+             ->assertResponseStatus(200);
+
+        $this->assertCount(5, json_decode($this->response->content())->data);
+    }
+
+    /** @test */
+    public function transactions_returns_no_conflict()
+    {
+        $since = Carbon::now();
+    
+        $this->actingAs($this->user)
+             ->getJson($this->getEndPoint($since));
+
+        $this->assertResponseStatus(304);
+    }
+
     private function createUserAndCarsForUser()
     {
         $user = factory(User::class)->create();

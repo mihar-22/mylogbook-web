@@ -9,6 +9,7 @@ use App\Http\Requests\Supervisor\UpdateSupervisor;
 use App\Transformers\SupervisorTransformer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class SupervisorController extends Controller
 {
@@ -19,7 +20,7 @@ class SupervisorController extends Controller
 
     public function index()
     {
-        $supervisors = Auth::user()->supervisors()->withTrashed()->get();
+        $supervisors = $this->supervisors()->get();
 
         return ApiResponder::respondWithCollection($supervisors, new SupervisorTransformer)
                              ->setStatusCode(200);
@@ -51,5 +52,23 @@ class SupervisorController extends Controller
         
         return ApiResponder::respondWithMessage('supervisor deleted')
                              ->setStatusCode(200);
+    }
+
+    public function transactions($since) 
+    {
+        $supervisors = $this->supervisors()->where('updated_at', '>', $since)->get();
+
+        if ($supervisors->isEmpty()) {
+            return ApiResponder::respondWithNoContent()
+                                 ->setStatusCode(304);
+        }
+
+        return ApiResponder::respondWithCollection($supervisors, new SupervisorTransformer)
+                             ->setStatusCode(200);
+    }
+
+    private function supervisors()
+    {
+        return Auth::user()->supervisors()->withTrashed();
     }
 }

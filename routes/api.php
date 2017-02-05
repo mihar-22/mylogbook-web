@@ -14,6 +14,9 @@ use Illuminate\Http\Request;
 */
 
 Route::group(['prefix' => 'v1'], function () {
+
+	// Auth
+
 	Route::group(['prefix' => 'auth'], function () {
 		Route::post('register', 'AuthController@register');
 		
@@ -24,15 +27,27 @@ Route::group(['prefix' => 'v1'], function () {
 		Route::post('forgot', 'PasswordController@sendResetLink');
 	});
 
+	// Cars
+
 	Route::resource('cars', 'CarController', ['except' => [
 		'create', 'edit', 'show'
 	]]);
+
+	Route::get('cars/{since}', 'CarController@transactions');
+
+	// Supervisors
 
 	Route::resource('supervisors', 'SupervisorController', ['except' => [
 		'create', 'edit', 'show'
 	]]);
 
+	Route::get('supervisors/{since}', 'SupervisorController@transactions');
+
+	// Trips
+
 	Route::resource('trips', 'TripController', ['only' => [
 		'index', 'store'
 	]]);
+
+	Route::get('trips/{since}', 'TripController@transactions');
 });

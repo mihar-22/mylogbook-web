@@ -7,6 +7,7 @@ use App\Http\Requests\Trip\StoreTrip;
 use App\Models\Trip;
 use App\Transformers\TripTransformer;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class TripController extends Controller
 {
@@ -17,13 +18,7 @@ class TripController extends Controller
 
     public function index()
     {
-        $trips = Auth::user()->trips()->with([
-        'car' => function ($query) {
-            $query->select('id');
-        }, 
-        'supervisor' => function ($query) {
-            $query->select('id');
-        }])->get();
+        $trips = $this->trips()->get();
 
         return ApiResponder::respondWithCollection($trips, new TripTransformer)
                              ->setStatusCode(200);
@@ -35,5 +30,31 @@ class TripController extends Controller
 
         return ApiResponder::respondWithMessage('trip created')
                              ->setStatusCode(201);
+    }
+
+    public function transactions($since)
+    {
+        $trips = $this->trips()->where('start', '>', $since)->get();
+
+        if ($trips->isEmpty()) {
+            return ApiResponder::respondWithNoContent()
+                                 ->setStatusCode(304);
+        }
+
+        return ApiResponder::respondWithCollection($trips, new TripTransformer)
+                             ->setStatusCode(200);
+    }
+
+    private function trips()
+    {
+        return Auth::user()->trips()->with([
+            'car' => function ($query) {
+                $query->select('id');
+            },
+
+            'supervisor' => function ($query) {
+                $query->select('id');
+            }
+        ]);        
     }
 }
