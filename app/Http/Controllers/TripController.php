@@ -36,11 +36,6 @@ class TripController extends Controller
     {
         $trips = $this->trips()->where('started_at', '>', $since)->get();
 
-        if ($trips->isEmpty()) {
-            return ApiResponder::respondWithNoContent()
-                                 ->setStatusCode(304);
-        }
-
         return ApiResponder::respondWithCollection($trips, new TripTransformer)
                              ->setStatusCode(200);
     }

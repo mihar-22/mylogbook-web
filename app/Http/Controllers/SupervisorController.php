@@ -58,11 +58,6 @@ class SupervisorController extends Controller
     {
         $supervisors = $this->supervisors()->where('updated_at', '>', $since)->get();
 
-        if ($supervisors->isEmpty()) {
-            return ApiResponder::respondWithNoContent()
-                                 ->setStatusCode(304);
-        }
-
         return ApiResponder::respondWithCollection($supervisors, new SupervisorTransformer)
                              ->setStatusCode(200);
     }

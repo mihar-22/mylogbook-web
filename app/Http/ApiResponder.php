@@ -32,11 +32,6 @@ class ApiResponder
         return $this->respond($message, null, $errors);
     }
 
-    public function respondWithNoContent()
-    {
-        return response([]);
-    }
-
     public function respondWithCollection($collection, TransformerAbstract $transformer)
     {
         $message = $collection->isEmpty() ? "empty collection" 
@@ -44,7 +39,7 @@ class ApiResponder
 
         $resource = new Collection($collection, $transformer);
 
-        $data = $this->serialize($resource)['data']; 
+        $data = $this->serialize($resource)['data'];
 
         return $this->respond($message, $data);
     }
@@ -55,7 +50,7 @@ class ApiResponder
             'message' => $message, 
             'data' => $data, 
             'errors' => $errors
-        ]);
+        ], function ($value) { return ! is_null($value); });
 
         return response($response);
     }

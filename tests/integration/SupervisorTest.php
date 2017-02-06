@@ -116,13 +116,14 @@ class SupervisorTest extends TestCase
     }
 
     /** @test */
-    public function transactions_returns_no_conflict()
+    public function transactions_empty()
     {
         $since = Carbon::now();
-
-        $this->makeJsonRequest('GET', $since);
     
-        $this->assertResponseStatus(304);
+        $this->makeJsonRequest('GET', $since);
+
+        $this->seeJsonContains(['message' => 'empty collection', 'data' => []])
+             ->assertResponseStatus(200);
     }
 
     private function makeJsonRequest($method, $id = '', $params = [])

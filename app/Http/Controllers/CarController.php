@@ -58,11 +58,6 @@ class CarController extends Controller
     {
         $cars = $this->cars()->where('updated_at', '>', $since)->get();
 
-        if ($cars->isEmpty()) {
-            return ApiResponder::respondWithNoContent()
-                                 ->setStatusCode(304);
-        }
-
         return ApiResponder::respondWithCollection($cars, new CarTransformer)
                              ->setStatusCode(200);
     }
