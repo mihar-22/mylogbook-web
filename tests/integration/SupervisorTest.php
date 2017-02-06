@@ -43,6 +43,15 @@ class SupervisorTest extends TestCase
     }
 
     /** @test */
+    public function index_empty()
+    {
+        $this->makeJsonRequest('GET');
+
+        $this->seeJsonContains(['message' => 'empty collection'])
+             ->assertResponseStatus(200);
+    }
+
+    /** @test */
     public function store()
     {
         $newSupervisor = $this->makeSupervisor()->toArray();

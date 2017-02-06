@@ -39,7 +39,8 @@ class ApiResponder
 
     public function respondWithCollection($collection, TransformerAbstract $transformer)
     {
-        $message = "collection of {$collection[0]->getTable()}";
+        $message = $collection->isEmpty() ? "empty collection" 
+                                          : "collection of {$collection[0]->getTable()}";
 
         $resource = new Collection($collection, $transformer);
 
