@@ -11,7 +11,9 @@ class CarTest extends TestCase
 
     private $user;
 
-    private $cars;
+    private $relation;
+
+    private $table = 'cars';
 
     public function setUp()
     {
@@ -19,148 +21,86 @@ class CarTest extends TestCase
 
         $this->user = factory(User::class)->create();
 
-        $this->cars = factory(Car::class, 3)->create(['user_id' => $this->user->id]);
+        $this->relation = ['user_id' => $this->user->id];
     }
 
     /** @test */
     public function index()
     {
-        factory(Car::class, 3)->create([
-             'user_id' => $this->user->id,
-             'deleted_at' => Carbon::now()
-        ]);
+        $nofOfCars = 3;
 
-        $this->actingAs($this->user)
-             ->getJson($this->getEndPoint());
+        $this->createCars($nofOfCars);
+
+        $this->createCars($nofOfCars, ['deleted_at' => Carbon::now()]);
+
+        $this->makeJsonRequest('GET');
 
         $this->seeJsonContains(['message' => 'collection of cars'])
              ->assertResponseStatus(200);
 
-        $this->assertCount(6, json_decode($this->response->content())->data);
+        $this->assertCount(($nofOfCars * 2), json_decode($this->response->content())->data);
     }
 
     /** @test */
-    public function store_car()
+    public function store()
     {
-        $newCar = [
-            'make' => 'Volkswagen',
-            'model' => 'Jetta',
-            'registration' => 'AAA111',
-            'type' => 'sports'
-        ];
+        $newCar = $this->makeCar()->toArray();
 
-        $this->actingAs($this->user)
-             ->postJson($this->getEndPoint(), $newCar);
+        $this->makeJsonRequest('POST', null, $newCar);
 
-        $this->seeJsonContains(['message' => 'car created', 'data' => ['id' => Car::find(4)->id]])
+        $this->seeJsonContains(['message' => 'car created', 'data' => ['id' => 1]])
              ->assertResponseStatus(201);
 
-        $this->seeInDatabase('cars', array_merge($newCar, ['user_id' => $this->user->id]));
+        $this->seeInDatabase($this->table, $newCar);
     }
 
     /** @test */
-    public function store_car_without_authentication()
+    public function update()
     {
-        $this->postJson($this->getEndPoint());
+        $id = $this->createCars(1)->id;
 
-        $this->seeUnauthenticatedResponse();
-    }
+        $update = $this->makeCar()->toArray();
 
-    /** @test */
-    public function update_car()
-    {
-        $update = [
-            'id' => $this->cars[0]->id,
-            'make' => 'Volkswagen',
-            'model' => 'Jetta',
-            'registration' => 'BBB222', 
-            'type' => 'sedan'
-        ];
+        $update['id'] = $id;
 
-        $this->actingAs($this->user)
-             ->putJson($this->getEndPoint($update['id']), $update);
+        $this->makeJsonRequest('PUT', $id, $update);
 
         $this->seeJsonContains(['message' => 'car updated'])
              ->assertResponseStatus(200);
 
-        $this->seeInDatabase('cars', $update);
+        $this->seeInDatabase($this->table, $update);
     }
 
     /** @test */
-    public function update_car_without_authentication()
+    public function destroy()
     {
-        $id = $this->cars[0]->id;
+        $id = $this->createCars(1)->id;
 
-        $this->putJson($this->getEndPoint($id));
-
-        $this->seeUnauthenticatedResponse();
-    }
-
-    /** @test */
-    public function update_car_without_authorization()
-    {
-        $unownedCarId = $this->createUserAndCarsForUser()[0]->id;
-
-        $this->actingAs($this->user)
-             ->putJson($this->getEndPoint($unownedCarId));
-
-        $this->seeUnauthorizedResponse();        
-    }
-
-    /** @test */
-    public function delete_car()
-    {
-        $id = $this->cars[0]->id;
-
-        $this->actingAs($this->user)
-             ->deleteJson($this->getEndPoint($id));
+        $this->makeJsonRequest('DELETE', $id);
 
         $this->seeJsonContains(['message' => 'car deleted'])
              ->assertResponseStatus(200);
 
-        $this->seeInDatabase('cars', ['id' => $id, 'deleted_at' => Carbon::now()]);    
-    }
-
-    /** @test */
-    public function delete_car_without_authentication()
-    {
-        $id = $this->cars[0]->id;
-
-        $this->deleteJson($this->getEndPoint($id));
-
-        $this->seeUnauthenticatedResponse();
-    }
-
-    /** @test */
-    public function delete_car_without_authorization()
-    {
-        $unownedCarId = $this->createUserAndCarsForUser()[0]->id;
-
-        $this->actingAs($this->user)
-             ->deleteJson($this->getEndPoint($unownedCarId));
-
-        $this->seeUnauthorizedResponse();
-
-        $this->seeInDatabase('cars', ['id' => $unownedCarId]);
+        $this->seeInDatabase($this->table, ['id' => $id, 'deleted_at' => Carbon::now()]);    
     }
 
     /** @test */
     public function transactions()
-    {
-        $since = Carbon::now();
-    
-        factory(Car::class, 5)->create([
-            'user_id' => $this->user->id,
-            'updated_at' => Carbon::now()->addDays(1)
-        ]);
+    {    
+        $this->createCars(3);
 
-        $this->actingAs($this->user)
-             ->getJson($this->getEndPoint($since));
+        $since = Carbon::now()->addHours(5);
+
+        $noOfTripsSince = 5;
+
+        $this->createCars($noOfTripsSince, ['updated_at' => Carbon::now()->addDays(1)]);
+
+        $this->makeJsonRequest('GET', $since);
 
         $this->seeJsonContains(['message' => 'collection of cars'])
              ->assertResponseStatus(200);
 
-        $this->assertCount(5, json_decode($this->response->content())->data);
+        $this->assertCount($noOfTripsSince, json_decode($this->response->content())->data);
     }
 
     /** @test */
@@ -168,33 +108,27 @@ class CarTest extends TestCase
     {
         $since = Carbon::now();
     
-        $this->actingAs($this->user)
-             ->getJson($this->getEndPoint($since));
+        $this->makeJsonRequest('GET', $since);
 
         $this->assertResponseStatus(304);
     }
 
-    private function createUserAndCarsForUser()
+    private function makeCar()
     {
-        $user = factory(User::class)->create();
-
-        return factory(Car::class, 3)->create(['user_id' => $user->id]);
+        return factory(Car::class)->make($this->relation);
     }
 
-    private function getEndPoint($id = '')
+    private function createCars($amount, $attributes= [])
     {
-        return "api/v1/cars/{$id}";
+        $attributes = array_merge($this->relation, $attributes);
+        
+        return factory(Car::class, $amount)->create($attributes);
     }
 
-    private function seeUnauthenticatedResponse()
+    private function makeJsonRequest($method, $id = '', $params = [])
     {
-        $this->seeJsonContains(['message' => 'unauthenticated'])
-             ->assertResponseStatus(401);
-    }
+        $endPoint = "api/v1/cars/{$id}";
 
-    private function seeUnauthorizedResponse()
-    {
-        $this->seeJsonContains(['message' => 'unauthorized'])
-             ->assertResponseStatus(403);        
+        $this->actingAs($this->user)->json($method, $endPoint, $params);
     }
 }

@@ -12,7 +12,9 @@ class SupervisorTest extends TestCase
 
     private $user;
 
-    private $supervisors;
+    private $relation;
+
+    private $table = 'supervisors';
 
     public function setUp()
     {
@@ -20,182 +22,116 @@ class SupervisorTest extends TestCase
 
         $this->user = factory(User::class)->create();
 
-        $this->supervisors = factory(Supervisor::class, 3)->create(['user_id' => $this->user->id]);
+        $this->relation = ['user_id' => $this->user->id];
     }
 
     /** @test */
     public function index()
     {
-        factory(Supervisor::class, 3)->create([
-            'user_id' => $this->user->id,
-            'deleted_at' => Carbon::now()
-        ]);
+        $nofOfSupervisors = 3;
 
-        $this->actingAs($this->user)
-             ->getJson($this->getEndPoint());
+        $this->createSupervisors($nofOfSupervisors);
+
+        $this->createSupervisors($nofOfSupervisors, ['deleted_at' => Carbon::now()]);
+
+        $this->makeJsonRequest('GET');
 
         $this->seeJsonContains(['message' => 'collection of supervisors'])
              ->assertResponseStatus(200);
 
-        $this->assertCount(6, json_decode($this->response->content())->data);
+        $this->assertCount(($nofOfSupervisors * 2), json_decode($this->response->content())->data);
     }
 
     /** @test */
-    public function store_supervisor()
+    public function store()
     {
-        $newSupervisor = [
-            'first_name' => 'John',
-            'last_name' => 'Doe',
-            'license' => '987654321',
-            'gender' => 'male'
-        ];
+        $newSupervisor = $this->makeSupervisor()->toArray();
 
-        $this->actingAs($this->user)
-             ->postJson($this->getEndPoint(), $newSupervisor);
+        $this->makeJsonRequest('POST', null, $newSupervisor);
 
-        $this->seeJsonContains(['message' => 'supervisor created', 'data' => ['id' => Supervisor::find(4)->id]])
+        $this->seeJsonContains(['message' => 'supervisor created', 'data' => ['id' => 1]])
              ->assertResponseStatus(201);
 
-        $this->seeInDatabase('supervisors', array_merge($newSupervisor, ['user_id' => $this->user->id]));
+        $this->seeInDatabase($this->table, $newSupervisor);
     }
 
     /** @test */
-    public function store_supervisor_without_authentication()
+    public function update()
     {
-        $this->postJson($this->getEndPoint());
+        $id = $this->createSupervisors(1)->id;
 
-        $this->seeUnauthenticatedResponse();
-    }
+        $update = $this->makeSupervisor()->toArray();
 
-    /** @test */
-    public function update_supervisor()
-    {
-        $update = [
-            'id' => $this->supervisors[0]->id, 
-            'first_name' => 'Jessie',
-            'last_name' => 'Loe',
-            'license' => '123456789',
-            'gender' => 'female'
-        ];
+        $update['id'] = $id;
 
-        $this->actingAs($this->user)
-             ->putJson($this->getEndPoint($update['id']), $update);
+        $this->makeJsonRequest('PUT', $id, $update);
 
         $this->seeJsonContains(['message' => 'supervisor updated'])
              ->assertResponseStatus(200);
 
-        $this->seeInDatabase('supervisors', $update);
+        $this->seeInDatabase($this->table, $update);
     }
 
     /** @test */
-    public function update_supervisor_without_authentication()
+    public function destroy()
     {
-        $id = $this->supervisors[0]->id;
+        $id = $this->createSupervisors(1)->id;
 
-        $this->putJson($this->getEndPoint($id));
-
-        $this->seeUnauthenticatedResponse();
-    }
-
-    /** @test */
-    public function update_supervisor_without_authorization()
-    {
-        $unownedSupervisorId = $this->createUserAndSupervisorsForUser()[0]->id;
-
-        $this->actingAs($this->user)
-             ->putJson($this->getEndPoint($unownedSupervisorId));
-
-        $this->seeUnauthorizedResponse();        
-    }
-
-    /** @test */
-    public function delete_supervisor()
-    {
-        $id = $this->supervisors[0]->id;
-
-        $this->actingAs($this->user)
-             ->deleteJson($this->getEndPoint($id));
+        $this->makeJsonRequest('DELETE', $id);
 
         $this->seeJsonContains(['message' => 'supervisor deleted'])
              ->assertResponseStatus(200);
 
-        $this->seeInDatabase('supervisors', ['id' => $id, 'deleted_at' => Carbon::now()]); 
-    }
-
-    /** @test */
-    public function delete_supervisor_without_authentication()
-    {
-        $id = $this->supervisors[0]->id;
-
-        $this->deleteJson($this->getEndPoint($id));
-
-        $this->seeUnauthenticatedResponse();
-    }
-
-    /** @test */
-    public function delete_supervisor_without_authorization()
-    {
-        $unownedSupervisorId = $this->createUserAndSupervisorsForUser()[0]->id;
-
-        $this->actingAs($this->user)
-             ->deleteJson($this->getEndPoint($unownedSupervisorId));
-
-        $this->seeUnauthorizedResponse();
-
-        $this->seeInDatabase('supervisors', ['id' => $unownedSupervisorId]);
+        $this->seeInDatabase($this->table, ['id' => $id, 'deleted_at' => Carbon::now()]); 
     }
 
     /** @test */
     public function transactions()
-    {
-        $since = Carbon::now();
-    
-        factory(Supervisor::class, 5)->create([
-            'user_id' => $this->user->id,
+    {    
+        $this->createSupervisors(3);
+
+        $since = Carbon::now()->addHours(5);
+
+        $noOfTripsSince = 5;
+
+        $this->createSupervisors($noOfTripsSince, [
             'updated_at' => Carbon::now()->addDays(1)
         ]);
 
-        $this->actingAs($this->user)
-             ->getJson($this->getEndPoint($since));
+        $this->makeJsonRequest('GET', $since);
 
         $this->seeJsonContains(['message' => 'collection of supervisors'])
              ->assertResponseStatus(200);
 
-        $this->assertCount(5, json_decode($this->response->content())->data);
+        $this->assertCount($noOfTripsSince, json_decode($this->response->content())->data);
     }
 
     /** @test */
     public function transactions_returns_no_conflict()
     {
         $since = Carbon::now();
-    
-        $this->actingAs($this->user)
-             ->getJson($this->getEndPoint($since));
 
+        $this->makeJsonRequest('GET', $since);
+    
         $this->assertResponseStatus(304);
     }
 
-    private function createUserAndSupervisorsForUser()
+    private function makeJsonRequest($method, $id = '', $params = [])
     {
-        $user = factory(User::class)->create();
+        $endPoint = "api/v1/supervisors/{$id}";
 
-        return factory(Supervisor::class, 3)->create(['user_id' => $user->id]);
+        $this->actingAs($this->user)->json($method, $endPoint, $params);
     }
 
-    private function getEndPoint($id = '')
+    private function makeSupervisor()
     {
-        return "api/v1/supervisors/{$id}";
+        return factory(Supervisor::class)->make($this->relation);
     }
 
-    private function seeUnauthenticatedResponse()
+    private function createSupervisors($amount, $attributes= [])
     {
-        $this->seeJsonContains(['message' => 'unauthenticated'])
-             ->assertResponseStatus(401);
-    }
-
-    private function seeUnauthorizedResponse()
-    {
-        $this->seeJsonContains(['message' => 'unauthorized'])
-             ->assertResponseStatus(403);        
+        $attributes = array_merge($this->relation, $attributes);
+        
+        return factory(Supervisor::class, $amount)->create($attributes);
     }
 }

@@ -4,6 +4,7 @@ use App\Models\Car;
 use App\Models\Supervisor;
 use App\Models\Trip;
 use App\Models\User;
+use Carbon\Carbon;
 use Faker\Generator;
 
 /*
@@ -68,10 +69,10 @@ $factory->define(Supervisor::class, function (Generator $faker) {
 
 $factory->define(Trip::class, function (Generator $faker) {
     return [
-        'start' => $faker->dateTime,
-        'end' => $faker->dateTime,
+        'start' => Carbon::now()->toDateTimeString(),
+        'end' => Carbon::now()->addHours(1)->toDateTimeString(),
         'odometer' => $faker->numberBetween(10000, 180000),
-        'distance' => $faker->randomFloat(2, 5, 30),
+        'distance' => $faker->randomFloat(2, 3, 30),
         
         // Weather
         'clear' => $faker->boolean,
