@@ -15,8 +15,8 @@ class CreateTripsTable extends Migration
     {
         Schema::create('trips', function (Blueprint $table) {
             $table->increments('id');
-            $table->dateTime('start');
-            $table->dateTime('end');
+            $table->dateTime('started_at');
+            $table->dateTime('ended_at');
             $table->integer('odometer');
             $table->decimal('distance', 6, 2);
             

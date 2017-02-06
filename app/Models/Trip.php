@@ -13,6 +13,8 @@ class Trip extends Model
 
     protected $table = 'trips';
 
+    protected $dates = ['started_at', 'ended_at'];
+
     protected $casts = [
         // Weather
         'clear' => 'boolean',
@@ -34,8 +36,8 @@ class Trip extends Model
     ];
 
     protected $fillable = [
-    	'start',
-    	'end',
+    	'started_at',
+    	'ended_at',
     	'odometer',    	
     	'distance',
 

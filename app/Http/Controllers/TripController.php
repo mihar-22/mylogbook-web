@@ -34,7 +34,7 @@ class TripController extends Controller
 
     public function transactions($since)
     {
-        $trips = $this->trips()->where('start', '>', $since)->get();
+        $trips = $this->trips()->where('started_at', '>', $since)->get();
 
         if ($trips->isEmpty()) {
             return ApiResponder::respondWithNoContent()

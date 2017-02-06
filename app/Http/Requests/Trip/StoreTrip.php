@@ -27,8 +27,8 @@ class StoreTrip extends FormRequest
     public function rules()
     {
         return [
-            'start' => 'required|date_format:Y-m-d H:i:s|after:today',
-            'end' => 'required|date_format:Y-m-d H:i:s|after:start',
+            'started_at' => 'required|date_format:Y-m-d H:i:s|after:today',
+            'ended_at' => 'required|date_format:Y-m-d H:i:s|after:started_at',
             'odometer' => 'required|integer|max:999999',
             'distance' => 'required|regex:/^(\d{1,6})(\.)(\d{1,2})$/',
             'car_id' => 'required|integer',

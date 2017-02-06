@@ -72,8 +72,8 @@ class TripTest extends TestCase
         $noOfTripsSince = 5;
 
         $this->createTrips($noOfTripsSince, [
-            'start' => Carbon::now()->addDays(1),
-            'end' => Carbon::now()->addDays(1)->addHours(1)
+            'started_at' => Carbon::now()->addDays(1),
+            'ended_at' => Carbon::now()->addDays(1)->addHours(1)
         ]);
 
         $this->makeJsonRequest('GET', $since);
