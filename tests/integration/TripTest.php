@@ -65,7 +65,7 @@ class TripTest extends TestCase
 
         $this->makeJsonRequest('POST', null, $newTrip);
 
-        $this->seeJsonContains(['message' => 'trip created'])
+        $this->seeJsonContains(['message' => 'trip created', 'id' => 1])
              ->assertResponseStatus(201);
 
         $this->seeInDatabase('trips', Trip::flatten($newTrip));
