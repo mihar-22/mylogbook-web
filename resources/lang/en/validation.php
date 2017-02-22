@@ -89,7 +89,7 @@ return [
     // Extensions
 
     'alpha_space'          => 'The :attribute may only contain letters and spaces.',
-    'alpha_num_space'      => 'The :attribute may only contain letters, numbers and spaces',
+    'alpha_num_space'      => 'The :attribute may only contain letters, numbers and spaces.',
 
     /*
     |--------------------------------------------------------------------------
