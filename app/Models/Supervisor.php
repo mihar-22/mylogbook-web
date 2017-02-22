@@ -13,6 +13,8 @@ class Supervisor extends Model
 
     protected $table = 'supervisors';
 
+    protected $dates = ['deleted_at'];
+
     protected $fillable = [
     	'first_name', 
         'last_name',
