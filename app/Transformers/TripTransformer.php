@@ -25,7 +25,7 @@ class TripTransformer extends TransformerAbstract
             'traffic' => [
                 'light' => (boolean) $trip->light,
                 'moderate' => (boolean) $trip->moderate,
-                'heavy' => (boolean) $trip->traffic
+                'heavy' => (boolean) $trip->heavy
             ],
             'roads' => [
                 'local_street' => (boolean) $trip->local_street,
