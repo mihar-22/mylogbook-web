@@ -34,6 +34,10 @@ class TripTransformer extends TransformerAbstract
                 'freeway' => (boolean) $trip->freeway,
                 'rural_highway' => (boolean) $trip->rural_highway,
                 'gravel' => (boolean) $trip->gravel
+            ],
+            'location' => [
+                'latitude' => (double) $trip->latitude,
+                'longitude' => (double) $trip->longitude,
             ]
         ];
     }

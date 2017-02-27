@@ -61,7 +61,11 @@ class Trip extends Model
 
         // Resources
         'car_id',
-        'supervisor_id'
+        'supervisor_id',
+
+        // Location
+        'latitude',
+        'longitude'
     ];
 
     public function user()

@@ -63,6 +63,11 @@ class TripTest extends TestCase
     {
         $newTrip = $this->makeTrip()->toArray();
 
+        $newTrip['location'] = [
+            'latitude' => array_pull($newTrip, 'latitude'),
+            'longitude' => array_pull($newTrip, 'longitude')
+        ];
+
         $this->makeJsonRequest('POST', null, $newTrip);
 
         $this->seeJsonContains(['message' => 'trip created', 'id' => 1])

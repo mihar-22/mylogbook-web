@@ -38,6 +38,10 @@ class CreateTripsTable extends Migration
             $table->boolean('rural_highway')->default(false);
             $table->boolean('gravel')->default(false);
 
+            // Location
+            $table->decimal('latitude', 10, 8);
+            $table->decimal('longitude', 11, 8);
+
             // Foreign Keys
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

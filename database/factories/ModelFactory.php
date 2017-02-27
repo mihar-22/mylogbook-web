@@ -90,6 +90,10 @@ $factory->define(Trip::class, function (Generator $faker) {
         'inner_city'=> $faker->boolean,
         'freeway'=> $faker->boolean,
         'rural_highway'=> $faker->boolean,
-        'gravel' => $faker->boolean
+        'gravel' => $faker->boolean,
+
+        // Location
+        'latitude' => $faker->randomFloat(8, -37, -38),
+        'longitude' => $faker->randomFloat(8, 144, 145)
     ];
 });
