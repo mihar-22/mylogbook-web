@@ -50,7 +50,8 @@ class StoreTrip extends FormRequest
             'roads.gravel' => 'boolean',
 
             'location.latitude' => 'required|regex:/^(-)?(\d){1,2}(\.)(\d{5,8})$/',
-            'location.longitude' => 'required|regex:/^(-)?(\d{1,3})(\.)(\d{5,8})$/'
+            'location.longitude' => 'required|regex:/^(-)?(\d{1,3})(\.)(\d{5,8})$/',
+            'location.timezone' => 'required|string|max:100'
         ];  
     }
 }

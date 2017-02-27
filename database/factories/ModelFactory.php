@@ -94,6 +94,7 @@ $factory->define(Trip::class, function (Generator $faker) {
 
         // Location
         'latitude' => $faker->randomFloat(8, -37, -38),
-        'longitude' => $faker->randomFloat(8, 144, 145)
+        'longitude' => $faker->randomFloat(8, 144, 145),
+        'timezone' => 'Australia/Melbourne'
     ];
 });

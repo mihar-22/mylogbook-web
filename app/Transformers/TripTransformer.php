@@ -38,6 +38,7 @@ class TripTransformer extends TransformerAbstract
             'location' => [
                 'latitude' => (double) $trip->latitude,
                 'longitude' => (double) $trip->longitude,
+                'timezone' => (string) $trip->timezone 
             ]
         ];
     }

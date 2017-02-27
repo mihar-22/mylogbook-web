@@ -65,7 +65,8 @@ class Trip extends Model
 
         // Location
         'latitude',
-        'longitude'
+        'longitude',
+        'timezone'
     ];
 
     public function user()

@@ -65,7 +65,8 @@ class TripTest extends TestCase
 
         $newTrip['location'] = [
             'latitude' => array_pull($newTrip, 'latitude'),
-            'longitude' => array_pull($newTrip, 'longitude')
+            'longitude' => array_pull($newTrip, 'longitude'),
+            'timezone' => array_pull($newTrip, 'timezone')
         ];
 
         $this->makeJsonRequest('POST', null, $newTrip);
