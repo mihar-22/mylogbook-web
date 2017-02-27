@@ -49,8 +49,8 @@ class StoreTrip extends FormRequest
             'roads.rural_highway' => 'boolean',
             'roads.gravel' => 'boolean',
 
-            'location.latitude' => 'required|regex:/^(-)?(\d){1,2}(\.)(\d{8})$/',
-            'location.longitude' => 'required|regex:/^(-)?(\d{1,3})(\.)(\d{8})$/'
+            'location.latitude' => 'required|regex:/^(-)?(\d){1,2}(\.)(\d{5,8})$/',
+            'location.longitude' => 'required|regex:/^(-)?(\d{1,3})(\.)(\d{5,8})$/'
         ];  
     }
 }
