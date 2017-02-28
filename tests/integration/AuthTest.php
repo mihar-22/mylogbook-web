@@ -42,6 +42,33 @@ class AuthTest extends TestCase
     }
 
     /** @test */
+    public function check_authenticated()
+    {
+        $user = factory(User::class)->create();
+
+        $this->actingAs($user)
+             ->getJson($this->getEndPoint('check'));               
+
+        $this->seeJsonContains(['message' => 'authenticated'])
+             ->assertResponseStatus(200);
+    }
+
+    /** @test */
+    public function check_unauthenticated()
+    {
+        $user = factory(User::class)->create();
+
+        $token = $user->api_token;
+
+        $user->invalidateApiToken();
+
+        $this->getJson($this->getEndPoint('check'), ['Authorization' => "Bearer {$token}"]);               
+
+        $this->seeJsonContains(['message' => 'unauthenticated'])
+             ->assertResponseStatus(401);
+    }
+
+    /** @test */
     public function login()
     {
         $this->user->confirmEmail();

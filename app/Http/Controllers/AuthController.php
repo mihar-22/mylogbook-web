@@ -17,7 +17,7 @@ class AuthController extends Controller
 
 	public function __construct(User $users, EmailBroker $broker)
 	{    
-		$this->middleware('auth')->only('logout');
+		$this->middleware('auth')->only(['check', 'logout']);
 
         $this->users = $users;
 
@@ -34,6 +34,12 @@ class AuthController extends Controller
 
         return ApiResponder::respondWithMessage('confirmation email sent')
                              ->setStatusCode(201);
+    }
+
+    public function check()
+    {
+        return ApiResponder::respondWithMessage('authenticated')
+                             ->setStatusCode(200);
     }
 
     public function login(LoginUser $request)

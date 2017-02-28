@@ -24,6 +24,8 @@ Route::group(['prefix' => 'v1'], function () {
 		
 		Route::get('logout', 'AuthController@logout');
 
+		Route::get('check', 'AuthController@check');
+
 		Route::post('forgot', 'PasswordController@sendResetLink');
 	});
 
