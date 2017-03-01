@@ -59,6 +59,7 @@ class AuthController extends Controller
         $user->generateApiToken();
 
         $data = [
+            'id' => $user->id,
             'name' => $user->name,
             'api_token' => $user->api_token
         ];
