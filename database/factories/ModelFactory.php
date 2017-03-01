@@ -72,7 +72,7 @@ $factory->define(Trip::class, function (Generator $faker) {
         'started_at' => Carbon::now()->toDateTimeString(),
         'ended_at' => Carbon::now()->addHours(1)->toDateTimeString(),
         'odometer' => $faker->numberBetween(10000, 180000),
-        'distance' => $faker->randomFloat(2, 3, 30),
+        'distance' => $faker->randomFloat(2, 5000, 15000),
         
         // Weather
         'clear' => $faker->boolean,

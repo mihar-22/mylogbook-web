@@ -18,7 +18,7 @@ class CreateTripsTable extends Migration
             $table->dateTime('started_at');
             $table->dateTime('ended_at');
             $table->integer('odometer');
-            $table->decimal('distance', 6, 2);
+            $table->decimal('distance', 11, 2);
             
             // Weather
             $table->boolean('clear')->default(false);
