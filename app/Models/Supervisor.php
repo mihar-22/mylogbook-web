@@ -15,11 +15,14 @@ class Supervisor extends Model
 
     protected $dates = ['deleted_at'];
 
+    protected $casts = ['is_accredited' => 'boolean'];
+
     protected $fillable = [
     	'first_name', 
         'last_name',
         'license',
-        'gender'
+        'gender',
+        'is_accredited'
     ];
 
     protected $hidden = ['user_id'];

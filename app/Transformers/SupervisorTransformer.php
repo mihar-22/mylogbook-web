@@ -15,6 +15,7 @@ class SupervisorTransformer extends TransformerAbstract
             'last_name' => $supervisor->last_name,
             'license' => $supervisor->license,
             'gender' => $supervisor->gender,
+            'is_accredited' => (bool) $supervisor->is_accredited,
             'created_at' => (string) $supervisor->created_at,
             'updated_at' => (string) $supervisor->updated_at,
             'deleted_at' => $supervisor->deleted_at ? (string) $supervisor->deleted_at : null
