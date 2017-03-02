@@ -38,7 +38,7 @@ class CarController extends Controller
     {
         $car = Auth::user()->cars()->find($id);
 
-        $car->update(array_filter($request->all()));
+        $car->update($request->all());
 
         return ApiResponder::respondWithMessage('car updated')
                              ->setStatusCode(200);

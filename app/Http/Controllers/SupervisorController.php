@@ -38,7 +38,7 @@ class SupervisorController extends Controller
     {
         $supervisor = Auth::user()->supervisors()->find($id);
 
-        $supervisor->update(array_filter($request->all()));
+        $supervisor->update($request->all());
 
         return ApiResponder::respondWithMessage('supervisor updated')
                              ->setStatusCode(200);
