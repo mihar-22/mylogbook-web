@@ -78,7 +78,8 @@ class AuthTest extends TestCase
         $this->seeJsonContains(['data' => [
             'id' => $this->user->id,
             'name' => $this->user->name,
-            'api_token' => User::find(1)->api_token
+            'api_token' => User::find(1)->api_token,
+            'birthday' => $this->user->birthday
         ]])->assertResponseStatus(200);
     }
 

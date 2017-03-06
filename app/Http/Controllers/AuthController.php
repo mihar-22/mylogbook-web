@@ -26,9 +26,7 @@ class AuthController extends Controller
 
     public function register(RegisterUser $request)
     {
-    	$newUser = $request->only(['name', 'email', 'password']);
-
-    	$user = $this->users->create($newUser);
+    	$user = $this->users->create($request->all());
 
     	$this->broker->sendVerifyLink($user);
 
@@ -61,7 +59,8 @@ class AuthController extends Controller
         $data = [
             'id' => $user->id,
             'name' => $user->name,
-            'api_token' => $user->api_token
+            'api_token' => $user->api_token,
+            'birthday' => $user->birthday
         ];
 
         return ApiResponder::respondWithData('user authenticated', $data)

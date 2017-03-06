@@ -25,6 +25,7 @@ $factory->define(User::class, function (Generator $faker) {
     return [
         'name' => "{$faker->firstName} {$faker->lastName}",
         'email' => $faker->unique()->safeEmail,
+        'birthday' => Carbon::parse('15 years ago')->toDateString(),
         'password' => 'secret',
         'api_token' => 'secretToken',
         'is_verified' => 1
