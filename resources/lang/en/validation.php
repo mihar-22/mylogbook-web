@@ -91,6 +91,13 @@ return [
     'alpha_space'          => 'The :attribute may only contain letters and spaces.',
     'alpha_num_space'      => 'The :attribute may only contain letters, numbers and spaces.',
 
+    'latitude'             => 'The :attribute must be a valid latitude value.',
+    'longitude'            => 'The :attribute must be a valid longitude value.',
+
+    'weather'              => 'The :attribute must be a comma separated string containing valid weather values.',
+    'traffic'              => 'The :attribute must be a comma separated string containing valid traffic values.',
+    'roads'                => 'The :attribute must be a comma separated string containing valid road values. ',
+
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Language Lines

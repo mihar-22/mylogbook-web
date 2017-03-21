@@ -63,18 +63,12 @@ class TripTest extends TestCase
     {
         $newTrip = $this->makeTrip()->toArray();
 
-        $newTrip['location'] = [
-            'latitude' => array_pull($newTrip, 'latitude'),
-            'longitude' => array_pull($newTrip, 'longitude'),
-            'timezone' => array_pull($newTrip, 'timezone')
-        ];
-
         $this->makeJsonRequest('POST', null, $newTrip);
 
         $this->seeJsonContains(['message' => 'trip created', 'id' => 1])
              ->assertResponseStatus(201);
 
-        $this->seeInDatabase('trips', Trip::flatten($newTrip));
+        $this->seeInDatabase('trips', $newTrip);
     }
 
     /** @test */

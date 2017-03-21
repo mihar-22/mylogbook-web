@@ -9,64 +9,42 @@ use Illuminate\Database\Eloquent\Model;
 
 class Trip extends Model
 {
+    // C = Clear, R = Rain, T = Thunder, F = Fog, H = Hail, S = Snow
+    public static $weatherConditions = [
+        'C', 'R', 'T', 'F', 'H', 'S'
+    ];
+
+    // L = Light, M = Moderate, H = Heavy
+    public static $trafficConditions = [
+        'L', 'M', 'H'
+    ];
+
+    // L = Local Street, M = Main Road, I = Inner City, F = Freeway, R = Rural Road, G = Gravel
+    public static $roadConditions = [
+        'L', 'M', 'I', 'F', 'R', 'G'
+    ];
+
 	public $timestamps = false;
 
     protected $table = 'trips';
 
     protected $dates = ['started_at', 'ended_at'];
 
-    protected $casts = [
-        // Weather
-        'clear' => 'boolean',
-        'rain' => 'boolean',
-        'thunder' => 'boolean',
-
-        // Traffic
-        'light' => 'boolean',
-        'moderate' => 'boolean',
-        'heavy' => 'boolean',
-
-        // Roads
-        'local_street' => 'boolean',
-        'main_road' => 'boolean',
-        'inner_city' => 'boolean',
-        'freeway' => 'boolean',
-        'rural_highway' => 'boolean',
-        'gravel' => 'boolean'
-    ];
-
     protected $fillable = [
     	'started_at',
     	'ended_at',
     	'odometer',    	
     	'distance',
-
-    	// Weather
-    	'clear',
-    	'rain',
-    	'thunder',
-
-    	// Traffic
-    	'light',
-    	'moderate',
-    	'heavy',
-
-    	// Roads
-    	'local_street',
-    	'main_road',
-    	'inner_city',
-    	'freeway',
-    	'rural_highway',
-    	'gravel',
-
-        // Resources
+        'weather',
+        'traffic',
+        'roads',
+        'start_latitude',
+        'start_longitude',        
+        'end_latitude',
+        'end_longitude',
+        'timezone',
         'car_id',
         'supervisor_id',
-
-        // Location
-        'latitude',
-        'longitude',
-        'timezone'
     ];
 
     public function user()
@@ -82,16 +60,5 @@ class Trip extends Model
     public function supervisor()
     {
         return $this->belongsTo(Supervisor::class);
-    }
-
-    static public function flatten(array $trip) {
-        $flat = array();
-
-        foreach ($trip as $key => $value) {
-            if (is_array($value)) { $flat = array_merge($flat, $value); }
-            else { $flat[$key] = $value; }
-        }
-
-        return $flat;
     }
 }

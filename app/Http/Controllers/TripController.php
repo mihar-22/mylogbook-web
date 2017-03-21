@@ -26,7 +26,7 @@ class TripController extends Controller
 
     public function store(StoreTrip $request)
     {
-        $trip = Auth::user()->trips()->create(Trip::flatten($request->all()));
+        $trip = Auth::user()->trips()->create($request->all());
 
         return ApiResponder::respondWithData('trip created', ['id' => $trip->id])
                              ->setStatusCode(201);

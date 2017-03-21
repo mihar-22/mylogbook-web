@@ -33,25 +33,14 @@ class StoreTrip extends FormRequest
             'distance' => 'required|regex:/^(\d{1,11})(\.)(\d{1,2})$/',
             'car_id' => 'required|integer',
             'supervisor_id' => 'required|integer',
-            
-            'weather.clear' => 'boolean',
-            'weather.rain' => 'boolean',
-            'weather.thunder' => 'boolean',
-
-            'traffic.light' => 'boolean',
-            'traffic.moderate' => 'boolean',
-            'traffic.heavy' => 'boolean',
-
-            'roads.local_street' => 'boolean',
-            'roads.main_road' => 'boolean',
-            'roads.inner_city' => 'boolean',
-            'roads.freeway' => 'boolean',
-            'roads.rural_highway' => 'boolean',
-            'roads.gravel' => 'boolean',
-
-            'location.latitude' => 'required|regex:/^(-)?(\d){1,2}(\.)(\d{5,8})$/',
-            'location.longitude' => 'required|regex:/^(-)?(\d{1,3})(\.)(\d{5,8})$/',
-            'location.timezone' => 'required|string|max:100'
+            'weather' => 'required|weather',
+            'traffic' => 'required|traffic',
+            'roads' => 'required|roads',
+            'start_latitude' => 'required|latitude',
+            'start_longitude' => 'required|longitude',
+            'end_latitude' => 'required|latitude',
+            'end_longitude' => 'required|longitude',
+            'timezone' => 'required|string|max:100'
         ];  
     }
 }

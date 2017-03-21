@@ -75,28 +75,13 @@ $factory->define(Trip::class, function (Generator $faker) {
         'ended_at' => Carbon::now()->addHours(1)->toDateTimeString(),
         'odometer' => $faker->numberBetween(10000, 180000),
         'distance' => $faker->randomFloat(2, 5000, 15000),
-        
-        // Weather
-        'clear' => $faker->boolean,
-        'rain' => $faker->boolean,
-        'thunder'=> $faker->boolean,
-
-        // Traffic
-        'light'=> $faker->boolean,
-        'moderate'=> $faker->boolean,
-        'heavy'=> $faker->boolean,
-
-        // Roads
-        'local_street'=> $faker->boolean,
-        'main_road'=> $faker->boolean,
-        'inner_city'=> $faker->boolean,
-        'freeway'=> $faker->boolean,
-        'rural_highway'=> $faker->boolean,
-        'gravel' => $faker->boolean,
-
-        // Location
-        'latitude' => $faker->randomFloat(8, -37, -38),
-        'longitude' => $faker->randomFloat(8, 144, 145),
+        'weather' =>  implode(',', $faker->randomElements(Trip::$weatherConditions, $count = 2)),
+        'traffic' =>  implode(',', $faker->randomElements(Trip::$trafficConditions, $count = 2)),
+        'roads' =>  implode(',', $faker->randomElements(Trip::$roadConditions, $count = 2)),
+        'start_latitude' => $faker->randomFloat(8, -37, -38),
+        'start_longitude' => $faker->randomFloat(8, 144, 145),
+        'end_latitude' => $faker->randomFloat(8, -37, -38),
+        'end_longitude' => $faker->randomFloat(8, 144, 145),
         'timezone' => 'Australia/Melbourne'
     ];
 });

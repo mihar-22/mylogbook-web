@@ -17,27 +17,18 @@ class TripTransformer extends TransformerAbstract
             'distance' => (double) $trip->distance,
             'car_id' => (int) $trip->car_id,
             'supervisor_id' => (int) $trip->supervisor_id,
-            'weather' => [
-                'clear' => (boolean) $trip->clear,
-                'rain' => (boolean) $trip->rain,
-                'thunder' => (boolean) $trip->thunder
-            ],
-            'traffic' => [
-                'light' => (boolean) $trip->light,
-                'moderate' => (boolean) $trip->moderate,
-                'heavy' => (boolean) $trip->heavy
-            ],
-            'roads' => [
-                'local_street' => (boolean) $trip->local_street,
-                'main_road' => (boolean) $trip->main_road,
-                'inner_city' => (boolean) $trip->inner_city,
-                'freeway' => (boolean) $trip->freeway,
-                'rural_highway' => (boolean) $trip->rural_highway,
-                'gravel' => (boolean) $trip->gravel
-            ],
+            'weather' => $trip->weather,
+            'traffic' => $trip->traffic,
+            'roads' => $trip->roads,
             'location' => [
-                'latitude' => (double) $trip->latitude,
-                'longitude' => (double) $trip->longitude,
+                'start' => [
+                    'latitude' => (double) $trip->start_latitude,
+                    'longitude' => (double) $trip->start_longitude,
+                ],
+                'end' => [
+                    'latitude' => (double) $trip->end_latitude,
+                    'longitude' => (double) $trip->end_longitude,
+                ],
                 'timezone' => (string) $trip->timezone 
             ]
         ];

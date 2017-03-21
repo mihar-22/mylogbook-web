@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
+use App\Models\Trip;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateTripsTable extends Migration
 {
@@ -19,31 +20,15 @@ class CreateTripsTable extends Migration
             $table->dateTime('ended_at');
             $table->integer('odometer');
             $table->decimal('distance', 11, 2);
-            
-            // Weather
-            $table->boolean('clear')->default(false);
-            $table->boolean('rain')->default(false);
-            $table->boolean('thunder')->default(false);
-
-            // Traffic
-            $table->boolean('light')->default(false);
-            $table->boolean('moderate')->default(false);
-            $table->boolean('heavy')->default(false);
-
-            // Roads
-            $table->boolean('local_street')->default(false);
-            $table->boolean('main_road')->default(false);
-            $table->boolean('inner_city')->default(false);
-            $table->boolean('freeway')->default(false);
-            $table->boolean('rural_highway')->default(false);
-            $table->boolean('gravel')->default(false);
-
-            // Location
-            $table->decimal('latitude', 10, 8);
-            $table->decimal('longitude', 11, 8);
+            $table->set('weather', Trip::$weatherConditions);
+            $table->set('traffic', Trip::$trafficConditions);
+            $table->set('roads', Trip::$roadConditions);
+            $table->decimal('start_latitude', 10, 8);
+            $table->decimal('start_longitude', 11, 8);
+            $table->decimal('end_latitude', 10, 8);
+            $table->decimal('end_longitude', 11, 8);
             $table->string('timezone', 100);
 
-            // Foreign Keys
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
