@@ -20,17 +20,11 @@ class TripTransformer extends TransformerAbstract
             'weather' => $trip->weather,
             'traffic' => $trip->traffic,
             'roads' => $trip->roads,
-            'location' => [
-                'start' => [
-                    'latitude' => (double) $trip->start_latitude,
-                    'longitude' => (double) $trip->start_longitude,
-                ],
-                'end' => [
-                    'latitude' => (double) $trip->end_latitude,
-                    'longitude' => (double) $trip->end_longitude,
-                ],
-                'timezone' => (string) $trip->timezone 
-            ]
+            'start_latitude' => (double) $trip->start_latitude,
+            'start_longitude' => (double) $trip->start_longitude,
+            'end_latitude' => (double) $trip->end_latitude,
+            'end_longitude' => (double) $trip->end_longitude,
+            'timezone' => (string) $trip->timezone
         ];
     }
 }
