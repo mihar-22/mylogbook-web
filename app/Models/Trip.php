@@ -24,6 +24,11 @@ class Trip extends Model
         'L', 'M', 'I', 'F', 'R', 'G'
     ];
 
+    // D = Day, W = Dawn, K = Dusk, N = Night
+    public static $lightConditions = [
+        'D', 'W', 'K', 'N'
+    ];
+
 	public $timestamps = false;
 
     protected $table = 'trips';
@@ -38,6 +43,7 @@ class Trip extends Model
         'weather',
         'traffic',
         'roads',
+        'light',
         'start_latitude',
         'start_longitude',        
         'end_latitude',

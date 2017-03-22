@@ -71,5 +71,16 @@ class AppServiceProvider extends ServiceProvider
             return true;
 
         });
+
+        Validator::extend('light', function($attribute, $value) {
+            if (! is_string($value)) { return false; }
+
+            foreach (explode(',', $value) as $value) {
+                if (! in_array($value, Trip::$lightConditions)) { return false; }
+            }
+
+            return true;
+
+        });
     }
 }

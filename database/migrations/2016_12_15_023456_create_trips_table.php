@@ -23,6 +23,7 @@ class CreateTripsTable extends Migration
             $table->set('weather', Trip::$weatherConditions);
             $table->set('traffic', Trip::$trafficConditions);
             $table->set('roads', Trip::$roadConditions);
+            $table->set('light', Trip::$lightConditions);
             $table->decimal('start_latitude', 10, 8);
             $table->decimal('start_longitude', 11, 8);
             $table->decimal('end_latitude', 10, 8);

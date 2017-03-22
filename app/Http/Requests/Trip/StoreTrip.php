@@ -36,6 +36,7 @@ class StoreTrip extends FormRequest
             'weather' => 'required|weather',
             'traffic' => 'required|traffic',
             'roads' => 'required|roads',
+            'light' => 'required|light',
             'start_latitude' => 'required|latitude',
             'start_longitude' => 'required|longitude',
             'end_latitude' => 'required|latitude',

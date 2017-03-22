@@ -77,6 +77,7 @@ $factory->define(Trip::class, function (Generator $faker) {
         'weather' =>  implode(',', $faker->randomElements(Trip::$weatherConditions, $count = 2)),
         'traffic' =>  implode(',', $faker->randomElements(Trip::$trafficConditions, $count = 2)),
         'roads' =>  implode(',', $faker->randomElements(Trip::$roadConditions, $count = 2)),
+        'light' =>  implode(',', $faker->randomElements(Trip::$lightConditions, $count = 2)),
         'start_latitude' => $faker->randomFloat(8, -37, -38),
         'start_longitude' => $faker->randomFloat(8, 144, 145),
         'end_latitude' => $faker->randomFloat(8, -37, -38),

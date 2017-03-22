@@ -20,6 +20,7 @@ class TripTransformer extends TransformerAbstract
             'weather' => $trip->weather,
             'traffic' => $trip->traffic,
             'roads' => $trip->roads,
+            'light' => $trip->light,
             'start_latitude' => (double) $trip->start_latitude,
             'start_longitude' => (double) $trip->start_longitude,
             'end_latitude' => (double) $trip->end_latitude,
