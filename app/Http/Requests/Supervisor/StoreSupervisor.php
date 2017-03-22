@@ -21,7 +21,6 @@ class StoreSupervisor extends FormRequest
         return [
             'first_name' => 'required|string|alpha|max:50',
             'last_name' => 'required|string|alpha|max:50',
-            'license' => 'required|string|alpha_num|max:10',
             'gender' => 'required|string|in:male,female',
             'is_accredited' => 'required|boolean'
         ];

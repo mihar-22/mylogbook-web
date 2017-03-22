@@ -20,7 +20,6 @@ class Supervisor extends Model
     protected $fillable = [
     	'first_name', 
         'last_name',
-        'license',
         'gender',
         'is_accredited'
     ];

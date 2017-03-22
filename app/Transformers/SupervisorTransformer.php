@@ -13,7 +13,6 @@ class SupervisorTransformer extends TransformerAbstract
             'id' => (int) $supervisor->id,
             'first_name' => $supervisor->first_name,
             'last_name' => $supervisor->last_name,
-            'license' => $supervisor->license,
             'gender' => $supervisor->gender,
             'is_accredited' => (bool) $supervisor->is_accredited,
             'created_at' => (string) $supervisor->created_at,
