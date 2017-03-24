@@ -20,14 +20,19 @@ class CreateTripsTable extends Migration
             $table->dateTime('ended_at');
             $table->integer('odometer');
             $table->decimal('distance', 11, 2);
+
             $table->set('weather', Trip::$weatherConditions);
             $table->set('traffic', Trip::$trafficConditions);
             $table->set('roads', Trip::$roadConditions);
             $table->set('light', Trip::$lightConditions);
+
             $table->decimal('start_latitude', 10, 8);
             $table->decimal('start_longitude', 11, 8);
             $table->decimal('end_latitude', 10, 8);
             $table->decimal('end_longitude', 11, 8);
+            
+            $table->string('start_location', 50)->nullable();
+            $table->string('end_location', 50)->nullable();
             $table->string('timezone', 100);
 
             $table->integer('user_id')->unsigned();

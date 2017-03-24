@@ -40,17 +40,23 @@ class Trip extends Model
     	'ended_at',
     	'odometer',    	
     	'distance',
+
         'weather',
         'traffic',
         'roads',
         'light',
+
         'start_latitude',
-        'start_longitude',        
+        'start_longitude',
         'end_latitude',
         'end_longitude',
+
+        'start_location',
+        'end_location',
         'timezone',
+
         'car_id',
-        'supervisor_id',
+        'supervisor_id'
     ];
 
     public function user()

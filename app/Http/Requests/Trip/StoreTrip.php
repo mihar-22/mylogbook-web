@@ -31,17 +31,23 @@ class StoreTrip extends FormRequest
             'ended_at' => 'required|date_format:Y-m-d H:i:s|after:started_at',
             'odometer' => 'required|integer|max:999999',
             'distance' => 'required|regex:/^(\d{1,11})(\.)(\d{1,2})$/',
-            'car_id' => 'required|integer',
-            'supervisor_id' => 'required|integer',
+
             'weather' => 'required|weather',
             'traffic' => 'required|traffic',
             'roads' => 'required|roads',
             'light' => 'required|light',
+            
             'start_latitude' => 'required|latitude',
             'start_longitude' => 'required|longitude',
             'end_latitude' => 'required|latitude',
             'end_longitude' => 'required|longitude',
-            'timezone' => 'required|string|max:100'
+
+            'start_location' => 'string|max:50',
+            'end_location' => 'string|max:50',
+            'timezone' => 'required|string|max:100',
+
+            'car_id' => 'required|integer',
+            'supervisor_id' => 'required|integer'
         ];  
     }
 }

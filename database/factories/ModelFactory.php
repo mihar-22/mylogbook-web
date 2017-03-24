@@ -74,14 +74,19 @@ $factory->define(Trip::class, function (Generator $faker) {
         'ended_at' => Carbon::now()->addHours(1)->toDateTimeString(),
         'odometer' => $faker->numberBetween(10000, 180000),
         'distance' => $faker->randomFloat(2, 5000, 15000),
+
         'weather' =>  implode(',', $faker->randomElements(Trip::$weatherConditions, $count = 2)),
         'traffic' =>  implode(',', $faker->randomElements(Trip::$trafficConditions, $count = 2)),
         'roads' =>  implode(',', $faker->randomElements(Trip::$roadConditions, $count = 2)),
         'light' =>  implode(',', $faker->randomElements(Trip::$lightConditions, $count = 2)),
+
         'start_latitude' => $faker->randomFloat(8, -37, -38),
         'start_longitude' => $faker->randomFloat(8, 144, 145),
-        'end_latitude' => $faker->randomFloat(8, -37, -38),
+        'end_latitude' => $faker->randomFloat(8, 38, 39),
         'end_longitude' => $faker->randomFloat(8, 144, 145),
+
+        'start_location' => 'Dandenong',
+        'end_location' => 'Narre Warren',
         'timezone' => 'Australia/Melbourne'
     ];
 });
