@@ -31,8 +31,8 @@ class CreateTripsTable extends Migration
             $table->decimal('end_latitude', 10, 8);
             $table->decimal('end_longitude', 11, 8);
             
-            $table->string('start_location', 50)->nullable();
-            $table->string('end_location', 50)->nullable();
+            $table->string('start_location', 50);
+            $table->string('end_location', 50);
             $table->string('timezone', 100);
 
             $table->integer('user_id')->unsigned();

@@ -42,8 +42,8 @@ class StoreTrip extends FormRequest
             'end_latitude' => 'required|latitude',
             'end_longitude' => 'required|longitude',
 
-            'start_location' => 'string|max:50',
-            'end_location' => 'string|max:50',
+            'start_location' => 'required|string|max:50',
+            'end_location' => 'required|string|max:50',
             'timezone' => 'required|string|max:100',
 
             'car_id' => 'required|integer',
