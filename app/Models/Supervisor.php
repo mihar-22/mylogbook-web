@@ -18,8 +18,7 @@ class Supervisor extends Model
     protected $casts = ['is_accredited' => 'boolean'];
 
     protected $fillable = [
-    	'first_name', 
-        'last_name',
+    	'name', 
         'gender',
         'is_accredited'
     ];

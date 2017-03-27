@@ -40,7 +40,7 @@ $factory->state(User::class, 'not verified', function ($faker) {
 
 $factory->define(Car::class, function (Generator $faker) {
     return [
-        'name' => $faker->word,
+        'name' => $faker->word.' '.$faker->word,
         'registration' => $faker->bothify('???###'),
         'type' => $faker->randomElement([
             'sedan',
@@ -60,8 +60,7 @@ $factory->define(Car::class, function (Generator $faker) {
 
 $factory->define(Supervisor::class, function (Generator $faker) {
     return [
-        'first_name' => $faker->firstName,
-        'last_name' => $faker->lastName,
+        'name' => $faker->firstName.' '.$faker->lastName,
         'gender' => $faker->randomElement(['male', 'female']),
         'is_accredited' => $faker->boolean($chanceOfGettingTrue = 30)
     ];
