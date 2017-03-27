@@ -61,7 +61,7 @@ $factory->define(Car::class, function (Generator $faker) {
 $factory->define(Supervisor::class, function (Generator $faker) {
     return [
         'name' => $faker->firstName.' '.$faker->lastName,
-        'gender' => $faker->randomElement(['male', 'female']),
+        'gender' => $faker->randomElement(['M', 'F']),
         'is_accredited' => $faker->boolean($chanceOfGettingTrue = 30)
     ];
 });

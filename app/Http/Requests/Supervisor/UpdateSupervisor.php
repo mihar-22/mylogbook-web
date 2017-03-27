@@ -21,8 +21,8 @@ class UpdateSupervisor extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'string|max:50',
-            'gender' => 'string|in:male,female',
+            'name' => 'string|max:100',
+            'gender' => 'string|in:M,F',
             'is_accredited' => 'boolean'
         ];
     }

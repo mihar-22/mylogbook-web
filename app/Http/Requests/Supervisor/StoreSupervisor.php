@@ -19,8 +19,8 @@ class StoreSupervisor extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:50',
-            'gender' => 'required|string|in:male,female',
+            'name' => 'required|string|max:100',
+            'gender' => 'required|string|in:M,F',
             'is_accredited' => 'required|boolean'
         ];
     }

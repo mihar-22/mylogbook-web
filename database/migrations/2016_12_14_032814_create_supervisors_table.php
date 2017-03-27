@@ -15,8 +15,8 @@ class CreateSupervisorsTable extends Migration
     {
         Schema::create('supervisors', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name', 50);
-            $table->string('gender', 6);
+            $table->string('name', 100);
+            $table->char('gender', 1);
             $table->boolean('is_accredited')->default(false);
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
