@@ -22,7 +22,7 @@ class RegisterUser extends FormRequest
         $birthdayBefore = Carbon::parse('15 years ago')->addDays(1)->toDateString();
 
         return [
-            'name' => 'required|string|alpha_space|max:50',
+            'name' => 'required|string|max:100',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6|string',
             'birthday' => "required|date_format:Y-m-d|after:{$birthdayAfter}|before:{$birthdayBefore}"
