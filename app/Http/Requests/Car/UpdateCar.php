@@ -23,7 +23,7 @@ class UpdateCar extends FormRequest
         return [
             'make' => 'string|max:50',
             'registration' => 'string|alpha_num|max:6',
-            'type' => 'string|in:sedan,wagon,suv,4wd,hatchback,coupe,convertible,sports,ute,micro,van'
+            'type' => 'string|in:'.implode(',', Car::$types)
         ];
     }
 }

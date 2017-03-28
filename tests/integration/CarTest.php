@@ -73,7 +73,7 @@ class CarTest extends TestCase
         $update['id'] = $id;
 
         $this->makeJsonRequest('PUT', $id, $update);
-
+        
         $this->seeJsonContains(['message' => 'car updated'])
              ->assertResponseStatus(200);
 

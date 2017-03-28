@@ -42,19 +42,7 @@ $factory->define(Car::class, function (Generator $faker) {
     return [
         'name' => $faker->word.' '.$faker->word,
         'registration' => $faker->bothify('???###'),
-        'type' => $faker->randomElement([
-            'sedan',
-            'wagon',
-            'suv',
-            '4wd',
-            'hatchback',
-            'coupe',
-            'convertible',
-            'sports',
-            'ute',
-            'micro',
-            'van'
-        ])
+        'type' => $faker->randomElement(Car::$types)
     ];
 });
 

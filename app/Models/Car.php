@@ -11,6 +11,20 @@ class Car extends Model
 {
     use SoftDeletes;
 
+    public static $types = [
+        'sedan',
+        'wagon',
+        'suv',
+        'off road',
+        'hatchback',
+        'coupe',
+        'convertible',
+        'sports',
+        'ute',
+        'micro',
+        'van'
+    ];
+
     protected $table = 'cars';
 
     protected $dates = ['deleted_at'];
