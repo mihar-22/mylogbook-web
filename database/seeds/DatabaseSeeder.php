@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
 
         factory(Supervisor::class, 3)->create(['user_id' => 1]);
 
-        for ($t = 0; $t < 10; $t++) {
+        for ($t = 0; $t < 5; $t++) {
 	        factory(Trip::class)->create([
 	        	'user_id' => 1, 
 	        	'car_id' => rand(1, 3), 
