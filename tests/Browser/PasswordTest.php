@@ -1,11 +1,16 @@
 <?php
 
+namespace Tests\Browser;
+
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Laravel\Dusk\Chrome;
+use Tests\DuskTestCase;
+use Tests\Helpers\MailTrap;
 
-class PasswordTest extends TestCase
+class PasswordTest extends DuskTestCase
 {
 	use DatabaseMigrations;
 
@@ -38,17 +43,18 @@ class PasswordTest extends TestCase
 
         $this->requestPasswordReset();
 
-        $this->seeInDatabase('password_resets', ['email' => $this->user->email]);
+        $this->assertDatabaseHas('password_resets', ['email' => $this->user->email]);
 
         $this->mailTrap->fetchMostRecentMail()
              ->assertSentTo($this->user->email)
              ->assertSubjectIs('Reset Password')
              ->assertBodyContains($this->getPasswordResetLink());
 
-        $this->visit($this->getPasswordResetLink())
-             ->type($newPassword, 'password')
-             ->press('Reset Password')
-             ->see('Password reset!');
+        $this->browse(function ($browser) use ($newPassword) {
+            $browser->visit($this->getPasswordResetLink())
+                    ->type('password', $newPassword)
+                    ->press('Reset');
+        });
 
         $this->assertFalse(Auth::guard('web')->attempt(['email' => $this->user->email, 'password' => $oldPassword]));
 
@@ -74,6 +80,6 @@ class PasswordTest extends TestCase
 
     private function requestPasswordReset()
     {
-        $this->post($this->getEndPoint('forgot'), ['email' => $this->user->email]);    	
+        return $this->post($this->getEndPoint('forgot'), ['email' => $this->user->email]);    	
     }
 }

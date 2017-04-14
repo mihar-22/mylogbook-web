@@ -1,10 +1,13 @@
 <?php
 
+namespace Tests\Integration;
+
 use App\Models\User;
 use App\Notifications\VerifyEmail;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
+use Tests\TestCase;
 
 class AuthTest extends TestCase
 {
@@ -31,14 +34,14 @@ class AuthTest extends TestCase
     /** @test */
     public function register()
     {
-        $this->registerUser();
+        $response = $this->registerUser();
 
-        $this->seeJsonContains(['message' => 'confirmation email sent'])
-             ->assertResponseStatus(201);
+        $response->assertJson(['message' => 'confirmation email sent'])
+                 ->assertStatus(201);
 
         Notification::assertSentTo(User::find(1), VerifyEmail::class);
 
-        $this->seeInDatabase('users', $this->user->toArray());
+        $this->assertDatabaseHas('users', $this->user->toArray());
     }
 
     /** @test */
@@ -46,11 +49,11 @@ class AuthTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $this->actingAs($user)
-             ->getJson($this->getEndPoint('check'));               
+        $response = $this->actingAs($user)
+                         ->getJson($this->getEndPoint('check'));               
 
-        $this->seeJsonContains(['message' => 'authenticated'])
-             ->assertResponseStatus(200);
+        $response->assertJson(['message' => 'authenticated'])
+                 ->assertStatus(200);
     }
 
     /** @test */
@@ -62,10 +65,10 @@ class AuthTest extends TestCase
 
         $user->invalidateApiToken();
 
-        $this->getJson($this->getEndPoint('check'), ['Authorization' => "Bearer {$token}"]);               
+        $response = $this->getJson($this->getEndPoint('check'), ['Authorization' => "Bearer {$token}"]);               
 
-        $this->seeJsonContains(['message' => 'unauthenticated'])
-             ->assertResponseStatus(401);
+        $response->assertJson(['message' => 'unauthenticated'])
+                 ->assertStatus(401);
     }
 
     /** @test */
@@ -73,14 +76,14 @@ class AuthTest extends TestCase
     {
         $this->user->confirmEmail();
 
-        $this->attemptLogin();
+        $response = $this->attemptLogin();
 
-        $this->seeJsonContains(['data' => [
+        $response->assertJson(['data' => [
             'id' => $this->user->id,
             'name' => $this->user->name,
             'api_token' => User::find(1)->api_token,
             'birthday' => $this->user->birthday
-        ]])->assertResponseStatus(200);
+        ]])->assertStatus(200);
     }
 
     /** @test */
@@ -90,10 +93,10 @@ class AuthTest extends TestCase
 
         $this->credentials['password'] = 'bad secret';
 
-        $this->attemptLogin();
+        $response = $this->attemptLogin();
 
-        $this->seeJsonContains(['message' => 'invalid credentials'])
-             ->assertResponseStatus(400);
+        $response->assertJson(['message' => 'invalid credentials'])
+                 ->assertStatus(400);
     }
 
     /** @test */
@@ -101,10 +104,10 @@ class AuthTest extends TestCase
     {
         $this->user->save();
 
-        $this->attemptLogin();
+        $response = $this->attemptLogin();
 
-        $this->seeJsonContains(['message' => 'invalid credentials'])
-             ->assertResponseStatus(400);
+        $response->assertJson(['message' => 'invalid credentials'])
+                 ->assertStatus(400);
     }
 
     /** @test */
@@ -112,20 +115,20 @@ class AuthTest extends TestCase
     {
         $this->user->confirmEmail();
 
-        $this->actingAs($this->user)
-             ->attemptLogout();
+        $response = $this->actingAs($this->user)
+                         ->attemptLogout();
 
-        $this->seeJsonContains(['message' => 'user logged out'])
-             ->assertResponseStatus(200);        
+        $response->assertJson(['message' => 'user logged out'])
+                 ->assertStatus(200);        
     }
 
     /** @test */
     public function logout_without_authentication()
     {
-        $this->attemptLogout();
+        $response = $this->attemptLogout();
 
-        $this->seeJsonContains(['message' => 'unauthenticated'])
-             ->assertResponseStatus(401);
+        $response->assertJson(['message' => 'unauthenticated'])
+                 ->assertStatus(401);
     }
 
     /** @test */
@@ -133,25 +136,23 @@ class AuthTest extends TestCase
     {
         $this->registerUser();
 
+        $this->assertDatabaseHas('users', ['email' => $this->user->email, 'is_verified' => 0]);
+
         $token = DB::table('email_validations')->where('email', $this->user->email)->first()->token;
 
-        $endPoint = "email/verify/{$this->user->email}/{$token}";
+        $response = $this->get("email/verify/{$this->user->email}/{$token}");
 
-        $this->seeInDatabase('users', ['email' => $this->user->email, 'is_verified' => 0]);
+        $response->assertSee('email-verified-success.svg');
 
-        $this->get($endPoint);
-
-        $this->see('Email verified!');
-
-        $this->seeInDatabase('users', ['email' => $this->user->email, 'is_verified' => 1]);
+        $this->assertDatabaseHas('users', ['email' => $this->user->email, 'is_verified' => 1]);
     }
 
     /** @test */
     public function verify_email_with_invalid_data()
     {
-        $this->get("email/verify/badEmail/badToken");
+        $response = $this->get("email/verify/badEmail/badToken");
 
-        $this->assertResponseStatus(404);
+        $response->assertStatus(404);
     }
 
     private function getEndPoint($action)
@@ -163,16 +164,16 @@ class AuthTest extends TestCase
     {        
         $newUser = array_merge($this->user->toArray(), ['password' => 'secret']);
 
-        $this->post($this->getEndPoint('register'), $newUser);    
+        return $this->post($this->getEndPoint('register'), $newUser);    
     }
 
     private function attemptLogin()
     {
-        $this->postJson($this->getEndPoint('login'), $this->credentials);               
+        return $this->postJson($this->getEndPoint('login'), $this->credentials);               
     }
 
     private function attemptLogout()
     {
-        $this->getJson($this->getEndPoint('logout'));               
+        return $this->getJson($this->getEndPoint('logout'));               
     }
 }

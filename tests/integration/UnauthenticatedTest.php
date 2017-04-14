@@ -1,10 +1,13 @@
 <?php
 
+namespace Tests\Integration;
+
 use App\Models\Car;
 use App\Models\Supervisor;
 use App\Models\Trip;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Tests\TestCase;
 
 class UnauthenticatedTest extends TestCase
 {
@@ -24,7 +27,7 @@ class UnauthenticatedTest extends TestCase
     {
         $endPoint = $this->buildEndPoint(Car::class);
 
-        $this->makeUnauthenticatedRequest('POST', $endPoint);
+        $this->assertUnauthenticated('POST', $endPoint);
     }
 
     /** @test */
@@ -32,7 +35,7 @@ class UnauthenticatedTest extends TestCase
     {
         $endPoint = $this->buildEndPoint(Car::class, [], $includeIdentifier = true);
 
-        $this->makeUnauthenticatedRequest('PUT', $endPoint);
+        $this->assertUnauthenticated('PUT', $endPoint);
     }
 
     /** @test */
@@ -40,7 +43,7 @@ class UnauthenticatedTest extends TestCase
     {
         $endPoint = $this->buildEndPoint(Car::class, [], $includeIdentifier = true);
 
-        $this->makeUnauthenticatedRequest('DELETE', $endPoint);
+        $this->assertUnauthenticated('DELETE', $endPoint);
     }
 
     /** @test */
@@ -48,7 +51,7 @@ class UnauthenticatedTest extends TestCase
     {
         $endPoint = $this->buildEndPoint(Supervisor::class);
 
-        $this->makeUnauthenticatedRequest('POST', $endPoint);
+        $this->assertUnauthenticated('POST', $endPoint);
     }
 
     /** @test */
@@ -56,7 +59,7 @@ class UnauthenticatedTest extends TestCase
     {
         $endPoint = $this->buildEndPoint(Supervisor::class, [], true);
 
-        $this->makeUnauthenticatedRequest('PUT', $endPoint);
+        $this->assertUnauthenticated('PUT', $endPoint);
     }
     
     /** @test */
@@ -64,7 +67,7 @@ class UnauthenticatedTest extends TestCase
     {
         $endPoint = $this->buildEndPoint(Supervisor::class, [], true);
 
-        $this->makeUnauthenticatedRequest('DELETE', $endPoint);
+        $this->assertUnauthenticated('DELETE', $endPoint);
     }
 
     /** @test */
@@ -77,7 +80,7 @@ class UnauthenticatedTest extends TestCase
 
         $endPoint = $this->buildEndPoint(Trip::class, $attributes);
 
-        $this->makeUnauthenticatedRequest('POST', $endPoint);        
+        $this->assertUnauthenticated('POST', $endPoint);        
     }
 
     private function createModel($class, $attributes = [])
@@ -99,16 +102,10 @@ class UnauthenticatedTest extends TestCase
         return "api/v1/{$resource}/{$id}";
     }
 
-    private function makeUnauthenticatedRequest($method, $endPoint, $params = [])
+    private function assertUnauthenticated($method, $endPoint, $params = [])
     {
-        $this->json($method, $endPoint, $params);
-
-        $this->seeUnauthenticatedResponse();
-    }
-
-    private function seeUnauthenticatedResponse()
-    {
-        $this->seeJsonContains(['message' => 'unauthenticated'])
-             ->assertResponseStatus(401);
+        $this->json($method, $endPoint, $params)
+             ->assertJson(['message' => 'unauthenticated'])
+             ->assertStatus(401);
     }
 }

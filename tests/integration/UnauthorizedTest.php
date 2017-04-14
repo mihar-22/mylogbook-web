@@ -1,10 +1,14 @@
 <?php
 
+namespace Tests\Integration;
+
 use App\Models\Car;
 use App\Models\Supervisor;
 use App\Models\Trip;
 use App\Models\User;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Tests\TestCase;
 
 class UnauthorizedTest extends TestCase
 {
@@ -28,7 +32,7 @@ class UnauthorizedTest extends TestCase
     {
         $endPoint = $this->buildNotOwnedEndPoint(Car::class);
 
-        $this->makeUnauthorizedRequest('PUT', $endPoint);
+        $this->assertUnauthorized('PUT', $endPoint);
     }
 
     /** @test */
@@ -36,7 +40,7 @@ class UnauthorizedTest extends TestCase
     {
         $endPoint = $this->buildNotOwnedEndPoint(Car::class);
 
-        $this->makeUnauthorizedRequest('DELETE', $endPoint);
+        $this->assertUnauthorized('DELETE', $endPoint);
     }
 
     /** @test */
@@ -44,7 +48,7 @@ class UnauthorizedTest extends TestCase
     {
         $endPoint = $this->buildNotOwnedEndPoint(Supervisor::class);
 
-        $this->makeUnauthorizedRequest('PUT', $endPoint);
+        $this->assertUnauthorized('PUT', $endPoint);
     }
 
     /** @test */
@@ -52,7 +56,7 @@ class UnauthorizedTest extends TestCase
     {
         $endPoint = $this->buildNotOwnedEndPoint(Supervisor::class);
 
-        $this->makeUnauthorizedRequest('DELETE', $endPoint);
+        $this->assertUnauthorized('DELETE', $endPoint);
     }
 
     /** @test */
@@ -65,7 +69,7 @@ class UnauthorizedTest extends TestCase
             'supervsior_id' => $this->createOwnedModel(Supervisor::class)->id
         ];
 
-        $this->makeUnauthorizedRequest('POST', $endPoint, $params);
+        $this->assertUnauthorized('POST', $endPoint, $params);
     }
 
     /** @test */
@@ -78,7 +82,7 @@ class UnauthorizedTest extends TestCase
             'supervsior_id' => $this->createNotOwnedModel(Supervisor::class)->id
         ];
 
-        $this->makeUnauthorizedRequest('POST', $endPoint, $params);
+        $this->assertUnauthorized('POST', $endPoint, $params);
     }
 
     private function createOwnedModel($class)
@@ -103,16 +107,13 @@ class UnauthorizedTest extends TestCase
         return "api/v1/{$resource}/{$id}";
     }
 
-    private function makeUnauthorizedRequest($method, $endPoint, $params = [])
+    private function assertUnauthorized($method, $endPoint, $params = [])
     {
-        $this->actingAs($this->user)->json($method, $endPoint, $params);        
-
-        $this->seeUnauthorizedResponse();
-    }
-
-    private function seeUnauthorizedResponse()
-    {
-        $this->seeJsonContains(['message' => 'unauthorized'])
-             ->assertResponseStatus(403);        
+        $this->expectException(AuthorizationException::class);
+        
+        $this->actingAs($this->user)
+             ->json($method, $endPoint, $params)
+             ->assertJson(['message' => 'unauthorized'])
+             ->assertStatus(403);
     }
 }

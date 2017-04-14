@@ -1,9 +1,12 @@
 <?php
 
+namespace Tests\Integration;
+
 use App\Models\Car;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Tests\TestCase;
 
 class CarTest extends TestCase
 {
@@ -33,21 +36,21 @@ class CarTest extends TestCase
 
         $this->createCars($nofOfCars, ['deleted_at' => Carbon::now()]);
 
-        $this->makeJsonRequest('GET');
+        $response = $this->makeJsonRequest('GET');
 
-        $this->seeJsonContains(['message' => 'collection of cars'])
-             ->assertResponseStatus(200);
+        $response->assertJson(['message' => 'collection of cars'])
+                 ->assertStatus(200);
 
-        $this->assertCount(($nofOfCars * 2), json_decode($this->response->content())->data);
+        $this->assertCount(($nofOfCars * 2), json_decode($response->content())->data);
     }
 
     /** @test */
     public function index_empty()
     {
-        $this->makeJsonRequest('GET');
+        $response = $this->makeJsonRequest('GET');
 
-        $this->seeJsonContains(['message' => 'empty collection'])
-             ->assertResponseStatus(200);
+        $response->assertJson(['message' => 'empty collection'])
+                 ->assertStatus(200);
     }
 
     /** @test */
@@ -55,42 +58,42 @@ class CarTest extends TestCase
     {
         $newCar = $this->makeCar()->toArray();
 
-        $this->makeJsonRequest('POST', null, $newCar);
+        $response = $this->makeJsonRequest('POST', null, $newCar);
 
-        $this->seeJsonContains(['message' => 'car created', 'data' => ['id' => 1]])
-             ->assertResponseStatus(201);
+        $response->assertJson(['message' => 'car created', 'data' => ['id' => 1]])
+                 ->assertStatus(201);
 
-        $this->seeInDatabase($this->table, $newCar);
+        $this->assertDatabaseHas($this->table, $newCar);
     }
 
     /** @test */
     public function update()
     {
-        $id = $this->createCars(1)->id;
+        $id = $this->createCars(1)[0]->id;
 
         $update = $this->makeCar()->toArray();
 
         $update['id'] = $id;
 
-        $this->makeJsonRequest('PUT', $id, $update);
+        $response = $this->makeJsonRequest('PUT', $id, $update);
         
-        $this->seeJsonContains(['message' => 'car updated'])
-             ->assertResponseStatus(200);
+        $response->assertJson(['message' => 'car updated'])
+                 ->assertStatus(200);
 
-        $this->seeInDatabase($this->table, $update);
+        $this->assertDatabaseHas($this->table, $update);
     }
 
     /** @test */
     public function destroy()
     {
-        $id = $this->createCars(1)->id;
+        $id = $this->createCars(1)[0]->id;
 
-        $this->makeJsonRequest('DELETE', $id);
+        $response = $this->makeJsonRequest('DELETE', $id);
 
-        $this->seeJsonContains(['message' => 'car deleted'])
-             ->assertResponseStatus(200);
+        $response->assertJson(['message' => 'car deleted'])
+                 ->assertStatus(200);
 
-        $this->seeInDatabase($this->table, ['id' => $id, 'deleted_at' => Carbon::now()]);    
+        $this->assertDatabaseHas($this->table, ['id' => $id, 'deleted_at' => Carbon::now()]);    
     }
 
     /** @test */
@@ -104,12 +107,12 @@ class CarTest extends TestCase
 
         $this->createCars($noOfTripsSince, ['updated_at' => Carbon::now()->addDays(1)]);
 
-        $this->makeJsonRequest('GET', $since);
+        $response = $this->makeJsonRequest('GET', $since);
 
-        $this->seeJsonContains(['message' => 'collection of cars'])
-             ->assertResponseStatus(200);
+        $response->assertJson(['message' => 'collection of cars'])
+                 ->assertStatus(200);
 
-        $this->assertCount($noOfTripsSince, json_decode($this->response->content())->data);
+        $this->assertCount($noOfTripsSince, json_decode($response->content())->data);
     }
 
     /** @test */
@@ -117,10 +120,10 @@ class CarTest extends TestCase
     {
         $since = Carbon::now();
     
-        $this->makeJsonRequest('GET', $since);
+        $response = $this->makeJsonRequest('GET', $since);
 
-        $this->seeJsonContains(['message' => 'empty collection', 'data' => []])
-             ->assertResponseStatus(200);
+        $response->assertJson(['message' => 'empty collection', 'data' => []])
+                 ->assertStatus(200);
     }
 
     private function makeCar()
@@ -139,6 +142,6 @@ class CarTest extends TestCase
     {
         $endPoint = "api/v1/cars/{$id}";
 
-        $this->actingAs($this->user)->json($method, $endPoint, $params);
+        return $this->actingAs($this->user)->json($method, $endPoint, $params);
     }
 }

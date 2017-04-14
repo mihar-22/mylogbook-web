@@ -1,11 +1,14 @@
 <?php
 
+namespace Tests\Integration;
+
 use App\Models\Car;
 use App\Models\Supervisor;
 use App\Models\Trip;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Tests\TestCase;
 
 class TripTest extends TestCase
 {
@@ -41,21 +44,21 @@ class TripTest extends TestCase
 
         $this->createTrips($noOfTrips);
 
-        $this->makeJsonRequest('GET');
+        $response = $this->makeJsonRequest('GET');
 
-        $this->seeJsonContains(['message' => 'collection of trips'])
-             ->assertResponseStatus(200);
+        $response->assertJson(['message' => 'collection of trips'])
+                 ->assertStatus(200);
 
-        $this->assertCount($noOfTrips, json_decode($this->response->content())->data);
+        $this->assertCount($noOfTrips, json_decode($response->content())->data);
     }
 
     /** @test */
     public function index_empty()
     {
-        $this->makeJsonRequest('GET');
+        $response = $this->makeJsonRequest('GET');
 
-        $this->seeJsonContains(['message' => 'empty collection'])
-             ->assertResponseStatus(200);
+        $response->assertJson(['message' => 'empty collection'])
+                 ->assertStatus(200);
     }
 
     /** @test */
@@ -63,12 +66,12 @@ class TripTest extends TestCase
     {
         $newTrip = $this->makeTrip()->toArray();
 
-        $this->makeJsonRequest('POST', null, $newTrip);
+        $response = $this->makeJsonRequest('POST', null, $newTrip);
 
-        $this->seeJsonContains(['message' => 'trip created', 'id' => 1])
-             ->assertResponseStatus(201);
+        $response->assertJson(['message' => 'trip created', 'data' => ['id' => 1]])
+                 ->assertStatus(201);
 
-        $this->seeInDatabase('trips', $newTrip);
+        $this->assertDatabaseHas('trips', $newTrip);
     }
 
     /** @test */
@@ -85,12 +88,12 @@ class TripTest extends TestCase
             'ended_at' => Carbon::now()->addDays(1)->addHours(1)
         ]);
 
-        $this->makeJsonRequest('GET', $since);
+        $response = $this->makeJsonRequest('GET', $since);
 
-        $this->seeJsonContains(['message' => 'collection of trips'])
-             ->assertResponseStatus(200);
+        $response->assertJson(['message' => 'collection of trips'])
+                 ->assertStatus(200);
 
-        $this->assertCount($noOfTripsSince, json_decode($this->response->content())->data);
+        $this->assertCount($noOfTripsSince, json_decode($response->content())->data);
     }
 
     /** @test */
@@ -98,17 +101,17 @@ class TripTest extends TestCase
     {
         $since = Carbon::now();
     
-        $this->makeJsonRequest('GET', $since);
+        $response = $this->makeJsonRequest('GET', $since);
 
-        $this->seeJsonContains(['message' => 'empty collection', 'data' => []])
-             ->assertResponseStatus(200);
+        $response->assertJson(['message' => 'empty collection', 'data' => []])
+                 ->assertStatus(200);
     }
 
     private function makeJsonRequest($method, $ext = '', $params = [])
     {
         $endPoint = "api/v1/trips/{$ext}";
 
-        $this->actingAs($this->user)->json($method, $endPoint, $params);
+        return $this->actingAs($this->user)->json($method, $endPoint, $params);
     }
 
     private function makeTrip()

@@ -1,10 +1,14 @@
 <?php
 
+namespace Tests\Browser;
+
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Support\Facades\DB;
+use Tests\DuskTestCase;
+use Tests\Helpers\MailTrap;
 
-class AuthTest extends TestCase
+class AuthTest extends DuskTestCase
 {
 	use DatabaseMigrations;
 
@@ -33,17 +37,17 @@ class AuthTest extends TestCase
     {
     	$this->registerNewUser();
         
-		$this->seeInDatabase('users', ['email' => $this->user->email, 'is_verified' => 0]);
+		$this->assertDatabaseHas('users', ['email' => $this->user->email, 'is_verified' => 0]);
 
         $this->mailTrap->fetchMostRecentMail()
              ->assertSentTo($this->user->email)
              ->assertSubjectIs('Verify Email')
              ->assertBodyContains($this->getEmailVerificationLink());
 
-        $this->visit($this->getEmailVerificationLink())
-             ->see('Email verified!');  
+        $this->get($this->getEmailVerificationLink())
+             ->assertSee('email-verified-success.svg');  
 
-        $this->seeInDatabase('users', ['email' => $this->user->email, 'is_verified' => 1]);
+        $this->assertDatabaseHas('users', ['email' => $this->user->email, 'is_verified' => 1]);
     }
 
     private function getEndPoint($action)
@@ -67,6 +71,6 @@ class AuthTest extends TestCase
     {
         $newUser = array_merge($this->user->toArray(), ['password' => 'secret']);
 
-        $this->post($this->getEndPoint('register'), $newUser);    	
+        return $this->post($this->getEndPoint('register'), $newUser);    	
     }
 }

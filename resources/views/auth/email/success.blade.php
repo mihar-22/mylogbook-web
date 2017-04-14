@@ -1,15 +1,25 @@
 @extends('master')
 
 @section('content')
-    <div class="mlb-container">
-        <div class="mlb-title">
-            Email verified!
-        </div>
 
-		<a href="#" 
-		   class="mlb-link btn btn-primary btn-lg btn-block" 
-		   role="button">
-			OPEN APP
-		</a>
-    </div>
+<div class="mdl-layout mdl-js-layout">
+	
+	<div class="mdl-layout-spacer"></div>
+
+	<main class="mdl-layout__content">
+
+		<div class="mdl-grid">		
+			<div class="mdl-cell mdl-cell--4-col-phone mdl-cell--6-col-tablet mdl-cell--1-offset-tablet mdl-cell--6-col-desktop mdl-cell--3-offset-desktop">
+
+		    	<img src="{{ asset('svg/email-verified-success.svg') }}" 
+		    		 alt="Email Verified">
+
+			</div>
+		</div>
+	
+	</main>
+
+	<div class="mdl-layout-spacer"></div>
+</div>
+
 @endsection

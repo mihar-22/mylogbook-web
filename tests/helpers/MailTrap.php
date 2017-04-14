@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Helpers;
+
 use GuzzleHttp\Client;
 use PHPUnit_Framework_Assert as PHPUnit;
 

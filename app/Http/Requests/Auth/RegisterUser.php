@@ -23,8 +23,8 @@ class RegisterUser extends FormRequest
 
         return [
             'name' => 'required|string|max:100',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:6|string',
+            'email' => 'required|string|email|unique:users,email',
+            'password' => 'required|string|min:6',
             'birthday' => "required|date_format:Y-m-d|after:{$birthdayAfter}|before:{$birthdayBefore}"
         ];
     }

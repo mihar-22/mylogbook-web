@@ -62,6 +62,6 @@ class Handler extends ExceptionHandler
                                  ->setStatusCode(401);
         }
 
-        return redirect()->guest('login');
+        return redirect()->guest(route('login'));
     }
 }

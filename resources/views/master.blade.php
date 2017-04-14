@@ -7,64 +7,13 @@
 
         <title>Mylogbook</title>
 
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100" rel="stylesheet">
-
-        <style>
-            html, body {
-                height: 100vh;
-                margin: 0;
-            }
-
-            .mlb-container {
-                position: relative;
-                height: 100vh;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                color: #636b6f;
-                font-family: 'Raleway', sans-serif;
-                font-weight: 100;
-            }
-
-            .mlb-title {
-                flex: 1;
-                display: flex;
-                align-items: center;
-                font-size: 84px;
-            }
-
-            .mlb-center {
-                height: 100vh;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-
-            /* Bootstrap Customizations */
-
-            .container-fluid {
-                flex: 1;
-            }
-
-            .btn {
-                padding: 16px 16px !important;
-                border-radius: 0px !important;
-            }
-
-            /* Media Queries */
-
-            @media (max-width: 600px) {
-                .mlb-title {
-                    font-size: 48px;
-                }
-            }
-        </style>
-
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.teal-red.min.css">
     </head>
 
     <body>
         @yield('content')
     </body>
+
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>    
 </html>

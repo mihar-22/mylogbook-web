@@ -1,10 +1,12 @@
 <?php
 
+namespace Tests\Integration;
 
 use App\Models\Supervisor;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Tests\TestCase;
 
 class SupervisorTest extends TestCase
 {
@@ -34,21 +36,21 @@ class SupervisorTest extends TestCase
 
         $this->createSupervisors($nofOfSupervisors, ['deleted_at' => Carbon::now()]);
 
-        $this->makeJsonRequest('GET');
+        $response = $this->makeJsonRequest('GET');
 
-        $this->seeJsonContains(['message' => 'collection of supervisors'])
-             ->assertResponseStatus(200);
+        $response->assertJson(['message' => 'collection of supervisors'])
+                 ->assertStatus(200);
 
-        $this->assertCount(($nofOfSupervisors * 2), json_decode($this->response->content())->data);
+        $this->assertCount(($nofOfSupervisors * 2), json_decode($response->content())->data);
     }
 
     /** @test */
     public function index_empty()
     {
-        $this->makeJsonRequest('GET');
+        $response = $this->makeJsonRequest('GET');
 
-        $this->seeJsonContains(['message' => 'empty collection'])
-             ->assertResponseStatus(200);
+        $response->assertJson(['message' => 'empty collection'])
+                 ->assertStatus(200);
     }
 
     /** @test */
@@ -56,42 +58,42 @@ class SupervisorTest extends TestCase
     {
         $newSupervisor = $this->makeSupervisor()->toArray();
 
-        $this->makeJsonRequest('POST', null, $newSupervisor);
+        $response = $this->makeJsonRequest('POST', null, $newSupervisor);
 
-        $this->seeJsonContains(['message' => 'supervisor created', 'data' => ['id' => 1]])
-             ->assertResponseStatus(201);
+        $response->assertJson(['message' => 'supervisor created', 'data' => ['id' => 1]])
+                 ->assertStatus(201);
 
-        $this->seeInDatabase($this->table, $newSupervisor);
+        $this->assertDatabaseHas($this->table, $newSupervisor);
     }
 
     /** @test */
     public function update()
     {
-        $id = $this->createSupervisors(1)->id;
+        $id = $this->createSupervisors(1)[0]->id;
 
         $update = $this->makeSupervisor()->toArray();
 
         $update['id'] = $id;
 
-        $this->makeJsonRequest('PUT', $id, $update);
+        $response = $this->makeJsonRequest('PUT', $id, $update);
 
-        $this->seeJsonContains(['message' => 'supervisor updated'])
-             ->assertResponseStatus(200);
+        $response->assertJson(['message' => 'supervisor updated'])
+                 ->assertStatus(200);
 
-        $this->seeInDatabase($this->table, $update);
+        $this->assertDatabaseHas($this->table, $update);
     }
 
     /** @test */
     public function destroy()
     {
-        $id = $this->createSupervisors(1)->id;
+        $id = $this->createSupervisors(1)[0]->id;
 
-        $this->makeJsonRequest('DELETE', $id);
+        $response = $this->makeJsonRequest('DELETE', $id);
 
-        $this->seeJsonContains(['message' => 'supervisor deleted'])
-             ->assertResponseStatus(200);
+        $response->assertJson(['message' => 'supervisor deleted'])
+                 ->assertStatus(200);
 
-        $this->seeInDatabase($this->table, ['id' => $id, 'deleted_at' => Carbon::now()]); 
+        $this->assertDatabaseHas($this->table, ['id' => $id, 'deleted_at' => Carbon::now()]); 
     }
 
     /** @test */
@@ -107,12 +109,12 @@ class SupervisorTest extends TestCase
             'updated_at' => Carbon::now()->addDays(1)
         ]);
 
-        $this->makeJsonRequest('GET', $since);
+        $response = $this->makeJsonRequest('GET', $since);
 
-        $this->seeJsonContains(['message' => 'collection of supervisors'])
-             ->assertResponseStatus(200);
+        $response->assertJson(['message' => 'collection of supervisors'])
+                 ->assertStatus(200);
 
-        $this->assertCount($noOfTripsSince, json_decode($this->response->content())->data);
+        $this->assertCount($noOfTripsSince, json_decode($response->content())->data);
     }
 
     /** @test */
@@ -120,17 +122,17 @@ class SupervisorTest extends TestCase
     {
         $since = Carbon::now();
     
-        $this->makeJsonRequest('GET', $since);
+        $response = $this->makeJsonRequest('GET', $since);
 
-        $this->seeJsonContains(['message' => 'empty collection', 'data' => []])
-             ->assertResponseStatus(200);
+        $response->assertJson(['message' => 'empty collection', 'data' => []])
+                 ->assertStatus(200);
     }
 
     private function makeJsonRequest($method, $id = '', $params = [])
     {
         $endPoint = "api/v1/supervisors/{$id}";
 
-        $this->actingAs($this->user)->json($method, $endPoint, $params);
+        return $this->actingAs($this->user)->json($method, $endPoint, $params);
     }
 
     private function makeSupervisor()
