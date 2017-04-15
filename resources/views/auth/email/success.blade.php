@@ -2,24 +2,13 @@
 
 @section('content')
 
-<div class="mdl-layout mdl-js-layout">
-	
-	<div class="mdl-layout-spacer"></div>
+<div class="mdl-grid">		
+	<div class="mdl-cell mdl-cell--4-col-phone mdl-cell--6-col-tablet mdl-cell--1-offset-tablet mdl-cell--6-col-desktop mdl-cell--3-offset-desktop">
 
-	<main class="mdl-layout__content">
+    	<img src="{{ asset('svg/email-verified-success.svg') }}" 
+    		 alt="Email Verified">
 
-		<div class="mdl-grid">		
-			<div class="mdl-cell mdl-cell--4-col-phone mdl-cell--6-col-tablet mdl-cell--1-offset-tablet mdl-cell--6-col-desktop mdl-cell--3-offset-desktop">
-
-		    	<img src="{{ asset('svg/email-verified-success.svg') }}" 
-		    		 alt="Email Verified">
-
-			</div>
-		</div>
-	
-	</main>
-
-	<div class="mdl-layout-spacer"></div>
+	</div>
 </div>
 
 @endsection

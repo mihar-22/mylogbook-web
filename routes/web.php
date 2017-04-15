@@ -22,3 +22,13 @@ Route::group(['prefix' => 'password'], function () {
 
     Route::post('reset', 'PasswordController@resetPassword');
 });
+
+Route::group(['prefix' => 'legal'], function() {
+	Route::get('privacy-policy', function() {
+		return view('legal.privacy');
+	});
+
+	Route::get('terms-of-service', function() {
+		return view('legal.terms');
+	});
+});
