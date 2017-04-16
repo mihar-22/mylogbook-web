@@ -18,11 +18,6 @@
         <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.teal-red.min.css">
 
         <style>
-            .mlb-typography--strong {
-                font-weight: 600;
-                color: #000;
-            }
-
             html, body {
                 font-family: "Roboto", "Helvetica", "Arial", sans-serif;
                 font-size: 16px;
@@ -39,13 +34,23 @@
             p {
                 font-size: 16px;
             }
+
+            .mlb-logo {
+                min-width: 300px; 
+                max-width: 480px;
+            }
+
+            .mlb-typography--strong {
+                font-weight: 600;
+                color: #000;
+            }
         </style>
     </head>
 
     <body>
         <div class="mdl-layout mdl-js-layout">
             <!-- Header -->
-            <header class="mdl-cell mdl-cell--3-col-phone mdl-cell--4-col-tablet">
+            <header class="mdl-cell mdl-cell--4-col mlb-logo">
                 <a href="{{ url('') }}">
                     <!-- Logo -->
                     <img src="{{ asset('svg/logo.svg') }}" 
