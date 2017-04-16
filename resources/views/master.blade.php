@@ -57,6 +57,11 @@
 
             /* MDL Customizations */
 
+            .mdl-typography--display-2 {
+                text-align: center;
+                margin-top: 0;
+            }
+
             .mdl-mini-footer {
                 display: block;
                 padding: 12px 32px;

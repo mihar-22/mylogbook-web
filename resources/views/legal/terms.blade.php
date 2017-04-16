@@ -3,7 +3,9 @@
 @section('content')
 
 <div class="mdl-grid">
-	<div class="mdl-cell mdl-cell--12-col">
+	<div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--10-col-desktop mdl-cell--1-offset-desktop">
+		<h1 class="mdl-typography--display-2">Terms of Service</h1>
+
 		<p>
 			In this document, “we”, “us” or “our” refers to Mylogbook ABN 94 808 100 501. Our 
 			Privacy Policy explains what information we collect and how we use it. Our service 

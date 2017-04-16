@@ -3,7 +3,9 @@
 @section('content')
 
 <div class="mdl-grid">
-	<div class="mdl-cell mdl-cell--12-col">
+	<div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--10-col-desktop mdl-cell--1-offset-desktop">
+		<h1 class="mdl-typography--display-2">Privacy Policy</h1>
+
 		<p>
 			Our primary objective is to organize, record and present the information required 
 			to obtain your Australian provisional licence. It is made available as a service to you 
