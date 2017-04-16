@@ -23,7 +23,8 @@
                 color: #000;
             }
 
-            body {
+            html, body {
+                font-family: "Roboto", "Helvetica", "Arial", sans-serif;
                 font-size: 16px;
             }
 
