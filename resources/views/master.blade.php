@@ -39,9 +39,15 @@
 
             /* Styles */
 
+            .mlb-header {
+                display: block;
+                width: 100%;
+                padding: 12px;
+                padding-left: 0;
+            }
+
             .mlb-header-logo {
-                min-width: 300px;
-                max-width: 400px;
+                width: 380px;
             }
 
             .mlb-typography--strong {
@@ -52,6 +58,7 @@
             @media (max-width: 480px) {
                 .mlb-header {
                     text-align: center;
+                    padding: 12px 0;
                 }
             }
 
@@ -60,11 +67,12 @@
             .mdl-typography--display-2 {
                 text-align: center;
                 margin-top: 0;
+                margin-bottom: 32px;
             }
 
             .mdl-mini-footer {
                 display: block;
-                padding: 12px 32px;
+                padding: 12px 26px;
             }
 
             .mdl-mini-footer__link-list > li {
@@ -84,13 +92,13 @@
     <body>
         <div class="mdl-layout mdl-js-layout">
             <!-- Header -->
-            <header class="mdl-cell mdl-cell--4-col mlb-header">
+            <header class="mlb-header">
                 <a href="{{ url('') }}">
                     <!-- Logo -->
                     <img class="mlb-header-logo" 
                          src="{{ asset('svg/logo.svg') }}" 
                          alt="Mylogbook Logo">                                            
-                </a>
+                </a>  
             </header>
 
             <div class="mdl-layout-spacer"></div>
