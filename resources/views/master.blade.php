@@ -18,6 +18,8 @@
         <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.teal-red.min.css">
 
         <style>
+            /* Foudation */
+
             html, body {
                 font-family: "Roboto", "Helvetica", "Arial", sans-serif;
                 font-size: 16px;
@@ -35,14 +37,41 @@
                 font-size: 16px;
             }
 
-            .mlb-logo {
-                min-width: 300px; 
-                max-width: 480px;
+            /* Styles */
+
+            .mlb-header-logo {
+                min-width: 300px;
+                max-width: 400px;
             }
 
             .mlb-typography--strong {
                 font-weight: 600;
                 color: #000;
+            }
+
+            @media (max-width: 480px) {
+                .mlb-header {
+                    text-align: center;
+                }
+            }
+
+            /* MDL Customizations */
+
+            .mdl-mini-footer {
+                display: block;
+                padding: 12px 32px;
+            }
+
+            .mdl-mini-footer__link-list > li {
+                padding-bottom: 0;
+                font-size: 12px;
+                color: #fff;
+            }
+
+            @media (max-width: 480px) {
+                .mdl-mini-footer__link-list {
+                    justify-content: center;
+                }
             }
         </style>
     </head>
@@ -50,10 +79,11 @@
     <body>
         <div class="mdl-layout mdl-js-layout">
             <!-- Header -->
-            <header class="mdl-cell mdl-cell--4-col mlb-logo">
+            <header class="mdl-cell mdl-cell--4-col mlb-header">
                 <a href="{{ url('') }}">
                     <!-- Logo -->
-                    <img src="{{ asset('svg/logo.svg') }}" 
+                    <img class="mlb-header-logo" 
+                         src="{{ asset('svg/logo.svg') }}" 
                          alt="Mylogbook Logo">                                            
                 </a>
             </header>
@@ -71,12 +101,10 @@
 
             <!-- Footer -->
             <footer class="mdl-mini-footer">
-                <div class="mdl-mini-footer__left-section">
-                    <ul class="mdl-mini-footer__link-list">
-                        <li><a href="{{ url('/legal/privacy-policy') }}">Privacy Policy</a></li>
-                        <li><a href="{{ url('/legal/terms-of-service') }}">Terms of Service</a></li>
-                    </ul>
-                </div>
+                <ul class="mdl-mini-footer__link-list">
+                    <li><a href="{{ url('/legal/privacy-policy') }}">Privacy Policy</a></li>
+                    <li><a href="{{ url('/legal/terms-of-service') }}">Terms of Service</a></li>
+                </ul>
             </footer>
         </div>
     </body>
