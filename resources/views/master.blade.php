@@ -18,7 +18,7 @@
         <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.teal-red.min.css">
 
         <style>
-            /* Foudation */
+            /* Foundation */
 
             html, body {
                 font-family: "Roboto", "Helvetica", "Arial", sans-serif;
