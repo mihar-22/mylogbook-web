@@ -14,7 +14,6 @@
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#0cbf34">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.teal-red.min.css">
 
         <style>
