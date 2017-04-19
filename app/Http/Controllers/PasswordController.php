@@ -44,6 +44,8 @@ class PasswordController extends Controller
         $user = $this->users->whereEmail($request->email)->first();
 
         if ( ! $this->broker->reset($user, $request->password, $request->token) ) abort(404);
+
+        $user->invalidateApiToken();
        
        return view('password.success');
     }

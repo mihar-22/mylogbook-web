@@ -58,7 +58,9 @@ class PasswordTest extends DuskTestCase
 
         $this->assertFalse(Auth::guard('web')->attempt(['email' => $this->user->email, 'password' => $oldPassword]));
 
-        $this->assertTrue(Auth::guard('web')->attempt(['email' => $this->user->email, 'password' => $newPassword]));        
+        $this->assertTrue(Auth::guard('web')->attempt(['email' => $this->user->email, 'password' => $newPassword]));
+
+        $this->assertDatabaseHas('users', ['email' => $this->user->email, 'api_token' => null]);
     }
 
     private function getEndPoint($action)
