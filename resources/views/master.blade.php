@@ -69,20 +69,29 @@
 
             .mdl-layout__content {
                 padding-top: 24px;
+                display: flex; 
+                display: -webkit-flex;
+                flex-direction: column;
+                -webkit-flex-direction: column;
             }
 
             .mdl-mini-footer {
                 display: block;
-                padding: 12px 32px;
+                padding: 12px 24px;
+            }
+
+            .mdl-mini-footer__link-list {
+                justify-content: flex-end;
             }
 
             .mdl-mini-footer__link-list > li {
-                padding-bottom: 0;
+                padding: 0 12px;
+                margin: 0;
                 font-size: 12px;
                 color: #fff;
             }
 
-            @media (max-width: 839px) {
+            @media (max-width: 480px) {
                 .mdl-mini-footer__link-list {
                     justify-content: center;
                 }
@@ -109,17 +118,17 @@
                 <div class="page-content">
                     @yield('content')
                 </div>      
+
+                <div class="mdl-layout-spacer"></div>
+
+                <!-- Footer -->
+                <footer class="mdl-mini-footer">
+                    <ul class="mdl-mini-footer__link-list">
+                        <li><a href="{{ url('/legal/privacy-policy') }}">Privacy Policy</a></li>
+                        <li><a href="{{ url('/legal/terms-of-service') }}">Terms of Service</a></li>
+                    </ul>
+                </footer>
             </main>
-
-            <div class="mdl-layout-spacer"></div>
-
-            <!-- Footer -->
-            <footer class="mdl-mini-footer">
-                <ul class="mdl-mini-footer__link-list">
-                    <li><a href="{{ url('/legal/privacy-policy') }}">Privacy Policy</a></li>
-                    <li><a href="{{ url('/legal/terms-of-service') }}">Terms of Service</a></li>
-                </ul>
-            </footer>
         </div>
     </body>
 
