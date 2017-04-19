@@ -22,6 +22,7 @@
             html, body {
                 font-family: "Roboto", "Helvetica", "Arial", sans-serif;
                 font-size: 16px;
+                background-color: #fafafa;
             }
 
             ul, ol {
@@ -41,24 +42,21 @@
             .mlb-header {
                 display: block;
                 width: 100%;
-                padding: 12px;
-                padding-left: 0;
+                padding: 16px 0;
+                text-align: center;
+                background-color: #fff;
+                border-bottom: 1px solid rgba(99, 114, 130, 0.15);
+                box-shadow: 0 2px 6px -2px rgba(99, 114, 130, 0.15);
             }
 
             .mlb-header-logo {
-                width: 380px;
+                width: 80%;
+                max-width: 380px;
             }
 
             .mlb-typography--strong {
                 font-weight: 600;
                 color: #000;
-            }
-
-            @media (max-width: 480px) {
-                .mlb-header {
-                    text-align: center;
-                    padding: 12px 0;
-                }
             }
 
             /* MDL Customizations */
@@ -69,9 +67,13 @@
                 margin-bottom: 32px;
             }
 
+            .mdl-layout__content {
+                padding-top: 24px;
+            }
+
             .mdl-mini-footer {
                 display: block;
-                padding: 12px 26px;
+                padding: 12px 32px;
             }
 
             .mdl-mini-footer__link-list > li {
@@ -80,7 +82,7 @@
                 color: #fff;
             }
 
-            @media (max-width: 480px) {
+            @media (max-width: 839px) {
                 .mdl-mini-footer__link-list {
                     justify-content: center;
                 }

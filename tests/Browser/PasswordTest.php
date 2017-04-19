@@ -53,7 +53,7 @@ class PasswordTest extends DuskTestCase
         $this->browse(function ($browser) use ($newPassword) {
             $browser->visit($this->getPasswordResetLink())
                     ->type('password', $newPassword)
-                    ->press('Reset');
+                    ->press('Reset Password');
         });
 
         $this->assertFalse(Auth::guard('web')->attempt(['email' => $this->user->email, 'password' => $oldPassword]));
