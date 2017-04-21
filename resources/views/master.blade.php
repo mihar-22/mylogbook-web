@@ -59,16 +59,20 @@
                 color: #000;
             }
 
+            .mlb-typography--subheading {
+                font-size: 20px; 
+                font-weight: 300;
+                line-height: 32px;
+            }
+
             /* MDL Customizations */
 
             .mdl-typography--display-2 {
                 text-align: center;
-                margin-top: 0;
                 margin-bottom: 32px;
             }
 
             .mdl-layout__content {
-                padding-top: 24px;
                 display: flex; 
                 display: -webkit-flex;
                 flex-direction: column;
