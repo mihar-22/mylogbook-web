@@ -51,38 +51,30 @@ class MailTrap
         return $this;
     }
 
-    public function getToHeader()
-    {
-        return $this->mail->to_email;
-    }
-
-    public function getSubjectHeader()
-    {
-        return $this->mail->subject;
-    }
-
-    public function getHtmlBody()
-    {
-        return $this->mail->html_body;
-    }
-
     public function assertSentTo($to)
     {
-        PHPUnit::assertEquals($to, $this->getToHeader());
+        PHPUnit::assertEquals($to, $this->mail->to_email);
 
         return $this;
     }
 
     public function assertSubjectIs($subject)
     {
-        PHPUnit::assertEquals($subject, $this->getSubjectHeader());
+        PHPUnit::assertEquals($subject, $this->mail->subject);
 
         return $this;        
     }
 
+    public function assertTextContains($contains)
+    {
+        PHPUnit::assertContains($contains, $this->mail->text_body);
+
+        return $this;
+    }
+
     public function assertBodyContains($contains)
     {
-        PHPUnit::assertContains($contains, $this->getHtmlBody());
+        PHPUnit::assertContains($contains, $this->mail->html_body);
 
         return $this;
     }

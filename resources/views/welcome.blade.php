@@ -8,7 +8,7 @@
 
     	<img src="{{ asset('svg/coming-soon.svg') }}"
     		 alt="Page Not Found"
-    		 style="max-width: 500px;">
+    		 style="max-width: 450px;">
 
     	<h1 class="mdl-typography--display-2" style="margin-top: 40px;">Coming Soon</h1>
 

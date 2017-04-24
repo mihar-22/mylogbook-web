@@ -14,8 +14,7 @@
 
 			<input type="hidden" name="token" value="{{ $token }}">
 
-			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
-				 style="width: 100%;">
+			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 				<input class="mdl-textfield__input" 
 					   type="email" 
 					   id="email"
@@ -28,8 +27,7 @@
 			</div>
 
 
-			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label{{ $errors->has('password') ? ' is-invalid' : '' }}" 
-				 style="width: 100%;">
+			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label{{ $errors->has('password') ? ' is-invalid' : '' }}">
 				<input class="mdl-textfield__input" 
 					   type="password" 
 					   id="password"
@@ -41,13 +39,9 @@
 				<span class="mdl-textfield__error">Must be greater than 6 characters</span>
 			</div>
 
-			<div style="display: flex; width: 100%; margin-top: 16px;">
-				<div style="flex: 1;"></div>
-
-				<input type="submit"
-					   class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect"
-					   value="Reset Password" />
-			</div>
+			<input type="submit"
+				   class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect"
+				   value="Reset Password" />
 		</form>
 
 	</div>

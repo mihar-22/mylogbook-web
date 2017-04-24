@@ -7,6 +7,8 @@
 
         <title>Mylogbook</title>
 
+        <meta name="description" content="Mylogbook is a simple way for you to record, manage and organise the data for your learner logbook and view your progress towards your P's (provisional licence).">
+
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
         <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
         <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
@@ -15,9 +17,14 @@
         <meta name="theme-color" content="#ffffff">
 
         <link rel="stylesheet" href="{{ asset('libraries/material/material.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('libraries/material/select.min.css') }}">        
 
         <style>
-            /* Foundation */
+            /*
+            * ------------------------------------
+            * Foundation 
+            * ------------------------------------
+            */
 
             html, body {
                 font-family: "Roboto", "Helvetica", "Arial", sans-serif;
@@ -37,7 +44,15 @@
                 font-size: 16px;
             }
 
-            /* Styles */
+            form {
+                margin-top: -32px;
+            }
+
+            /*
+            * ------------------------------------
+            * Layout
+            * ------------------------------------
+            */
 
             .mlb-header {
                 display: block;
@@ -65,11 +80,25 @@
                 line-height: 32px;
             }
 
-            /* MDL Customizations */
+            /*
+            * ------------------------------------
+            * MDL Customizations
+            * ------------------------------------
+            */
 
             .mdl-typography--display-2 {
                 text-align: center;
                 margin-bottom: 32px;
+            }
+
+            .mdl-textfield {
+                width: 100%;
+                margin-top: 8px;
+            }
+
+            .mdl-button[type="submit"] {
+                width: 100%;
+                margin-top: 16px;
             }
 
             .mdl-layout__content {
@@ -128,6 +157,7 @@
                 <!-- Footer -->
                 <footer class="mdl-mini-footer">
                     <ul class="mdl-mini-footer__link-list">
+                        <li><a href="{{ url('/contact-us') }}">Contact Us</a></li>
                         <li><a href="{{ url('/legal/privacy-policy') }}">Privacy Policy</a></li>
                         <li><a href="{{ url('/legal/terms-of-service') }}">Terms of Service</a></li>
                     </ul>
@@ -136,5 +166,6 @@
         </div>
     </body>
 
-    <script defer src="{{ asset('libraries/material/material.min.js') }}"></script>    
+    <script defer src="{{ asset('libraries/material/material.min.js') }}"></script>
+    <script defer src="{{ asset('libraries/material/select.min.js') }}"></script>    
 </html>
