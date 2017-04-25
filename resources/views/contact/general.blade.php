@@ -65,6 +65,8 @@
 
 				<span class="mdl-textfield__error">{{ $errors->first('message') }}</span>
 			</div>
+			
+			{!! app('captcha')->display(); !!}	
 
 			<input type="submit"
 				   class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect"

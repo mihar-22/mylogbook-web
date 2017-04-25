@@ -2,6 +2,7 @@
 
 namespace Tests\Browser;
 
+use Anhskohbo\NoCaptcha\Facades\NoCaptcha;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Chrome;
 use Tests\DuskTestCase;
@@ -31,6 +32,15 @@ class ContactTest extends DuskTestCase
     public function i_can_contact_customer_support()
     {
         $this->browse(function ($browser) {
+            NoCaptcha::shouldReceive('verifyResponse')
+                     ->once()
+                     ->andReturn(true);
+
+            NoCaptcha::shouldReceive('display')
+                     ->zeroOrMoreTimes()
+                     ->andReturn('<input type="hidden" name="g-recaptcha-response" value="1" />');
+
+
             $browser->visit('contact-us')
                     ->type('name', 'John Doe')
                     ->type('email', 'john_doe@test.com')
