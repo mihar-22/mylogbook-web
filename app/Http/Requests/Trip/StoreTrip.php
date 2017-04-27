@@ -29,7 +29,7 @@ class StoreTrip extends FormRequest
         return [
             'started_at' => 'required|date_format:Y-m-d H:i:s|after:today',
             'ended_at' => 'required|date_format:Y-m-d H:i:s|after:started_at',
-            'odometer' => 'required|integer|max:999999',
+            'odometer' => 'required|integer|min:0|max:999999',
             'distance' => 'required|regex:/^(\d{1,11})(\.)(\d{1,2})$/',
 
             'weather' => 'required|weather',
