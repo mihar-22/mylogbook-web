@@ -1,7 +1,10 @@
 @extends('master')
 
-@section('content')
+@push('styles')
+<link rel="stylesheet" href="{{ asset('libraries/material/select.min.css') }}">        
+@endpush
 
+@section('content')
 <div class="mdl-grid">		
 	<div class="mdl-cell mdl-cell--4-col-phone mdl-cell--6-col-tablet mdl-cell--1-offset-tablet mdl-cell--6-col-desktop mdl-cell--3-offset-desktop">
 
@@ -75,5 +78,8 @@
 
 	</div>
 </div>
-
 @endsection
+
+@push('scripts')
+<script defer src="{{ asset('libraries/material/select.min.js') }}"></script>
+@endpush

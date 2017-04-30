@@ -17,7 +17,6 @@
         <meta name="theme-color" content="#ffffff">
 
         <link rel="stylesheet" href="{{ asset('libraries/material/material.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('libraries/material/select.min.css') }}">        
 
         <style>
             /*
@@ -82,7 +81,7 @@
 
             /*
             * ------------------------------------
-            * MDL Customizations
+            * Material Design Lite
             * ------------------------------------
             */
 
@@ -130,9 +129,11 @@
                 }
             }
         </style>
+
+        @stack('styles')
     </head>
 
-    <body>
+    <body id="app">
         <div class="mdl-layout mdl-js-layout">
             <!-- Header -->
             <header class="mlb-header">
@@ -167,5 +168,5 @@
     </body>
 
     <script defer src="{{ asset('libraries/material/material.min.js') }}"></script>
-    <script defer src="{{ asset('libraries/material/select.min.js') }}"></script>    
+    @stack('scripts')
 </html>

@@ -1,7 +1,6 @@
 @extends('master')
 
 @section('content')
-
 <div class="mdl-grid">
 	<div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--10-col-desktop mdl-cell--1-offset-desktop">
 		<h1 class="mdl-typography--display-2">Terms of Service</h1>
@@ -172,5 +171,4 @@
 		</p>
 	</div>
 </div>
-
 @endsection
