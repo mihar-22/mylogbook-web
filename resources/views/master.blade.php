@@ -16,6 +16,8 @@
       <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#0cbf34">
       <meta name="theme-color" content="#ffffff">
 
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+      
       @if (App::environment('local', 'testing'))
       <link rel="stylesheet" href="http://localhost:8080/assets/app.css">
       @else
@@ -25,19 +27,19 @@
       @stack('styles')
     </head>
 
-  <body ontouchstart>
-    <main id="app">
-      @yield('content')
-    </main>
+    <body>
+      <main id="app">
+              
+      </main>
 
-    <script src="{{ asset('dist/bootstrap.js') }}"></script>
+      <script src="{{ asset('dist/bootstrap.js') }}"></script>
 
-    @if (App::environment('local', 'testing'))
-    <script src="http://localhost:8080/assets/app.js"></script>
-    @else
-    <script src="{{ asset('dist/app.js') }}"></script>
-    @endif
+      @if (App::environment('local', 'testing'))
+      <script src="http://localhost:8080/assets/app.js"></script>
+      @else
+      <script src="{{ asset('dist/app.js') }}"></script>
+      @endif
 
-    @stack('scripts')
-  </body>
+      @stack('scripts')
+    </body>
 </html>
