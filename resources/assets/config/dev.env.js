@@ -3,9 +3,11 @@ var merge = require('webpack-merge');
 var prodEnv = require('./prod.env');
 
 module.exports = merge(prodEnv, {
-  NODE_ENV: '"development"',
-  VUE: {
-    SILENT: false
+  name: JSON.stringify('development'),
+  vue: {
+    silent: false
   },
-  API_ROOT: '"http://mylogbook.dev"'
+  mylb: {
+  	api_url: JSON.stringify('http://mylogbook.dev')
+  }
 });

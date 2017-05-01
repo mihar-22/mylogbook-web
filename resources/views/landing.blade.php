@@ -221,16 +221,16 @@
 
 @push('scripts')
 <script>
-	var video = document.getElementById('preview__video');
+	// var video = document.getElementById('preview__video');
 
-	video.src = "{{ asset('videos/dashboard-vic.mp4') }}"
+	// video.src = "{{ asset('videos/dashboard-vic.mp4') }}"
 
-	video.addEventListener('canplay', function () {
-		video.play();
-	});
+	// video.addEventListener('canplay', function () {
+	// 	video.play();
+	// });
 
-	video.addEventListener('ended', function () {
-		console.log('next video');
-	});
+	// video.addEventListener('ended', function () {
+	// 	console.log('next video');
+	// });
 </script>
 @endpush

@@ -12,31 +12,33 @@ module.exports = {
     path: config.paths.dist,
     filename: '[name].js'
   },
+  devtool: '#cheap-eval-source-map',
   stats: {
     colors: true,
+    hash: false,
+    version: false,
+    timings: false,
     chunks: false,
+    errors: false,
     children: false
   },
   resolve: {
-    extensions: ['', '.js', '.vue'],
-    fallback: [config.paths.nodeModules],
     alias: {
-      'vue$': 'vue/dist/vue.esm.js',
-      'src': config.paths.src
+      'vue$': 'vue/dist/vue.runtime.esm.js'
     }
   },
   devServer: {
     historyApiFallback: true,
-    noInfo: true
+    noInfo: true,
+    compress: true,
+    quiet: false,
+    hot: true,
+    contentBase: config.paths.public,
+    publicPath: '/assets'
   },
   performance: {
     hints: false
   },
-  resolveLoader: {
-    fallback: [config.paths.nodeModules]
-  },
-  cache: true,
-  devtool: config.development.sourceMap,
   module: {
     loaders: [
       {
@@ -44,11 +46,16 @@ module.exports = {
         loader: 'vue-loader',
         options: {
           loaders: {
-            {{#sass}}
-            'scss': 'vue-style-loader!css-loader!sass-loader',
-            'sass': 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
-            {{/sass}}
-          }
+            scss: ExtractTextPlugin.extract({
+                use: (config.isProduction ? 'css-loader?minimize!sass-loader' : 'css-loader!sass-loader'),
+                fallback: 'vue-style-loader'
+            })
+          },
+          postcss: [
+            require('autoprefixer')({
+              browsers: ['last 2 versions']
+            })
+          ]
         }
       },
       {
@@ -58,37 +65,39 @@ module.exports = {
       }
     ]
   },
-  vue: {
-    postcss: [
-      require('autoprefixer')({
-        browsers: ['last 2 versions']
-      })
-    ]
-  },
   plugins: [
     new webpack.DefinePlugin({
-      'env': config.development.env
+      'env': config.env,
+      'process.env': {
+        NODE_ENV: config.env.name
+      }
     }),
-    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.DllReferencePlugin({
       context: '.',
       manifest: require(config.paths.manifest)
-    })
+    }),
+    new ExtractTextPlugin('[name].css')
   ]
 };
 
-if (process.env.NODE_ENV === 'production') {
-  module.exports.devtool = config.production.sourceMap;
+if (config.isDevelopment) {  
+  module.exports.cache = true;
 
-  module.exports.output = {
-      path: config.paths.dist,
-      filename: '[name].min.js'
-  };
+  module.exports.plugins = module.exports.plugins.concat([
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoEmitOnErrorsPlugin()
+  ]);
+}
 
-  module.exports.plugins.push([
-    new ExtractTextPlugin('[name].min.css'),
+if (config.isProduction) {
+  module.exports.devtool = 'source-map';
+
+  module.exports.plugins = module.exports.plugins.concat([
     new webpack.optimize.UglifyJsPlugin({
-      compress: { warnings: false }
+      sourceMap: true,
+      compress: { warnings: false },
+      comments: false
     })
   ]);
 }

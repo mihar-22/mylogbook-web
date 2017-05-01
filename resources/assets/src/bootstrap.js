@@ -1,6 +1,7 @@
 
-window.Vue = require('vue');
+import Vue 			from 'vue';
+import FastClick 	from 'fastclick';
 
-const fastclick = require('fastclick')
+window.Vue = Vue;
 
-fastclick.attach(document.body);
+FastClick.attach(document.body);

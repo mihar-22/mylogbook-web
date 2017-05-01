@@ -1,21 +1,30 @@
 
+<template>
+	<main id="app">
+		<slot></slot>
+	</main>
+</template>
+
 <script>
-	import Bootstrap from './bootstrap';
+	import Bootstrap 		from './bootstrap';
+	import VueResource 	from 'vue-resource';
+
+	// Plugins
+	Vue.use(VueResource);
 
 	// Config
 	Vue.config.silent = env.vue.silent;
 
-	// Vue Resource
-	import VueResource from 'vue-resource';
-
-	vue.use(VueResource);
-
-	Vue.http.options.root = env.API_ROOT;
-	Vue.http.headers.common['X-CSRF-TOKEN'] = window.Laravel.csrfToken;
-	Vue.http.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+	Vue.http.options.root = env.mylb.api_url;
 
 	// Create app instance
-	const app = new Vue({
-		name: 'app'
+	new Vue({
+		name: 'app',
+		render: h => h(this)
 	});
 </script>
+
+<style lang="scss">
+	// Views
+	@import "views/master";
+</style>

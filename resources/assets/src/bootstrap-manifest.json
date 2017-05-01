@@ -1,0 +1,28 @@
+{
+  "name": "bootstrap",
+  "content": {
+    "./resources/assets/src/bootstrap.js": {
+      "id": 0,
+      "meta": {
+        "harmonyModule": true
+      }
+    },
+    "./node_modules/fastclick/lib/fastclick.js": {
+      "id": 1,
+      "meta": {}
+    },
+    "./node_modules/vue/dist/vue.runtime.esm.js": {
+      "id": 2,
+      "meta": {
+        "harmonyModule": true
+      },
+      "exports": [
+        "default"
+      ]
+    },
+    "./node_modules/webpack/buildin/global.js": {
+      "id": 3,
+      "meta": {}
+    }
+  }
+}

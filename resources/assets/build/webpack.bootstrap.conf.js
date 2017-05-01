@@ -3,7 +3,7 @@ var config = require('../config');
 var webpack = require('webpack');
 
 module.exports = {
-  devtool: config.production.sourceMap,
+  devtool: '#cheap-eval-source-map',
   entry: {
     bootstrap: [config.paths.bootstrap]
   },
@@ -14,26 +14,32 @@ module.exports = {
     library: '[name]'
   },
   resolve: {
-    extensions: ['', '.js', '.vue'],
-    fallback: [config.paths.nodeModules],
     alias: {
-      'vue$': 'vue/dist/vue.esm.js'
+      'vue$': 'vue/dist/vue.runtime.esm.js'
     }
-  },
-  resolveLoader: {
-    fallback: [config.paths.nodeModules]
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': config.production.env
+      'process.env': {
+        NODE_ENV: config.env.name
+      }
     }),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: { warnings: false }
-    }),
-    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.DllPlugin({
       path: config.paths.manifest,
       name: '[name]'
     })
   ]
 };
+
+if (config.isProduction) {
+  module.exports.devtool = 'source-map';
+
+  module.exports.plugins = module.exports.plugins.concat([
+    new webpack.optimize.UglifyJsPlugin({
+      sourceMap: true,
+      compress: { warnings: false },
+      comments: false,
+    })
+  ]);
+}

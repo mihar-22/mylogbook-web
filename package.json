@@ -1,5 +1,14 @@
 {
   "private": true,
+  "scripts": {
+    "build:app-dev": "cross-env NODE_ENV=development webpack --config resources/assets/build/webpack.conf.js",
+    "build:app-prod": "cross-env NODE_ENV=production webpack --config resources/assets/build/webpack.conf.js",
+    "build:bootstrap-dev": "cross-env NODE_ENV=development webpack --config resources/assets/build/webpack.bootstrap.conf.js",
+    "build:bootstrap-prod": "cross-env NODE_ENV=production webpack --config resources/assets/build/webpack.bootstrap.conf.js",
+    "build-dev": "npm run build:bootstrap-dev && npm run build:app-dev ",
+    "build-prod": "npm run build:bootstrap-prod && npm run build:app-prod",
+    "serve": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --config resources/assets/build/webpack.conf.js --inline --hot"
+  },
   "devDependencies": {
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
@@ -7,7 +16,9 @@
     "cross-env": "^4.0.0",
     "css-loader": "^0.28.0",
     "extract-text-webpack-plugin": "^2.1.0",
+    "node-sass": "^4.5.2",
     "path": "^0.12.7",
+    "sass-loader": "^6.0.3",
     "vue-loader": "^12.0.2",
     "vue-template-compiler": "^2.3.0",
     "webpack": "^2.4.1",

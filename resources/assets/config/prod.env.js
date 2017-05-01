@@ -1,8 +1,10 @@
 
 module.exports = {
-  NODE_ENV: '"production"',
-  VUE: {
-    SILENT: true
+  name: JSON.stringify('production'),
+  vue: {
+    silent: true
   },
-  API_ROOT: '"https://mylb.com.au"'
+  mylb: {
+  	api_url: JSON.stringify('https://mylb.com.au')
+  }
 };
