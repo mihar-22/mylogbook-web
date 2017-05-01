@@ -42,6 +42,8 @@ Thumbs.db
 /node_modules
 /public/hot
 /public/storage
+/public/dist
+/resources/assets/src/bootstrap-manifest.json
 /storage/*.key
 /vendor
 /.idea

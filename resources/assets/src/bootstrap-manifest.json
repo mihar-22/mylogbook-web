@@ -11,7 +11,7 @@
       "id": 1,
       "meta": {}
     },
-    "./node_modules/vue/dist/vue.runtime.esm.js": {
+    "./node_modules/vue/dist/vue.esm.js": {
       "id": 2,
       "meta": {
         "harmonyModule": true

@@ -19,8 +19,7 @@
 
 	// Create app instance
 	new Vue({
-		name: 'app',
-		render: h => h(this)
+		el: '#app'
 	});
 </script>
 
