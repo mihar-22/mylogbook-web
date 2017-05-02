@@ -9,6 +9,7 @@
 
 	Vue.use(VueMaterial.MdCore);
 	Vue.use(VueMaterial.MdButton);
+  Vue.use(VueMaterial.MdLayout);
 
 	// Config
 	Vue.config.silent = env.vue.silent;
@@ -36,6 +37,16 @@
 
 <style lang="scss">
 	// Vue Material
+  @import "../../../node_modules/vue-material/src/core/stylesheets/variables";
+  @import "../../../node_modules/vue-material/src/core/stylesheets/mixins";
+
 	@import "../../../node_modules/vue-material/dist/components/mdCore/index.css";
 	@import "../../../node_modules/vue-material/dist/components/mdButton/index.css";
+  @import "../../../node_modules/vue-material/dist/components/mdLayout/index.css";
+
+  // Core
+  @import "core/global";
+
+  // Views
+  @import "views/master";
 </style>

@@ -1,0 +1,112 @@
+
+/* ==========================================================================
+  Variables
+  ========================================================================== */
+
+  $header-height:         85px;
+  $header-bottom-color:   rgba(99, 114, 130, 0.15);
+
+/* ==========================================================================
+  Styling
+  ========================================================================== */
+
+  .Master {
+
+    &_header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1;
+
+      width: 100%;
+      height: $header-height;
+
+      display: flex;
+
+      background-color: #fff;
+      border-bottom: 1px solid $header-bottom-color;
+      box-shadow: 0 2px 6px -2px $header-bottom-color;
+
+      &_sections {
+        position: relative;
+
+        height: $header-height;
+        padding: 0 16px;
+
+        display: flex;
+        flex: 1;
+
+        &_section {
+          position: relative;
+
+          display: flex;
+          flex: 1;
+          align-items: center;
+
+          &--center {
+            justify-content: center;
+          }
+
+          & > a {
+            position: relative;
+            width: 300px;
+          }
+        }
+      }
+    }
+
+    &_main {
+      position: relative;
+      z-index: 0;
+
+      padding-top: $header-height + 24px;
+      padding-bottom: 24px;
+
+      display: flex;
+      flex: 1;
+    }
+
+    &_footer {
+      position: relative;
+      z-index: 0;
+
+      width: 100%;
+      height: 60px;
+
+      display: flex;
+
+      background-color: #f6f9fc;
+
+      &_nav {
+        position: relative;
+
+        width: 100%;
+        height: 60px;
+        padding: 0 32px;
+
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+
+        @include layout-xsmall {
+          justify-content: center;
+        }
+
+        @include layout-small {
+          justify-content: center;
+        }
+
+        & > a {
+          padding-left: 24px;
+
+          color: #939ea7;
+          font-size: 12px;
+          font-weight: 700;
+        }
+
+        & > a:first-child {
+          padding-left: 0;
+        }
+      }
+    }
+  }
