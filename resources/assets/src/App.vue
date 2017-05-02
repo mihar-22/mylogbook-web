@@ -37,10 +37,12 @@
 
 <style lang="scss">
 	// Vue Material
-  @import "../../../node_modules/vue-material/src/core/stylesheets/variables";
+	@import "../../../node_modules/vue-material/src/core/stylesheets/variables";
   @import "../../../node_modules/vue-material/src/core/stylesheets/mixins";
+  @import "../../../node_modules/vue-material/src/core/stylesheets/base";
+  @import "../../../node_modules/vue-material/src/core/stylesheets/scrollbar";
+  @import "../../../node_modules/vue-material/src/core/stylesheets/typography";
 
-	@import "../../../node_modules/vue-material/dist/components/mdCore/index.css";
 	@import "../../../node_modules/vue-material/dist/components/mdButton/index.css";
   @import "../../../node_modules/vue-material/dist/components/mdLayout/index.css";
 
@@ -49,4 +51,5 @@
 
   // Views
   @import "views/master";
+  @import "views/privacy";
 </style>

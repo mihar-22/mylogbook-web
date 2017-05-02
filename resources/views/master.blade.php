@@ -39,7 +39,9 @@
       </header>
 
       <main id="app" class="Master_main">
-        @yield('content')
+        <md-layout class="Master_main_content" md-gutter>
+          @yield('content')
+        </md-layout>
       </main>
 
       <footer class="Master_footer">

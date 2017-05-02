@@ -64,6 +64,23 @@
 
       display: flex;
       flex: 1;
+
+      &_content {
+        margin: 0 auto;
+        max-width: 1200px;
+
+        @include layout-medium {
+          padding: 0 48px;
+        }
+
+        @include layout-small {
+          padding: 0 32px;
+        }
+
+        @include layout-xsmall {
+          padding: 0 24px;
+        }
+      }
     }
 
     &_footer {
@@ -88,11 +105,11 @@
         align-items: center;
         justify-content: flex-end;
 
-        @include layout-xsmall {
+        @include layout-small {
           justify-content: center;
         }
 
-        @include layout-small {
+        @include layout-xsmall {
           justify-content: center;
         }
 
