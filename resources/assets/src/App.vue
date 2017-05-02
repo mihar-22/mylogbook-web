@@ -51,5 +51,5 @@
 
   // Views
   @import "views/master";
-  @import "views/privacy";
+  @import "views/legal";
 </style>

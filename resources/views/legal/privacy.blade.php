@@ -2,8 +2,8 @@
 
 @section('content')
 
-<div class="Privacy">
-  <h1 class="Privacy_heading">Privacy Policy</h1>
+<div class="Legal">
+  <h1 class="Legal_heading">Privacy Policy</h1>
 
   <p>
     Our primary objective is to organize, record and present the information required
@@ -21,13 +21,13 @@
     <li>Changes</li>
   </ul>
 
-  <h2 class="Privacy_subheading">Information we collect</h2>
+  <h2 class="Legal_subheading">Information we collect</h2>
 
   <p>We collect the following information to provide and improve our service to you.</p>
 
   <ul>
     <li>
-      <span class="Privacy_content--highlight">Account.</span> We require you to sign up
+      <span class="Legal_content--highlight">Account.</span> We require you to sign up
       for a Mylogbook Account to use our service. When you do, we’ll ask for personal
       information like your name, email address and birthdate. This information helps
       us improve and personalize your user experience. Your email is used to: identify you,
@@ -35,7 +35,7 @@
       resources.
     </li>
     <li>
-      <span class="Privacy_content--highlight">Local.</span> While using our service, various
+      <span class="Legal_content--highlight">Local.</span> While using our service, various
       data you provide is stored locally on your device. This includes: the date you received
       your learner’s permit, the current state you reside in and information you provide about
       your progression towards your provisional licence. The exact information you provide will
@@ -44,7 +44,7 @@
       providing a better user experience.
     </li>
     <li>
-      <span class="Privacy_content--highlight">Service.</span> Our service allows you to create cars,
+      <span class="Legal_content--highlight">Service.</span> Our service allows you to create cars,
       supervisors and logs. It includes your car registration numbers and supervisor names. A log is
       a recording of a trip taken as a learner driver from a starting point to a final destination.
       Information about your trip is recorded with data you provide and information we collect in the
@@ -57,7 +57,7 @@
       our service.
     </li>
     <li>
-      <span class="Privacy_content--highlight">Usage.</span> We may collect information on how you
+      <span class="Legal_content--highlight">Usage.</span> We may collect information on how you
       use the service and your experience using it. This includes actions you take in your account,
       system activity, crashes and errors. We may also collect device-specific information such as
       the unique device identifier (UID), operating system version and hardware model. This information
@@ -65,13 +65,13 @@
     </li>
   </ul>
 
-  <h2 class="Privacy_subheading">How we use information we collect</h2>
+  <h2 class="Legal_subheading">How we use information we collect</h2>
 
   <p>
     We use the information we collect to provide, maintain, protect and improve our service. Nothing more.
   </p>
 
-  <h2 class="Privacy_subheading">Information we share</h2>
+  <h2 class="Legal_subheading">Information we share</h2>
 
   <p>
     We do not share personal information with companies, organizations and individuals outside of Mylogbook
@@ -91,7 +91,7 @@
     </li>
   </ul>
 
-  <h2 class="Privacy_subheading">Information security</h2>
+  <h2 class="Legal_subheading">Information security</h2>
 
   <p>
     We work hard to protect our users from unauthorized access, unauthorized alteration, disclosure
@@ -110,7 +110,7 @@
     </li>
   </ul>
 
-  <h2 class="Privacy_subheading">Changes</h2>
+  <h2 class="Legal_subheading">Changes</h2>
 
   <p>
     Our privacy policy may change from time to time. However, we will not reduce your rights
