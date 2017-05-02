@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="u-centerPiece">
-  <img src="{{ asset('svg/503.svg') }}" alt="Page Not Found">
+  <img src="{{ asset('svg/503.svg') }}" alt="Service Unavailable">
 
   <h1 class="md-display-1">Service Unavailable</h1>
 
