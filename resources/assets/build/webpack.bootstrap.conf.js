@@ -1,4 +1,4 @@
-              
+
 var config = require('../config');
 var webpack = require('webpack');
 

@@ -37,5 +37,5 @@
 <style lang="scss">
 	// Vue Material
 	@import "../../../node_modules/vue-material/dist/components/mdCore/index.css";
-	@import "../../../node_modules/vue-material/dist/components/mdButton/index.css";	
+	@import "../../../node_modules/vue-material/dist/components/mdButton/index.css";
 </style>

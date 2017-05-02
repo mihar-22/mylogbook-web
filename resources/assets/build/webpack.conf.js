@@ -81,7 +81,7 @@ module.exports = {
   ]
 };
 
-if (config.isDevelopment) {  
+if (config.isDevelopment) {
   module.exports.cache = true;
 
   module.exports.plugins = module.exports.plugins.concat([
