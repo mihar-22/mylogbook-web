@@ -19,14 +19,16 @@ Route::group(['prefix' => 'v1'], function () {
 
 	Route::group(['prefix' => 'auth'], function () {
 		Route::post('register', 'AuthController@register');
-		
+
 		Route::post('login', 'AuthController@login');
-		
+
 		Route::get('logout', 'AuthController@logout');
 
 		Route::get('check', 'AuthController@check');
 
 		Route::post('forgot', 'PasswordController@sendResetLink');
+
+        Route::post('reset', 'PasswordController@resetPassword');
 	});
 
 	// Cars

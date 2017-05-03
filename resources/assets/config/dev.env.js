@@ -8,6 +8,7 @@ module.exports = merge(prodEnv, {
     silent: false
   },
   mylb: {
-  	api_url: JSON.stringify('http://mylogbook.dev')
+    url: JSON.stringify('http://mylogbook.dev'),
+  	api_url: JSON.stringify('http://mylogbook.dev/api/v1')
   }
 });

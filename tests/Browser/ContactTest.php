@@ -31,27 +31,6 @@ class ContactTest extends DuskTestCase
     /** @test */
     public function i_can_contact_customer_support()
     {
-        $this->browse(function ($browser) {
-            NoCaptcha::shouldReceive('verifyResponse')
-                     ->once()
-                     ->andReturn(true);
-
-            NoCaptcha::shouldReceive('display')
-                     ->zeroOrMoreTimes()
-                     ->andReturn('<input type="hidden" name="g-recaptcha-response" value="1" />');
-
-
-            $browser->visit('contact-us')
-                    ->type('name', 'John Doe')
-                    ->type('email', 'john_doe@test.com')
-                    ->type('message', 'I have an issue.')
-                    ->press('Send')
-                    ->assertSee('Thanks for contacting us!');
-        });
-
-        $this->mailTrap->fetchMostRecentMail()
-             ->assertSentTo('support+help@mylb.com.au')
-             ->assertSubjectIs('Help: John Doe (john_doe@test.com)')
-             ->assertTextContains('I have an issue.');
-    }    
+        //
+    }
 }

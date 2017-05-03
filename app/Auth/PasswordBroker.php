@@ -27,7 +27,7 @@ class PasswordBroker
         return true;
     }
 
-    private function exists($email, $token)
+    public function exists($email, $token)
     {
         $token = (array) $this->getTable()->where('email', $email)->where('token', $token)->first();
 

@@ -23,11 +23,7 @@ Route::get('email/verify/{email}/{token}', 'AuthController@verifyEmail');
 
 // Password
 
-Route::group(['prefix' => 'password'], function () {
-    Route::get('reset/{email}/{token}', 'PasswordController@showResetForm');
-
-    Route::post('reset', 'PasswordController@resetPassword');
-});
+Route::get('password/reset/{email}/{token}', 'PasswordController@showResetForm');
 
 // Contact Us
 

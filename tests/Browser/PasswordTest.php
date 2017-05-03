@@ -53,7 +53,9 @@ class PasswordTest extends DuskTestCase
         $this->browse(function ($browser) use ($newPassword) {
             $browser->visit($this->getPasswordResetLink())
                     ->type('password', $newPassword)
-                    ->press('Reset Password');
+                    ->pause(100)
+                    ->press('RESET PASSWORD')
+                    ->waitFor('img[alt="Password Reset Complete"]');
         });
 
         $this->assertFalse(Auth::guard('web')->attempt(['email' => $this->user->email, 'password' => $oldPassword]));
@@ -82,6 +84,6 @@ class PasswordTest extends DuskTestCase
 
     private function requestPasswordReset()
     {
-        return $this->post($this->getEndPoint('forgot'), ['email' => $this->user->email]);    	
+        return $this->post($this->getEndPoint('forgot'), ['email' => $this->user->email]);
     }
 }

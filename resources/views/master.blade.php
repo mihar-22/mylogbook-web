@@ -5,6 +5,8 @@
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
 
+      <meta name="csrf-token" content="{{ csrf_token() }}">
+
       <title>Mylogbook</title>
 
       <meta name="description" content="Mylogbook is a simple mobile app for you to record, manage and organise the data for your learner logbook and view your progress towards your P's (provisional licence).">

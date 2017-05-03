@@ -34,19 +34,25 @@ class PasswordController extends Controller
 
     public function showResetForm($email, $token)
     {
+        if (! $this->broker->exists($email, $token)) { abort(404); }
+
         return view('password.reset')->with(
             ['email' => $email, 'token' => $token]
         );
     }
 
     public function resetPassword(ResetPassword $request)
-    {	
+    {
         $user = $this->users->whereEmail($request->email)->first();
 
-        if ( ! $this->broker->reset($user, $request->password, $request->token) ) abort(404);
+        if ( ! $this->broker->reset($user, $request->password, $request->token) ) {
+            return ApiResponder::respondWithMessage('password reset failed')
+                                 ->setStatusCode(400);
+        }
 
         $user->invalidateApiToken();
-       
-       return view('password.success');
+
+        return ApiResponder::respondWithMessage('password reset')
+                             ->setStatusCode(200);
     }
 }
