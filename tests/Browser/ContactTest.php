@@ -2,7 +2,6 @@
 
 namespace Tests\Browser;
 
-use Anhskohbo\NoCaptcha\Facades\NoCaptcha;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Chrome;
 use Tests\DuskTestCase;

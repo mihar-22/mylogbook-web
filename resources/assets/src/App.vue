@@ -15,6 +15,9 @@
   Vue.use(VueMaterial.MdBackdrop);
   Vue.use(VueMaterial.MdDialog);
   Vue.use(VueMaterial.MdProgress);
+  Vue.use(VueMaterial.MdMenu);
+  Vue.use(VueMaterial.MdList);
+  Vue.use(VueMaterial.MdSelect);
 
 	// Config
   const csrfToken = document.querySelector('meta[name="csrf-token"]')
@@ -39,8 +42,10 @@
 
   // Views
   import PasswordResetView from './views/PasswordReset.vue';
+  import ContactUsView     from './views/ContactUs.vue';
 
   Vue.component('PasswordResetView', PasswordResetView);
+  Vue.component('ContactUsView', ContactUsView);
 
 	// Create app instance
 	new Vue({
@@ -64,6 +69,9 @@
   @import "../../../node_modules/vue-material/dist/components/mdBackdrop/index.css";
   @import "../../../node_modules/vue-material/dist/components/mdDialog/index.css";
   @import "../../../node_modules/vue-material/dist/components/mdProgress/index.css";
+  @import "../../../node_modules/vue-material/dist/components/mdMenu/index.css";
+  @import "../../../node_modules/vue-material/dist/components/mdList/index.css";
+  @import "../../../node_modules/vue-material/dist/components/mdSelect/index.css";
 
   // Core
   @import "core/global";

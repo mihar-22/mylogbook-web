@@ -20,8 +20,7 @@ class SendMessage extends FormRequest
             'name' => 'required|string|max:50',
             'email' => 'required|string|email',
             'topic' => 'required|string|in:Help,Feedback,Bug',
-            'message' => 'required|string|max:500',
-            'g-recaptcha-response' => 'required|captcha'
+            'message' => 'required|string|max:500'
         ];
     }
 }

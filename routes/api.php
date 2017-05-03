@@ -31,6 +31,9 @@ Route::group(['prefix' => 'v1'], function () {
         Route::post('reset', 'PasswordController@resetPassword');
 	});
 
+    // Contact
+    Route::post('contact', 'ContactController@sendMessage');
+
 	// Cars
 
 	Route::resource('cars', 'CarController', ['except' => [

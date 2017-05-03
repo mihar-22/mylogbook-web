@@ -17,19 +17,11 @@ Route::get('/', function () {
     return view('landing');
 });
 
-// Email
-
 Route::get('email/verify/{email}/{token}', 'AuthController@verifyEmail');
-
-// Password
 
 Route::get('password/reset/{email}/{token}', 'PasswordController@showResetForm');
 
-// Contact Us
-
 Route::get('contact-us', 'ContactController@showContactUsForm');
-
-Route::post('contact-us', 'ContactController@sendMessage');
 
 // Legal
 
