@@ -1,13 +1,12 @@
 
 <template>
-<div class="Contact">
-  <md-progress class="md-accent Contact_progress"
+<div class="u-container">
+  <md-progress class="md-accent Progress"
                md-indeterminate
                v-show="inSubmission"></md-progress>
 
   <div class="u-centerPiece" v-show="!isMessageSent">
-    <form class="Contact_form"
-          novalidate
+    <form novalidate
           @submit.stop.prevent="submitForm">
 
       <md-input-container :class="{ 'md-input-invalid':  isDirty.name && errors.name }">
@@ -41,9 +40,9 @@
         <label for="topic">Topic</label>
 
         <md-select name="topic" id="topic" v-model="topic">
-          <md-option value="Help">Help</md-option>
-          <md-option value="Feedback">Feedback</md-option>
-          <md-option value="Bug">Bug</md-option>
+          <md-option value="Help">I need some help</md-option>
+          <md-option value="Feedback">I want to give some feedback</md-option>
+          <md-option value="Bug">I want to report a bug</md-option>
         </md-select>
       </md-input-container>
 
@@ -60,7 +59,7 @@
       </md-input-container>
 
       <md-button type="submit"
-                 class="md-raised md-primary Password_form_submit"
+                 class="md-raised md-primary"
                  :disabled="!isFormValid">Send</md-button>
     </form>
   </div>
@@ -105,10 +104,7 @@ export default {
       let isValid = true;
 
       Object.keys(this.errors).forEach((key) => {
-        const isDirty = this.isDirty[key];
-        const isInvalid = (this.errors[key].length > 0);
-
-        if (!isDirty || isInvalid) {
+        if (!this.validate(key)) {
           isValid = false;
 
           return;
@@ -132,14 +128,16 @@ export default {
       if (!value.length > 0) {
         this.errors[field] = 'This field is required';
 
-        return;
+        return false;
       }
 
       if (field === 'email' && !(/\S+\@\S+\.\S{2,}/.test(value))) {
         this.errors.email = 'Must be a valid email';
 
-        return;
+        return false;
       }
+
+      return true;
     },
 
     blur(field) {
@@ -163,35 +161,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss">
-  .Contact {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    justify-content: center;
-
-    &_progress {
-      position: absolute;
-      top: 85px;
-      left: 0;
-
-      width: 100%;
-    }
-
-    &_form {
-      width: 100%;
-      max-width: 500px;
-
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-
-      &_submit {
-        width: 184px;
-        height: 36px;
-        margin-top: 24px;
-      }
-    }
-  }
-</style>

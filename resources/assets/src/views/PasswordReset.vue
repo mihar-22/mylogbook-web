@@ -1,21 +1,13 @@
 
 <template>
-<div class="Password">
-  <md-progress class="md-accent Password_progress"
+<div class="u-container">
+  <md-progress class="md-accent Progress"
                md-indeterminate
                v-show="inSubmission"></md-progress>
 
-  <md-dialog-alert :md-title="errorAlert.title"
-                   :md-content="errorAlert.content"
-                   :md-ok-text="errorAlert.okText"
-                   ref="alert">
-  </md-dialog-alert>
-
-  <div class="u-centerPiece">
-    <form class="Password_form"
-          novalidate
-          @submit.stop.prevent="submitForm"
-          v-show="!isResetComplete">
+  <div class="u-centerPiece" v-show="!isResetComplete">
+    <form novalidate
+          @submit.stop.prevent="submitForm">
 
       <md-input-container>
         <label>Email</label>
@@ -42,13 +34,14 @@
       <slot></slot>
 
       <md-button type="submit"
-                 class="md-raised md-primary Password_form_submit"
+                 class="md-raised md-primary"
                  :disabled="!isPasswordValid">Reset Password</md-button>
     </form>
+  </div>
 
+  <div class="u-centerPiece" v-show="isResetComplete">
     <img :src="resetImage"
-         alt="Password Reset Complete"
-         v-show="isResetComplete">
+         alt="Password Reset Complete">
   </div>
 </div>
 </template>
@@ -65,18 +58,15 @@ export default {
       passwordError: '',
       inSubmission: false,
       isResetComplete: false,
-      resetImage: '',
-      errorAlert: {
-        title: 'Unknown Error',
-        content: 'Something has gone wrong on our end. Please try again.',
-        okText: 'Okay'
-      }
+      resetImage: ''
     }
   },
 
-  mounted() {
+  created() {
     this.resetImage = env.mylb.url + '/svg/password-reset-success.svg';
+  },
 
+  mounted() {
     this.email = this.$el.querySelector('input[name="_email"]').value;
     this.token = this.$el.querySelector('input[name="token"]').value;
 
@@ -85,7 +75,9 @@ export default {
 
   methods: {
     blurPasswordField() {
-      if (!this.isPasswordDirty) { this.isPasswordDirty = true; };
+      if (!this.isPasswordDirty) { this.isPasswordDirty = true; }
+
+      this.validatePassword();
     },
 
     validatePassword() {
@@ -110,42 +102,8 @@ export default {
         this.inSubmission = false;
 
         this.isResetComplete = true;
-      }, error => {
-        this.inSubmission = false;
-
-        this.$refs['alert'].open();
       });
     }
   }
 };
 </script>
-
-<style lang="scss">
-  .Password {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    justify-content: center;
-
-    &_progress {
-      position: absolute;
-      top: 85px;
-      left: 0;
-
-      width: 100%;
-    }
-
-    &_form {
-      width: 100%;
-      max-width: 500px;
-
-      text-align: center;
-
-      &_submit {
-        width: 184px;
-        height: 36px;
-        margin-top: 24px;
-      }
-    }
-  }
-</style>
