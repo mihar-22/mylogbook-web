@@ -35,7 +35,7 @@
 			color: 'grey',
 			hue: 800
 		},
-		accent: 'pink',
+		accent: 'green',
 		warn: 'red',
 		background: 'white'
 	});
@@ -43,9 +43,11 @@
   // Views
   import PasswordResetView from './views/PasswordReset.vue';
   import ContactUsView     from './views/ContactUs.vue';
+  import LandingPageView   from './views/LandingPage.vue';
 
   Vue.component('PasswordResetView', PasswordResetView);
   Vue.component('ContactUsView', ContactUsView);
+  Vue.component('LandingPageView', LandingPageView);
 
 	// Create app instance
 	new Vue({
