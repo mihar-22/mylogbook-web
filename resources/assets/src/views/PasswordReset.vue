@@ -40,7 +40,7 @@
   </div>
 
   <div class="u-centerPiece" v-show="isResetComplete">
-    <img :src="resetImage"
+    <img src="svg/password-reset-success.svg"
          alt="Password Reset Complete">
   </div>
 </div>
@@ -57,13 +57,8 @@ export default {
       isPasswordDirty: false,
       passwordError: '',
       inSubmission: false,
-      isResetComplete: false,
-      resetImage: ''
+      isResetComplete: false
     }
-  },
-
-  created() {
-    this.resetImage = env.mylb.url + '/svg/password-reset-success.svg';
   },
 
   mounted() {

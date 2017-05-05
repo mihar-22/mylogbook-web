@@ -65,7 +65,7 @@
   </div>
 
   <div class="u-centerPiece" v-show="isMessageSent">
-    <img :src="messageSentImage"
+    <img src="svg/contact-us-sent.svg"
          alt="Message Sent">
 
     <h1 class="md-display-1">Thank you for contacting us!</h1>
@@ -84,7 +84,6 @@ export default {
       topic: 'Help',
       message: '',
       inSubmission: false,
-      messageSentImage: '',
       isMessageSent: false,
       isDirty: {
         name: false,
@@ -113,10 +112,6 @@ export default {
 
       return isValid;
     }
-  },
-
-  created() {
-    this.messageSentImage = env.mylb.url + '/svg/contact-us-sent.svg';
   },
 
   methods: {
