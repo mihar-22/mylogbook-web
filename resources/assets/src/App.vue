@@ -20,14 +20,11 @@
   Vue.use(VueMaterial.MdSelect);
 
 	// Config
-  const csrfToken = document.querySelector('meta[name="csrf-token"]')
-                            .getAttribute('content');
-
 	Vue.config.silent = env.vue.silent;
 
 	Vue.http.options.root = env.mylb.api_url;
 
-  Vue.http.headers.common['X-CSRF-TOKEN'] = csrfToken;
+  Vue.http.headers.common['X-CSRF-TOKEN'] = Laravel.csrfToken;
   Vue.http.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 	Vue.material.registerTheme('default', {

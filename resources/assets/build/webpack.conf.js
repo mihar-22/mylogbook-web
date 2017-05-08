@@ -32,6 +32,7 @@ module.exports = {
     noInfo: true,
     compress: true,
     quiet: false,
+    inline: true,
     hot: true,
     contentBase: config.paths.public,
     publicPath: '/assets'
