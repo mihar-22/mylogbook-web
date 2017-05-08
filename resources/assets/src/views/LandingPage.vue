@@ -228,11 +228,11 @@ export default {
   mounted() {
     this.setAppStoreLink();
 
-    this.positionStatesFab();
+    this.position();
 
     this.$nextTick(() => { this.setupState(); });
 
-    window.addEventListener('resize', this.positionStatesFab);
+    window.addEventListener('resize', this.position);
   },
 
   methods: {
@@ -252,16 +252,35 @@ export default {
       }
     },
 
+    position() {
+      this.positionStatesFab();
+
+      this.positionFooterText();
+    },
+
     positionStatesFab() {
       const fab = document.querySelector('.md-fab');
 
       if (this.isCompactDevice()) {
-        fab.style.left = null;
+        fab.style = null;
 
         return;
       }
 
       fab.style.left = '-' + (((window.innerWidth - 1200) / 2) - 28) + 'px';
+    },
+
+    positionFooterText() {
+      const footer = document.querySelector('.Master_footer_nav');
+
+      if (!(window.innerHeight <= 890)) {
+        footer.style = null;
+
+        return;
+      }
+
+      footer.style.justifyContent = 'flex-start';
+      footer.style.marginLeft = '60px';
     },
 
     setupState() {
