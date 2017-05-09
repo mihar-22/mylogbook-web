@@ -110,6 +110,8 @@
         }
 
         @include layout-xsmall {
+          padding: 0 8px;
+
           justify-content: center;
         }
 
