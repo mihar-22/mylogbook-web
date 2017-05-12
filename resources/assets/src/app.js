@@ -74,6 +74,12 @@ const router = new VueRouter({
   ]
 });
 
+router.beforeEach((to, from, next) => {
+  window.scrollTo(0, 0);
+
+  next();
+});
+
 // Create app instance
 import App from './App.vue';
 
