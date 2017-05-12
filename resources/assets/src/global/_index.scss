@@ -5,20 +5,26 @@
 
   body {
     display: flex;
+    flex-direction: column;
+  }
+
+  #app {
+    display: flex;
     flex: 1;
     flex-direction: column;
   }
 
-/* ==========================================================================
-  Components
-  ========================================================================== */
-
-  .Progress {
-    position: absolute;
-    top: 85px;
-    left: 0;
-
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
+    max-width: 600px;
+
+    button[type="submit"], input[type="submit"] {
+      width: 224px;
+      margin-top: 37px;
+    }
   }
 
 /* ==========================================================================
@@ -27,4 +33,8 @@
 
   .md-dialog-container {
     z-index: 3 !important;
+  }
+
+  button.md-raised.md-accent {
+    color: #fff !important;
   }

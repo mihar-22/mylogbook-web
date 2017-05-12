@@ -10,7 +10,7 @@ var paths = {
   js: path.resolve(__dirname, '../../../public/dist'),
   css: path.resolve(__dirname, '../../../public/dist'),
   src: path.resolve(__dirname, '../src'),
-  jsEntry: path.resolve(__dirname, '../src/App.vue'),
+  jsEntry: path.resolve(__dirname, '../src/app.js'),
   components: path.resolve(__dirname, '../src/components'),
   manifest: path.resolve(__dirname, '../src/bootstrap-manifest.json'),
   bootstrap: path.resolve(__dirname, '../src/bootstrap.js'),

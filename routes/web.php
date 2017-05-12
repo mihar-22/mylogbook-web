@@ -13,24 +13,6 @@
 
 // Home
 
-Route::get('/', function () {
-    return view('landing');
-});
+Route::get('/', function () { return view('master'); });
 
-Route::get('email/verify/{email}/{token}', 'AuthController@verifyEmail');
-
-Route::get('password/reset/{email}/{token}', 'PasswordController@showResetForm');
-
-Route::get('contact-us', 'ContactController@showContactUsForm');
-
-// Legal
-
-Route::group(['prefix' => 'legal'], function() {
-	Route::get('privacy-policy', function() {
-		return view('legal.privacy');
-	});
-
-	Route::get('terms-of-service', function() {
-		return view('legal.terms');
-	});
-});
+Route::get('{any?}', function () { return view('master'); })->where('any', '.*');

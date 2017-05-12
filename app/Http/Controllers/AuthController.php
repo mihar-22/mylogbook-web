@@ -6,6 +6,7 @@ use App\Auth\EmailBroker;
 use App\Facades\ApiResponder;
 use App\Http\Requests\Auth\LoginUser;
 use App\Http\Requests\Auth\RegisterUser;
+use App\Http\Requests\Auth\VerifyEmail;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,7 +17,7 @@ class AuthController extends Controller
 	private $broker;
 
 	public function __construct(User $users, EmailBroker $broker)
-	{    
+	{
 		$this->middleware('auth')->only(['check', 'logout']);
 
         $this->users = $users;
@@ -43,12 +44,12 @@ class AuthController extends Controller
     public function login(LoginUser $request)
     {
     	$credentials = [
-    		'email' => $request->email, 
+    		'email' => $request->email,
     		'password' => $request->password,
-    		'is_verified' => 1 
+    		'is_verified' => 1
     	];
 
-    	if ( ! Auth::guard('web')->attempt($credentials) ) 
+    	if ( ! Auth::guard('web')->attempt($credentials) )
             return ApiResponder::respondWithMessage('invalid credentials')
                                  ->setStatusCode(400);
 
@@ -75,12 +76,16 @@ class AuthController extends Controller
                              ->setStatusCode(200);
     }
 
-    public function verifyEmail($email, $token)
+    public function verify(VerifyEmail $request)
     {
-        $user = $this->users->whereEmail($email)->firstOrFail();
+        $user = $this->users->whereEmail($request->email)->first();
 
-    	if ( ! $this->broker->verify($user, $token) ) abort(404);
+    	if ( ! $this->broker->verify($user, $request->token) ) {
+            return ApiResponder::respondWithMessage('email verification failed')
+                                 ->setStatusCode(400);
+        }
 
-		return view('auth.email.success');
+        return ApiResponder::respondWithMessage('email verified')
+                             ->setStatusCode(200);
     }
 }

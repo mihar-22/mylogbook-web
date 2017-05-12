@@ -23,34 +23,10 @@
       @else
         <link rel="stylesheet" href="{{ asset('dist/app.css') }}">
       @endif
-
-      @stack('styles')
     </head>
 
     <body>
-      <header class="Master_header">
-        <section class="Master_header_sections">
-          <div class="Master_header_sections_section Master_header_sections_section--center">
-            <a href="{{ url('') }}">
-              <img src="{{ asset('svg/logo.svg') }}" alt="Mylogbook Logo">
-            </a>
-          </div>
-        </section>
-      </header>
-
-      <main id="app" class="Master_main">
-        <md-layout class="Master_main_content" md-gutter>
-          @yield('content')
-        </md-layout>
-      </main>
-
-      <footer class="Master_footer">
-        <nav class="Master_footer_nav">
-          <a href="{{ url('/contact-us') }}">Contact Us</a>
-          <a href="{{ url('/legal/privacy-policy') }}">Privacy Policy</a>
-          <a href="{{ url('/legal/terms-of-service') }}">Terms of Service</a>
-        </nav>
-      </footer>
+      <div id="app"></div>
 
       <script>
         window.Laravel = {!! json_encode([
@@ -65,7 +41,5 @@
       @else
         <script src="{{ asset('dist/app.js') }}"></script>
       @endif
-
-      @stack('scripts')
     </body>
 </html>

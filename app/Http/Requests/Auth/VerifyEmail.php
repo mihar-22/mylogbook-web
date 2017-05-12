@@ -3,9 +3,10 @@
 namespace App\Http\Requests\Auth;
 
 use App\Http\Requests\FormatResponse;
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 
-class RegisterUser extends FormRequest
+class VerifyEmail extends FormRequest
 {
     use FormatResponse;
 
@@ -17,10 +18,8 @@ class RegisterUser extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:100',
-            'email' => 'required|string|email|unique:users,email',
-            'password' => 'required|string|min:6',
-            'birthday' => "required|date_format:Y-m-d"
+            'email' => 'required|string|email|exists:users,email',
+            'token' => 'required|string'
         ];
     }
 }

@@ -32,15 +32,6 @@ class PasswordController extends Controller
                              ->setStatusCode(200);
     }
 
-    public function showResetForm($email, $token)
-    {
-        if (! $this->broker->exists($email, $token)) { abort(404); }
-
-        return view('password.reset')->with(
-            ['email' => $email, 'token' => $token]
-        );
-    }
-
     public function resetPassword(ResetPassword $request)
     {
         $user = $this->users->whereEmail($request->email)->first();

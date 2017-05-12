@@ -50,7 +50,7 @@ class AuthTest extends TestCase
         $user = factory(User::class)->create();
 
         $response = $this->actingAs($user)
-                         ->getJson($this->getEndPoint('check'));               
+                         ->getJson($this->getEndPoint('check'));
 
         $response->assertJson(['message' => 'authenticated'])
                  ->assertStatus(200);
@@ -65,7 +65,7 @@ class AuthTest extends TestCase
 
         $user->invalidateApiToken();
 
-        $response = $this->getJson($this->getEndPoint('check'), ['Authorization' => "Bearer {$token}"]);               
+        $response = $this->getJson($this->getEndPoint('check'), ['Authorization' => "Bearer {$token}"]);
 
         $response->assertJson(['message' => 'unauthenticated'])
                  ->assertStatus(401);
@@ -119,7 +119,7 @@ class AuthTest extends TestCase
                          ->attemptLogout();
 
         $response->assertJson(['message' => 'user logged out'])
-                 ->assertStatus(200);        
+                 ->assertStatus(200);
     }
 
     /** @test */
@@ -131,49 +131,25 @@ class AuthTest extends TestCase
                  ->assertStatus(401);
     }
 
-    /** @test */
-    public function verify_email()
-    {
-        $this->registerUser();
-
-        $this->assertDatabaseHas('users', ['email' => $this->user->email, 'is_verified' => 0]);
-
-        $token = DB::table('email_validations')->where('email', $this->user->email)->first()->token;
-
-        $response = $this->get("email/verify/{$this->user->email}/{$token}");
-
-        $response->assertSee('email-verified-success.svg');
-
-        $this->assertDatabaseHas('users', ['email' => $this->user->email, 'is_verified' => 1]);
-    }
-
-    /** @test */
-    public function verify_email_with_invalid_data()
-    {
-        $response = $this->get("email/verify/badEmail/badToken");
-
-        $response->assertStatus(404);
-    }
-
     private function getEndPoint($action)
     {
         return "api/v1/auth/{$action}";
     }
 
     private function registerUser()
-    {        
+    {
         $newUser = array_merge($this->user->toArray(), ['password' => 'secret']);
 
-        return $this->post($this->getEndPoint('register'), $newUser);    
+        return $this->post($this->getEndPoint('register'), $newUser);
     }
 
     private function attemptLogin()
     {
-        return $this->postJson($this->getEndPoint('login'), $this->credentials);               
+        return $this->postJson($this->getEndPoint('login'), $this->credentials);
     }
 
     private function attemptLogout()
     {
-        return $this->getJson($this->getEndPoint('logout'));               
+        return $this->getJson($this->getEndPoint('logout'));
     }
 }
