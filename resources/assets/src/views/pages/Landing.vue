@@ -643,7 +643,7 @@ export default {
     flex-direction: column;
     align-items: center;
     padding: 48px;
-    background-color: #fdfdfd;
+    background-color: #fafafa;
 
     &_heading {
       text-align: center;
@@ -664,7 +664,7 @@ export default {
 
   &_tripScene {
     padding-top: 24px;
-    background-color: #fdfdfd;
+    background-color: #fafafa;
     margin-bottom: -1px;
   }
 
