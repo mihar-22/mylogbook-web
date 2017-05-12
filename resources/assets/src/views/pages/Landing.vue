@@ -665,6 +665,7 @@ export default {
   &_tripScene {
     padding-top: 24px;
     background-color: #fdfdfd;
+    margin-bottom: -1px;
   }
 
   &_previewDialog {
