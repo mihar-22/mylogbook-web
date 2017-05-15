@@ -40,6 +40,8 @@
         <script src="http://localhost:8080/assets/app.js"></script>
       @else
         <script src="{{ asset('dist/app.js') }}"></script>
+
+        <script src="//www.googleadservices.com/pagead/conversion_async.js"></script>
       @endif
     </body>
 </html>

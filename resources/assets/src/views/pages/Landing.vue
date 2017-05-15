@@ -89,7 +89,8 @@
       <section class="Landing_storeLinks">
         <a href="https://itunes.apple.com/au/app/apple-store/id1229419388?mt=8"
            ref="appStoreLink"
-           target="app store">
+           target="app store"
+           @click="reportConversion('ZWA7CJvlo3EQwMjDlgM')">
 
           <img class="Landing_storeLinks_apple"
                src="svg/app-store-badge.svg"
@@ -331,6 +332,14 @@ export default {
   },
 
   methods: {
+    reportConversion(label) {
+      window.google_trackConversion({
+        google_conversion_id: 852550720,
+        google_conversion_label: label,
+        google_remarketing_only: false
+      });
+    },
+
     resize() {
       this.setImages();
     },
@@ -357,6 +366,8 @@ export default {
           `;
 
           this.$refs['alertDialog'].open();
+
+          this.reportConversion('iGbWCL24nXEQwMjDlgM');
         }, error => {
           this.showProgressBar = false;
 
