@@ -89,8 +89,7 @@
       <section class="Landing_storeLinks">
         <a href="https://itunes.apple.com/au/app/apple-store/id1229419388?mt=8"
            ref="appStoreLink"
-           target="app store"
-           @click="reportConversion">
+           target="app store">
 
           <img class="Landing_storeLinks_apple"
                src="svg/app-store-badge.svg"
@@ -332,10 +331,6 @@ export default {
   },
 
   methods: {
-    reportConversion() {
-      goog_report_conversion('https://itunes.apple.com/au/app/apple-store/id1229419388?mt=8')
-    },
-
     resize() {
       this.setImages();
     },

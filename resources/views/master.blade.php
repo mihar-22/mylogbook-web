@@ -40,36 +40,6 @@
         <script src="http://localhost:8080/assets/app.js"></script>
       @else
         <script src="{{ asset('dist/app.js') }}"></script>
-
-        <!-- Google Code for Tapped Download on App Store Conversion -->
-        <script type="text/javascript">
-          /* <![CDATA[ */
-          goog_snippet_vars = function() {
-            var w = window;
-            w.google_conversion_id = 852550720;
-            w.google_conversion_label = "QV6QCJ65o3EQwMjDlgM";
-            w.google_remarketing_only = false;
-          }
-          goog_report_conversion = function(url) {
-            goog_snippet_vars();
-            window.google_conversion_format = "3";
-            var opt = new Object();
-            opt.onload_callback = function() {
-              if (typeof(url) != 'undefined') {
-                window.location = url;
-              }
-            }
-            var conv_handler = window['google_trackConversion'];
-            if (typeof(conv_handler) == 'function') {
-              conv_handler(opt);
-            }
-          }
-          /* ]]> */
-        </script>
-
-        <script type="text/javascript"
-          src="//www.googleadservices.com/pagead/conversion_async.js">
-        </script>
       @endif
     </body>
 </html>
