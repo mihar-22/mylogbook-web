@@ -5,9 +5,7 @@
       <section class="Landing_content u-container">
         <section class="Landing_content_features" ref="features">
           <h1 class="md-display-1 Landing_content_features_heading">
-            Painless <span><img class="Landing_content_features_heading_learnerPlate"
-                                src="/svg/learner-plate.svg"
-                                alt="Learner Plate"></span>earner logbook recordings
+            Painless learner logbook recordings
           </h1>
 
           <div class="Landing_content_features_item" @click="selectFeature(-1)">
