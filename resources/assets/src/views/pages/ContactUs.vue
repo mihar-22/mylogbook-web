@@ -1,7 +1,7 @@
 
 <template>
   <master-layout :show-progress-bar="showProgressBar" fill-height>
-    <div class="u-container u-container--center">
+    <div class="u-container u-container--center" style="padding-bottom: 48px;">
       <form novalidate @submit.stop.prevent="submitForm" v-show="!isMessageSent">
 
         <md-input-container :class="{ 'md-input-invalid': errors.has('name') }">

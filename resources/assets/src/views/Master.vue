@@ -92,6 +92,10 @@
 
       &_logo {
         width: 300px;
+
+        @include breakpoint(340px down) {
+          width: 280px;
+        }
       }
 
       & > section {
@@ -147,7 +151,7 @@
         display: flex;
         flex: 1;
         align-items: center;
-        padding: 0 32px;
+        padding: 0 24px;
 
         @include breakpoint(small down) {
           padding: 0;
@@ -165,7 +169,6 @@
         display: flex;
         flex: 1;
         align-items: center;
-        min-width: 340px;
 
         @include breakpoint(small down) {
           justify-content: center;

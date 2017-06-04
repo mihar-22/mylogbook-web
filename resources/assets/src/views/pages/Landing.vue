@@ -651,8 +651,12 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 48px;
+    padding: 0 16px;
     background-color: #fafafa;
+
+    @include breakpoint(550px up) {
+      padding: 0 32px;
+    }
 
     &_heading {
       text-align: center;

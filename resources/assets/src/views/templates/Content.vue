@@ -32,6 +32,7 @@
 
   &_subheading {
     margin: 24px 0;
+    line-height: 26px;
   }
 
   &_content {
