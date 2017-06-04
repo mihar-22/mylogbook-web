@@ -91,9 +91,9 @@
       box-shadow: 0 2px 6px -2px $header-bottom-color;
 
       &_logo {
-        width: 275px;
+        width: 260px;
 
-        @include breakpoint(340px down) {
+        @include breakpoint(500px down) {
           width: 250px;
         }
       }
