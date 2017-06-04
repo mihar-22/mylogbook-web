@@ -170,6 +170,10 @@
         flex: 1;
         align-items: center;
 
+        @include breakpoint(medium up) {
+          min-width: 340px;
+        }
+
         @include breakpoint(small down) {
           justify-content: center;
         }
